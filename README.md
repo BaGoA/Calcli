@@ -1,4 +1,4 @@
-# Calcli
+# Calcli [![Build Status](https://travis-ci.org/BaGoA/Calcli.svg?branch=main)](https://travis-ci.org/BaGoA/Calcli)
 
 Calcli is a simple C++ command line calculator. 
 
