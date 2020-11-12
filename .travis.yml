@@ -1,0 +1,48 @@
+dist: bionic 
+
+language: cpp
+
+matrix:
+  include:
+    # Compilation with gcc
+    - os: linux
+      #before_install:
+      #  - sudo apt-get -y install gtest.x86_64 gtest-devel.x86_64
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-8
+            - python3
+            - ninja-build
+            - libgtest-dev
+      env:
+        - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
+
+    # Compilation with clang
+    - os: linux
+      #before_install:
+      #  - sudo apt-get -y install gtest.x86_64 gtest-devel.x86_64
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-8
+            - python3
+            - ninja-build
+            - libgtest-dev
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++"
+
+before_install:
+  - eval "${MATRIX_EVAL}"
+
+branches:
+  only:
+  - master
+
+script:
+  - python3 ./ci/build.py --type release
+  - python3 ./ci/tests.py --type release
