@@ -1,10 +1,11 @@
 # Lists of hearders and sources
 set(calcli-headers
-	constant.hpp
+	calcli.hpp
 )
 
 set(calcli-sources
 	calcli.cpp
+	main.cpp
 )
 
 # Executable compilation
@@ -27,5 +28,5 @@ make_bin_directory(bin_directory)
 set_target_properties(${exe_name} PROPERTIES 
 	LINKER_LANGUAGE CXX
 	CXX_EXTENSIONS OFF
-	RUNTIME_OUTPUT_DIRECTORY ${bin_directory}/calci
+	RUNTIME_OUTPUT_DIRECTORY ${bin_directory}
 )

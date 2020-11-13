@@ -1,6 +1,6 @@
 /**
- * @file constant.hpp
- * @brief Set of useful constant 
+ * @file calci.hpp
+ * @brief Basic functionnalities of Calcli application
  *
  * Calcli is a simple C++ command line calculator
  * Copyright (C) 2020 Bastian Gonzalez Acevedo
@@ -20,9 +20,21 @@
  */
 
 #include <string>
+#include <string_view>
 
 
-const std::string calcli_header = "Calcli  Copyright (C) 2020 Bastian Gonzalez Acevedo\n"
-																	"This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.\n"
-																	"This is free software, and you are welcome to redistribute it "
-																	"under certain conditions; type `show c' for details.";
+namespace calcli
+{
+	/** @brief String containing header message when we launch Calcli */
+	const std::string header = "Calcli  Copyright (C) 2020 Bastian Gonzalez Acevedo\n"
+														 "This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.\n"
+														 "This is free software, and you are welcome to redistribute it "
+														 "under certain conditions; type `show c' for details.";
+
+	/**
+	 * @brief Compute result of expression given in argument
+	 * @param expression string_view containing expression to evaluate
+	 * @return The result of expression
+	 */
+	double compute(const std::string_view& expression);
+}

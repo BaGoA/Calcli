@@ -1,7 +1,4 @@
 /**
- * @file calci.cpp
- * @brief Basic functionnalities of Calcli application
- *
  * Calcli is a simple C++ command line calculator
  * Copyright (C) 2020 Bastian Gonzalez Acevedo
 
@@ -19,13 +16,40 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+
 #include "calcli.hpp"
 
-#include <iostream>
 
-
-double calcli::compute(const std::string_view& expression)
+int main() 
 {
-	std::cout << expression.data() << "\n";
-	return 0.0;
+	std::cout << calcli::header.c_str() << "\n\n";
+	std::cout << "If you want quit Calcli, enter quit.\n\n";
+
+	std::string buffer(1024, '\0');
+	bool is_running = true;
+
+	while(is_running)
+	{
+		std::cout << ">>> ";
+		std::cin.getline(buffer.data(), buffer.size());
+
+		const std::string_view expression(buffer.data(), std::strlen(buffer.c_str()));
+
+		if(expression == "quit")
+		{
+			is_running = false;
+		}
+		else
+		{
+			const double value = calcli::compute(expression);
+			std::cout << value << "\n";
+
+			std::fill(std::begin(buffer), std::end(buffer), '\0');
+		}
+	}
+
+	return 0;
 }
