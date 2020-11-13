@@ -23,7 +23,12 @@ target_compile_options(${exe_name} PRIVATE
 )
 
 include(${CMAKE_SOURCE_DIR}/cmake/OutputDirectories.cmake)
+make_lib_directory(lib_directory)
 make_bin_directory(bin_directory)
+
+target_link_libraries(${exe_name}
+	${lib_directory}/libcalcli-core.a
+)
 
 set_target_properties(${exe_name} PROPERTIES 
 	LINKER_LANGUAGE CXX

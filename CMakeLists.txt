@@ -5,7 +5,8 @@ project(calcli VERSION 0.1.0 LANGUAGES CXX)
 add_subdirectory(vendor/googletest)
 
 # Compilation of sources
-add_subdirectory(src)
+add_subdirectory(calcli/core)
+add_subdirectory(calcli/app)
 
 # Compilation of tests 
 add_subdirectory(tests)
