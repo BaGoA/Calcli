@@ -21,11 +21,40 @@
 
 #include <calcli/core/lexer.hpp>
 
+#include <cctype>
+
+
+inline bool is_digit(char c) { return std::isdigit(c) != 0; }
+
+std::string extract_number(std::string_view::iterator& it_char)
+{
+	std::string value;
+	value.reserve(10);
+
+	while(*it_char != '\0' && (is_digit(*it_char) || *it_char == '.'))
+	{
+		value.push_back(*it_char);
+		++it_char;
+	}
+
+	return value;
+}
+
 
 std::vector<calcli::token> calcli::lexing(const std::string_view& expression)
 {
 	std::vector<calcli::token> tokens;
 	tokens.reserve(expression.size());
+
+	auto it_char = std::begin(expression);
+
+	while(it_char != std::end(expression))
+	{
+		if(is_digit(*it_char))
+		{
+			tokens.push_back(calcli::token{calcli::token::Number, extract_number(it_char)});
+		}
+	}
 
 	return tokens;
 }
