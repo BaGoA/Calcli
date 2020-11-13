@@ -25,13 +25,14 @@
 
 
 inline bool is_digit(char c) { return std::isdigit(c) != 0; }
+inline bool is_not_end_expression(char c) { return c != '\0'; }
 
 std::string extract_number(std::string_view::iterator& it_char)
 {
 	std::string value;
 	value.reserve(10);
 
-	while(*it_char != '\0' && (is_digit(*it_char) || *it_char == '.'))
+	while(is_not_end_expression(*it_char) && (is_digit(*it_char) || *it_char == '.'))
 	{
 		value.push_back(*it_char);
 		++it_char;
