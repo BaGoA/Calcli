@@ -31,7 +31,11 @@ namespace calcli
 	{
 		enum
 		{
-			Number
+			Number,
+			Operator,
+			Left_Parenthesis,
+			Right_Parenthesis,
+			Function
 		} type;
 
 		std::string value;

@@ -22,17 +22,37 @@
 #include <calcli/core/lexer.hpp>
 
 #include <cctype>
+#include <algorithm>
 
 
-inline bool is_digit(char c) { return std::isdigit(c) != 0; }
-inline bool is_not_end_expression(char c) { return c != '\0'; }
+static inline bool is_digit(char c) { return std::isdigit(c) != 0; }
 
-std::string extract_number(std::string_view::iterator& it_char)
+static inline bool is_alpha(char c) { return std::isalpha(c) != 0; }
+
+static inline bool is_operator(char c) { return (c == '+') || (c == '-') || (c == '*') || (c == '/') || (c == '^'); }
+
+static inline bool is_not_end_expression(char c) { return c != '\0'; }
+
+static std::string extract_number(std::string_view::iterator& it_char)
+{
+	std::string value;
+	value.reserve(21);
+
+	while(is_not_end_expression(*it_char) && (is_digit(*it_char) || *it_char == '.'))
+	{
+		value.push_back(*it_char);
+		++it_char;
+	}
+
+	return value;
+}
+
+static std::string extract_name(std::string_view::iterator& it_char)
 {
 	std::string value;
 	value.reserve(10);
 
-	while(is_not_end_expression(*it_char) && (is_digit(*it_char) || *it_char == '.'))
+	while(is_not_end_expression(*it_char) && is_alpha(*it_char))
 	{
 		value.push_back(*it_char);
 		++it_char;
@@ -54,6 +74,29 @@ std::vector<calcli::token> calcli::lexing(const std::string_view& expression)
 		if(is_digit(*it_char))
 		{
 			tokens.push_back(calcli::token{calcli::token::Number, extract_number(it_char)});
+		}
+		else if(is_operator(*it_char))
+		{
+			tokens.push_back(calcli::token{calcli::token::Operator, std::string{*it_char}});
+			++it_char;
+		}
+		else if(*it_char == '(')
+		{
+			tokens.push_back(calcli::token{calcli::token::Left_Parenthesis, std::string{*it_char}});
+			++it_char;
+		}
+		else if(*it_char == ')')
+		{
+			tokens.push_back(calcli::token{calcli::token::Right_Parenthesis, std::string{*it_char}});
+			++it_char;
+		}
+		else if(is_alpha(*it_char))
+		{
+			tokens.push_back(calcli::token{calcli::token::Function, extract_name(it_char)});
+		}
+		else
+		{
+			++it_char;
 		}
 	}
 
