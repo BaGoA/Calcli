@@ -1,5 +1,5 @@
 /**
- * @file calci.cpp
+ * @file calci.hpp
  * @brief Basic functionnalities of Calcli application
  *
  * Calcli is a simple C++ command line calculator
@@ -19,13 +19,22 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "calcli.hpp"
+#include <string>
+#include <string_view>
 
-#include <iostream>
 
-
-double calcli::compute(const std::string_view& expression)
+namespace calcli
 {
-	std::cout << expression.data() << "\n";
-	return 0.0;
+	/** @brief String containing header message when we launch Calcli */
+	const std::string header = "Calcli  Copyright (C) 2020 Bastian Gonzalez Acevedo\n"
+							   "This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.\n"
+							   "This is free software, and you are welcome to redistribute it "
+							   "under certain conditions; type `show c' for details.";
+
+	/**
+	 * @brief Compute result of expression given in argument
+	 * @param expression string_view containing expression to evaluate
+	 * @return The result of expression
+	 */
+	double compute(const std::string_view& expression);
 }

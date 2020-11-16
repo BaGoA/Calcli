@@ -1,6 +1,6 @@
 /**
- * @file calci.hpp
- * @brief Basic functionnalities of Calcli application
+ * @file lexer.hpp
+ * @brief Lexing functionnalities
  *
  * Calcli is a simple C++ command line calculator
  * Copyright (C) 2020 Bastian Gonzalez Acevedo
@@ -21,20 +21,31 @@
 
 #include <string>
 #include <string_view>
+#include <vector>
 
 
 namespace calcli
 {
-	/** @brief String containing header message when we launch Calcli */
-	const std::string header = "Calcli  Copyright (C) 2020 Bastian Gonzalez Acevedo\n"
-														 "This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.\n"
-														 "This is free software, and you are welcome to redistribute it "
-														 "under certain conditions; type `show c' for details.";
+	/** @brief Token structure */
+	struct token
+	{
+		enum
+		{
+			Number,
+			Operator,
+			Left_Parenthesis,
+			Right_Parenthesis,
+			Function
+		} type;
+
+		std::string value;
+	};
+
 
 	/**
-	 * @brief Compute result of expression given in argument
+	 * @brief Tokenization of expression given in argument
 	 * @param expression string_view containing expression to evaluate
-	 * @return The result of expression
+	 * @return Vector of tokens
 	 */
-	double compute(const std::string_view& expression);
+	std::vector<calcli::token> tokenize(const std::string_view& expression);
 }

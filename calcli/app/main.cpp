@@ -20,7 +20,7 @@
 #include <algorithm>
 #include <cstring>
 
-#include "calcli.hpp"
+#include <calcli/app/calcli.hpp>
 
 
 int main() 
