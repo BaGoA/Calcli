@@ -27,9 +27,9 @@ namespace calcli
 {
 	/** @brief String containing header message when we launch Calcli */
 	const std::string header = "Calcli  Copyright (C) 2020 Bastian Gonzalez Acevedo\n"
-														 "This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.\n"
-														 "This is free software, and you are welcome to redistribute it "
-														 "under certain conditions; type `show c' for details.";
+							   "This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.\n"
+							   "This is free software, and you are welcome to redistribute it "
+							   "under certain conditions; type `show c' for details.";
 
 	/**
 	 * @brief Compute result of expression given in argument

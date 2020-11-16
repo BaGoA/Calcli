@@ -22,7 +22,6 @@
 #include <calcli/core/lexer.hpp>
 
 #include <cctype>
-#include <algorithm>
 
 
 static inline bool is_digit(char c) { return std::isdigit(c) != 0; }
@@ -62,7 +61,7 @@ static std::string extract_name(std::string_view::iterator& it_char)
 }
 
 
-std::vector<calcli::token> calcli::lexing(const std::string_view& expression)
+std::vector<calcli::token> calcli::tokenize(const std::string_view& expression)
 {
 	std::vector<calcli::token> tokens;
 	tokens.reserve(expression.size());

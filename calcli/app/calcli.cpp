@@ -28,7 +28,7 @@
 
 double calcli::compute(const std::string_view& expression)
 {
-	const std::vector<calcli::token> tokens = calcli::lexing(expression);
+	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
 	for(const auto& token : tokens)
 	{

@@ -6,7 +6,7 @@
 TEST(test_lexer, lexing_expression_with_one_number)
 {
 	const std::string_view expression("8");
-	const std::vector<calcli::token> tokens = calcli::lexing(expression);
+	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
 	ASSERT_EQ(tokens.size(), 1);
 	EXPECT_EQ(tokens[0].type, calcli::token::Number);
@@ -16,7 +16,7 @@ TEST(test_lexer, lexing_expression_with_one_number)
 TEST(test_lexer, lexing_expression_with_one_floating_number)
 {
 	const std::string_view expression("8.43");
-	const std::vector<calcli::token> tokens = calcli::lexing(expression);
+	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
 	ASSERT_EQ(tokens.size(), 1);
 	EXPECT_EQ(tokens[0].type, calcli::token::Number);
@@ -26,7 +26,7 @@ TEST(test_lexer, lexing_expression_with_one_floating_number)
 TEST(test_lexer, lexing_expression_containing_numbers_and_operator_plus)
 {
 	const std::string_view expression("8.43 + 9.12");
-	const std::vector<calcli::token> tokens = calcli::lexing(expression);
+	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
 	ASSERT_EQ(tokens.size(), 3);
 
@@ -43,7 +43,7 @@ TEST(test_lexer, lexing_expression_containing_numbers_and_operator_plus)
 TEST(test_lexer, lexing_expression_containing_numbers_and_operator_minus)
 {
 	const std::string_view expression("8.43 - 9.12");
-	const std::vector<calcli::token> tokens = calcli::lexing(expression);
+	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
 	ASSERT_EQ(tokens.size(), 3);
 
@@ -60,7 +60,7 @@ TEST(test_lexer, lexing_expression_containing_numbers_and_operator_minus)
 TEST(test_lexer, lexing_expression_containing_numbers_and_operator_multiply)
 {
 	const std::string_view expression("8.43 * 9.12");
-	const std::vector<calcli::token> tokens = calcli::lexing(expression);
+	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
 	ASSERT_EQ(tokens.size(), 3);
 
@@ -77,7 +77,7 @@ TEST(test_lexer, lexing_expression_containing_numbers_and_operator_multiply)
 TEST(test_lexer, lexing_expression_containing_numbers_and_operator_divide)
 {
 	const std::string_view expression("8.43 / 9.12");
-	const std::vector<calcli::token> tokens = calcli::lexing(expression);
+	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
 	ASSERT_EQ(tokens.size(), 3);
 
@@ -94,7 +94,7 @@ TEST(test_lexer, lexing_expression_containing_numbers_and_operator_divide)
 TEST(test_lexer, lexing_expression_containing_numbers_and_operator_power)
 {
 	const std::string_view expression("8.43 ^ 9.12");
-	const std::vector<calcli::token> tokens = calcli::lexing(expression);
+	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
 	ASSERT_EQ(tokens.size(), 3);
 
@@ -111,7 +111,7 @@ TEST(test_lexer, lexing_expression_containing_numbers_and_operator_power)
 TEST(test_lexer, lexing_expression_containing_numbers_operators_and_parenthesis)
 {
 	const std::string_view expression("8.43 * (9.12 - 4.314)");
-	const std::vector<calcli::token> tokens = calcli::lexing(expression);
+	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
 	ASSERT_EQ(tokens.size(), 7);
 
@@ -140,7 +140,7 @@ TEST(test_lexer, lexing_expression_containing_numbers_operators_and_parenthesis)
 TEST(test_lexer, lexing_expression_containing_function)
 {
 	const std::string_view expression("sin(1.57)");
-	const std::vector<calcli::token> tokens = calcli::lexing(expression);
+	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
 	ASSERT_EQ(tokens.size(), 4);
 
@@ -160,7 +160,7 @@ TEST(test_lexer, lexing_expression_containing_function)
 TEST(test_lexer, lexing_expression_containing_all)
 {
 	const std::string_view expression("sin(3.0 * 1.57) + sqrt(9.11 - 1.54)^2");
-	const std::vector<calcli::token> tokens = calcli::lexing(expression);
+	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
 	ASSERT_EQ(tokens.size(), 15);
 

@@ -43,9 +43,9 @@ namespace calcli
 
 
 	/**
-	 * @brief Lexing of expression given in argument
+	 * @brief Tokenization of expression given in argument
 	 * @param expression string_view containing expression to evaluate
 	 * @return Vector of tokens
 	 */
-	std::vector<calcli::token> lexing(const std::string_view& expression);
+	std::vector<calcli::token> tokenize(const std::string_view& expression);
 }
