@@ -68,6 +68,11 @@ std::vector<calcli::token> calcli::shunting_yard(const std::vector<calcli::token
 				stack_operator.push_back(token);
 				break;
 			}
+			case calcli::token::Function:
+			{
+				stack_operator.push_back(token);
+				break;
+			}
 			case calcli::token::Left_Parenthesis:
 			{
 				stack_operator.push_back(token);
@@ -84,6 +89,12 @@ std::vector<calcli::token> calcli::shunting_yard(const std::vector<calcli::token
 				if(!stack_operator.empty() && stack_operator.back().type == calcli::token::Left_Parenthesis)
 				{
 					stack_operator.pop_back();
+					
+					if(!stack_operator.empty() && stack_operator.back().type == calcli::token::Function)
+					{
+						tokens_postfix.push_back(stack_operator.back());
+						stack_operator.pop_back();
+					}
 				}
 
 				break;
