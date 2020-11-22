@@ -28,8 +28,16 @@
 
 static bool last_operator_is_primary(const calcli::token& last, const calcli::token& current)
 {
-	return (calcli::precedence.at(last.value) > calcli::precedence.at(current.value)) ||
-			((calcli::precedence.at(last.value) == calcli::precedence.at(current.value)) && calcli::is_left_associative.at(current.value));
+	if(last.type == calcli::token::Left_Parenthesis)
+	{
+		return false;
+	}
+
+	const bool is_primary = (calcli::precedence.at(last.value) > calcli::precedence.at(current.value));
+	const bool is_primary_from_left_associativity = (calcli::precedence.at(last.value) == calcli::precedence.at(current.value)) && 
+														calcli::is_left_associative.at(current.value);
+
+	return  is_primary || is_primary_from_left_associativity;
 }
 
 std::vector<calcli::token> calcli::shunting_yard(const std::vector<calcli::token>& tokens)
@@ -60,6 +68,26 @@ std::vector<calcli::token> calcli::shunting_yard(const std::vector<calcli::token
 				stack_operator.push_back(token);
 				break;
 			}
+			case calcli::token::Left_Parenthesis:
+			{
+				stack_operator.push_back(token);
+				break;
+			}
+			case calcli::token::Right_Parenthesis:
+			{
+				while(!stack_operator.empty() && stack_operator.back().type != calcli::token::Left_Parenthesis)
+				{
+					tokens_postfix.push_back(stack_operator.back());
+					stack_operator.pop_back();
+				}
+
+				if(!stack_operator.empty() && stack_operator.back().type == calcli::token::Left_Parenthesis)
+				{
+					stack_operator.pop_back();
+				}
+
+				break;
+			}
 			default:
 			{
 				break;
@@ -67,7 +95,10 @@ std::vector<calcli::token> calcli::shunting_yard(const std::vector<calcli::token
 		}
 	}
 
-	if(!stack_operator.empty())
+	auto compare_token_type = [](const calcli::token& token) { return token.type == calcli::token::Left_Parenthesis; };
+	const bool not_contain_left_parenthesis = std::find_if(std::cbegin(stack_operator), std::cend(stack_operator), compare_token_type) == std::cend(stack_operator);
+
+	if(!stack_operator.empty() && not_contain_left_parenthesis)
 	{
 		tokens_postfix.insert(std::cend(tokens_postfix), std::rbegin(stack_operator), std::rend(stack_operator));
 	}
