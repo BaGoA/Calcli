@@ -19,7 +19,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <calcli/core/lexer.hpp>
+#include <vector>
+
+#include <calcli/core/token.hpp>
 
 
 namespace calcli

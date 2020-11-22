@@ -23,14 +23,22 @@
 
 #include <algorithm>
 
+#include <calcli/core/operator.hpp>
+
+
+static bool last_operator_is_primary(const calcli::token& last, const calcli::token& current)
+{
+	return (calcli::precedence.at(last.value) > calcli::precedence.at(current.value)) ||
+			((calcli::precedence.at(last.value) == calcli::precedence.at(current.value)) && calcli::is_left_associative.at(current.value));
+}
 
 std::vector<calcli::token> calcli::shunting_yard(const std::vector<calcli::token>& tokens)
 {
 	std::vector<calcli::token> tokens_postfix;
 	tokens_postfix.reserve(tokens.size());
 
-	std::vector<calcli::token> stack_operation;
-	stack_operation.reserve(tokens.size());
+	std::vector<calcli::token> stack_operator;
+	stack_operator.reserve(tokens.size());
 
 	for(const calcli::token& token : tokens)
 	{
@@ -43,7 +51,13 @@ std::vector<calcli::token> calcli::shunting_yard(const std::vector<calcli::token
 			}
 			case calcli::token::Operator:
 			{
-				stack_operation.push_back(token);
+				while(!stack_operator.empty() && last_operator_is_primary(stack_operator.back(), token))
+				{
+					tokens_postfix.push_back(stack_operator.back());
+					stack_operator.pop_back();
+				}
+
+				stack_operator.push_back(token);
 				break;
 			}
 			default:
@@ -53,9 +67,9 @@ std::vector<calcli::token> calcli::shunting_yard(const std::vector<calcli::token
 		}
 	}
 
-	if(!stack_operation.empty())
+	if(!stack_operator.empty())
 	{
-		tokens_postfix.insert(std::cend(tokens_postfix), std::begin(stack_operation), std::end(stack_operation));
+		tokens_postfix.insert(std::cend(tokens_postfix), std::rbegin(stack_operator), std::rend(stack_operator));
 	}
 
 	return tokens_postfix;
