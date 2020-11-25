@@ -24,6 +24,7 @@
 #include <algorithm>
 
 #include <calcli/core/operator.hpp>
+#include <calcli/core/function.hpp>
 #include <calcli/core/error.hpp>
 
 
@@ -127,4 +128,47 @@ std::vector<calcli::token> calcli::infix_to_postfix(const std::vector<calcli::to
 	}
 
 	return tokens_postfix;
+}
+
+double calcli::postfix_evaluation(const std::vector<calcli::token>& tokens)
+{
+	std::vector<double> stack_operand;
+	stack_operand.reserve(10);
+
+	for(auto token : tokens)
+	{
+		switch(token.type)
+		{
+			case calcli::token::Number:
+			{
+				stack_operand.push_back(std::stod(token.value));
+				break;
+			}
+			case calcli::token::Operator:
+			{
+				const double right = stack_operand.back();
+				stack_operand.pop_back();
+
+				const double left = stack_operand.back();
+				stack_operand.pop_back();
+
+				stack_operand.push_back(calcli::operation.at(token.value)(left, right));
+				break;
+			}
+			case calcli::token::Function:
+			{
+				const double arg = stack_operand.back();
+				stack_operand.pop_back();
+
+				stack_operand.push_back(calcli::function.at(token.value)(arg));
+				break;
+			}
+			default:
+			{
+				break;
+			}
+		}
+	}
+
+	return stack_operand.at(0);
 }
