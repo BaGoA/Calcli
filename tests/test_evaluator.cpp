@@ -286,3 +286,61 @@ TEST(test_evaluator, infix_to_postfix_multiple_operation_parenthesis_function)
 	EXPECT_EQ(tokens_postfix[6].type, calcli::token::Function);
 	EXPECT_EQ(tokens_postfix[6].value, "sin");
 }
+
+TEST(test_evaluator, infix_to_postfix_forget_left_parenthesis)
+{
+	const std::vector<calcli::token> tokens = {
+		{calcli::token::Left_Parenthesis, "("},
+		{calcli::token::Number, "8"},
+		{calcli::token::Operator, "+"},
+		{calcli::token::Number, "2"},
+		{calcli::token::Right_Parenthesis, ")"},
+		{calcli::token::Operator, "*"},
+		{calcli::token::Number, "9"},
+		{calcli::token::Operator, "+"},
+		{calcli::token::Number, "3"},
+		{calcli::token::Right_Parenthesis, ")"}
+	};
+
+	try
+	{
+		const std::vector<calcli::token> tokens_postfix = calcli::infix_to_postfix(tokens);
+		EXPECT_TRUE(false);
+	}
+	catch(const std::exception& error)
+	{
+		const std::string message(error.what());
+		const std::string message_ref("there are mismatched parenthesis in your expression");
+
+		EXPECT_EQ(message, message_ref);
+	}
+}
+
+TEST(test_evaluator, infix_to_postfix_forget_right_parenthesis)
+{
+	const std::vector<calcli::token> tokens = {
+		{calcli::token::Left_Parenthesis, "("},
+		{calcli::token::Number, "8"},
+		{calcli::token::Operator, "+"},
+		{calcli::token::Number, "2"},
+		{calcli::token::Operator, "*"},
+		{calcli::token::Left_Parenthesis, "("},
+		{calcli::token::Number, "9"},
+		{calcli::token::Operator, "+"},
+		{calcli::token::Number, "3"},
+		{calcli::token::Right_Parenthesis, ")"}
+	};
+
+	try
+	{
+		const std::vector<calcli::token> tokens_postfix = calcli::infix_to_postfix(tokens);
+		EXPECT_TRUE(false);
+	}
+	catch(const std::exception& error)
+	{
+		const std::string message(error.what());
+		const std::string message_ref("there are mismatched parenthesis in your expression");
+
+		EXPECT_EQ(message, message_ref);
+	}
+}
