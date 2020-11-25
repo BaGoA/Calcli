@@ -44,8 +44,15 @@ int main()
 		}
 		else
 		{
-			const double value = calcli::compute(expression);
-			std::cout << value << "\n";
+			try
+			{
+				const double value = calcli::compute(expression);
+				std::cout << value << "\n";
+			}
+			catch(const std::exception& error)
+			{
+				std::cout << "Error: " << error.what() << "\n";
+			}
 
 			std::fill(std::begin(buffer), std::end(buffer), '\0');
 		}
