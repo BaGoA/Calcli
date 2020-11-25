@@ -24,6 +24,7 @@
 #include <algorithm>
 
 #include <calcli/core/operator.hpp>
+#include <calcli/core/error.hpp>
 
 
 static bool last_operator_is_primary(const calcli::token& last, const calcli::token& current)
@@ -40,7 +41,7 @@ static bool last_operator_is_primary(const calcli::token& last, const calcli::to
 	return  is_primary || is_primary_from_left_associativity;
 }
 
-std::vector<calcli::token> calcli::shunting_yard(const std::vector<calcli::token>& tokens)
+std::vector<calcli::token> calcli::infix_to_postfix(const std::vector<calcli::token>& tokens)
 {
 	std::vector<calcli::token> tokens_postfix;
 	tokens_postfix.reserve(tokens.size());
@@ -59,6 +60,7 @@ std::vector<calcli::token> calcli::shunting_yard(const std::vector<calcli::token
 			}
 			case calcli::token::Operator:
 			{
+				// Pop stack operator according to last operators precedence
 				while(!stack_operator.empty() && last_operator_is_primary(stack_operator.back(), token))
 				{
 					tokens_postfix.push_back(stack_operator.back());
@@ -80,21 +82,25 @@ std::vector<calcli::token> calcli::shunting_yard(const std::vector<calcli::token
 			}
 			case calcli::token::Right_Parenthesis:
 			{
+				// Pop stack operator between left and right parenthesis
 				while(!stack_operator.empty() && stack_operator.back().type != calcli::token::Left_Parenthesis)
 				{
 					tokens_postfix.push_back(stack_operator.back());
 					stack_operator.pop_back();
 				}
 
-				if(!stack_operator.empty() && stack_operator.back().type == calcli::token::Left_Parenthesis)
+				if(stack_operator.empty())
 				{
-					stack_operator.pop_back();
+					throw calcli::mismatched_parenthesis();
+				}
+
+				// Pop left parenthesis and function from stack operator
+				stack_operator.pop_back();
 					
-					if(!stack_operator.empty() && stack_operator.back().type == calcli::token::Function)
-					{
-						tokens_postfix.push_back(stack_operator.back());
-						stack_operator.pop_back();
-					}
+				if(!stack_operator.empty() && stack_operator.back().type == calcli::token::Function)
+				{
+					tokens_postfix.push_back(stack_operator.back());
+					stack_operator.pop_back();
 				}
 
 				break;
@@ -106,11 +112,17 @@ std::vector<calcli::token> calcli::shunting_yard(const std::vector<calcli::token
 		}
 	}
 
-	auto compare_token_type = [](const calcli::token& token) { return token.type == calcli::token::Left_Parenthesis; };
-	const bool not_contain_left_parenthesis = std::find_if(std::cbegin(stack_operator), std::cend(stack_operator), compare_token_type) == std::cend(stack_operator);
-
-	if(!stack_operator.empty() && not_contain_left_parenthesis)
+	// Push rest of operator. If stack operator contains left parenthesis, then there is an error
+	if(!stack_operator.empty())
 	{
+		auto compare_token_type = [](const calcli::token& token) { return token.type == calcli::token::Left_Parenthesis; };
+		const bool contain_left_parenthesis = std::find_if(std::cbegin(stack_operator), std::cend(stack_operator), compare_token_type) != std::cend(stack_operator);
+
+		if(contain_left_parenthesis)
+		{
+			throw calcli::mismatched_parenthesis();
+		}
+
 		tokens_postfix.insert(std::cend(tokens_postfix), std::rbegin(stack_operator), std::rend(stack_operator));
 	}
 

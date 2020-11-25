@@ -1,6 +1,6 @@
 /**
- * @file operator.hpp
- * @brief Operator utilities
+ * @file error.cpp
+ * @brief Error occuring in Calcli
  *
  * Calcli is a simple C++ command line calculator
  * Copyright (C) 2020 Bastian Gonzalez Acevedo
@@ -19,27 +19,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <map>
-#include <string>
+#include <exception>
 
 
 namespace calcli
 {
-	/** @brief Association between operator and its precedence value */
-	const std::map<std::string, int> precedence{
-		{"+", 2},
-		{"-", 2},
-		{"*", 3},
-		{"/", 3},
-		{"^", 4}
-	};
-
-	/** @brief Map returning true if operator is left associative */
-	const std::map<std::string, bool> is_left_associative{
-		{"+", true},
-		{"-", true},
-		{"*", true},
-		{"/", true},
-		{"^", false}
+	/** @brief Mismatched parenthesis error */
+	struct mismatched_parenthesis : public std::exception
+	{
+		const char* what() const noexcept override
+		{
+			return "there are mismatched parenthesis in your expression";
+		}
 	};
 }

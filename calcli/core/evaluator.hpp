@@ -27,12 +27,12 @@
 namespace calcli
 {
 	/**
-	 * @brief Shunting yard algorithm
-	 * @details Convert vector of tokens which represent infix expression into 
+	 * @brief Convert vector of tokens which represent infix expression into 
 	 *			other vector of token which correspond to postfix expression
 	 *
+	 * @details We implement it with Shunting yard algorithm by Edgar Dijkstra.
 	 * @param tokens Vector of token
 	 * @return Vector of token which represent post-fix expression
 	 */
-	std::vector<calcli::token> shunting_yard(const std::vector<calcli::token>& tokens);
+	std::vector<calcli::token> infix_to_postfix(const std::vector<calcli::token>& tokens);
 }

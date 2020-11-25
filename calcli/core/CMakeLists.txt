@@ -2,6 +2,7 @@
 set(calcli-core-headers
 	token.hpp
 	operator.hpp
+	error.hpp
 	lexer.hpp
 	evaluator.hpp
 )
