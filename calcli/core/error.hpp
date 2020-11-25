@@ -1,6 +1,6 @@
 /**
- * @file lexer.hpp
- * @brief Lexing functionnalities
+ * @file error.cpp
+ * @brief Error occuring in Calcli
  *
  * Calcli is a simple C++ command line calculator
  * Copyright (C) 2020 Bastian Gonzalez Acevedo
@@ -21,18 +21,17 @@
 
 #pragma once
 
-#include <string_view>
-#include <vector>
-
-#include <calcli/core/token.hpp>
+#include <exception>
 
 
 namespace calcli
 {
-	/**
-	 * @brief Tokenization of expression given in argument
-	 * @param expression string_view containing expression to evaluate
-	 * @return Vector of tokens
-	 */
-	std::vector<calcli::token> tokenize(const std::string_view& expression);
+	/** @brief Mismatched parenthesis error */
+	struct mismatched_parenthesis : public std::exception
+	{
+		const char* what() const noexcept override
+		{
+			return "there are mismatched parenthesis in your expression";
+		}
+	};
 }

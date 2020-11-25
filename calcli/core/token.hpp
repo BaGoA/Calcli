@@ -1,6 +1,6 @@
 /**
- * @file lexer.hpp
- * @brief Lexing functionnalities
+ * @file token.hpp
+ * @brief Token data structure
  *
  * Calcli is a simple C++ command line calculator
  * Copyright (C) 2020 Bastian Gonzalez Acevedo
@@ -21,18 +21,23 @@
 
 #pragma once
 
-#include <string_view>
-#include <vector>
-
-#include <calcli/core/token.hpp>
+#include <string>
 
 
 namespace calcli
 {
-	/**
-	 * @brief Tokenization of expression given in argument
-	 * @param expression string_view containing expression to evaluate
-	 * @return Vector of tokens
-	 */
-	std::vector<calcli::token> tokenize(const std::string_view& expression);
+	/** @brief Token structure */
+	struct token
+	{
+		enum
+		{
+			Number,
+			Operator,
+			Left_Parenthesis,
+			Right_Parenthesis,
+			Function
+		} type;
+
+		std::string value;
+	};
 }

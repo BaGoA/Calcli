@@ -1,10 +1,15 @@
 # Lists of hearders and sources
 set(calcli-core-headers
+	token.hpp
+	operator.hpp
+	error.hpp
 	lexer.hpp
+	evaluator.hpp
 )
 
 set(calcli-core-sources
 	lexer.cpp
+	evaluator.cpp
 )
 
 # Executable compilation
