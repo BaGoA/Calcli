@@ -47,12 +47,18 @@ namespace calcli
 		{"^", false}
 	};
 
-	/** @brief Association between string representing an operator and operator function */
-	const std::map< std::string, std::function<double(double, double)> > operation{
+	/** @brief Association between string representing an binary operator and operator function */
+	const std::map< std::string, std::function<double(double, double)> > binary_operation{
 		{"+", std::plus<double>()},
 		{"-", std::minus<double>()},
 		{"*", std::multiplies<double>()},
 		{"/", std::divides<double>()},
 		{"^", [](double x, double p){ return std::pow(x, p); }}
+	};
+
+	/** @brief Association between string representing an binary operator and operator function */
+	const std::map< std::string, std::function<double(double)> > unary_operation{
+		{"+", [](double x){ return x; }},
+		{"-", [](double x){ return -x; }}
 	};
 }

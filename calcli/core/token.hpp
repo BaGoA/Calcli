@@ -29,10 +29,11 @@ namespace calcli
 	/** @brief Token structure */
 	struct token
 	{
-		enum
+		enum etype
 		{
 			Number,
-			Operator,
+			Unary_Operator,
+			Binary_Operator,
 			Left_Parenthesis,
 			Right_Parenthesis,
 			Function
