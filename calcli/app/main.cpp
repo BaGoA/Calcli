@@ -46,8 +46,8 @@ int main()
 		{
 			try
 			{
-				const double value = calcli::compute(expression);
-				std::cout << value << "\n";
+				const double result = calcli::compute(expression);
+				std::cout << result << "\n";
 			}
 			catch(const std::exception& error)
 			{

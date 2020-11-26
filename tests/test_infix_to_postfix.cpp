@@ -3,7 +3,7 @@
 #include <calcli/core/evaluator.hpp>
 
 
-TEST(test_evaluator, shunting_yard_operation_between_two_numbers)
+TEST(test_evaluator, infix_to_postfix_operation_between_two_numbers)
 {
 	const std::vector<calcli::token> tokens = {
 		{calcli::token::Number, "8"},

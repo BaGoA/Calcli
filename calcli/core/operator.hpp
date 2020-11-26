@@ -23,6 +23,8 @@
 
 #include <map>
 #include <string>
+#include <functional>
+#include <cmath>
 
 
 namespace calcli
@@ -43,5 +45,14 @@ namespace calcli
 		{"*", true},
 		{"/", true},
 		{"^", false}
+	};
+
+	/** @brief Association between string representing an operator and operator function */
+	const std::map< std::string, std::function<double(double, double)> > operation{
+		{"+", std::plus<double>()},
+		{"-", std::minus<double>()},
+		{"*", std::multiplies<double>()},
+		{"/", std::divides<double>()},
+		{"^", [](double x, double p){ return std::pow(x, p); }}
 	};
 }

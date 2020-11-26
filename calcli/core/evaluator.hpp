@@ -33,8 +33,21 @@ namespace calcli
 	 *			other vector of token which correspond to postfix expression
 	 *
 	 * @details We implement it with Shunting yard algorithm by Edgar Dijkstra.
-	 * @param tokens Vector of token
-	 * @return Vector of token which represent post-fix expression
+	 * @param tokens Vector of token corresponding to infix expression
+	 * @return Vector of token which represent postfix expression
 	 */
 	std::vector<calcli::token> infix_to_postfix(const std::vector<calcli::token>& tokens);
+
+	/**
+	 * @brief Evaluation of postfix expression
+	 * @details The algorithm use a stack containing operands. 
+	 * If token is a number, we push it in stack.
+	 * If token is a operator, we pop two operands and we push result of operation in stack
+	 * If token is a function, we pop one operand and we push result of function in stack
+	 * At the end, the stack contains only the result of expression.
+	 *
+	 * @param tokens Vector of token corresponding to postfix expression
+	 * @return Value of expression
+	 */
+	double postfix_evaluation(const std::vector<calcli::token>& tokens);
 }
