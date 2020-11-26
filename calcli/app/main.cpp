@@ -38,7 +38,11 @@ int main()
 
 		const std::string_view expression(buffer.data(), std::strlen(buffer.c_str()));
 
-		if(expression == "quit")
+		if(expression.empty())	// user push ENTER, then go to newline
+		{
+			continue;
+		}
+		else if(expression == "quit")
 		{
 			is_running = false;
 		}
