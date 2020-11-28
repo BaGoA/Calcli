@@ -31,19 +31,13 @@ namespace calcli
 	class application
 	{
 	public:
+		/** @brief Print application header */
+		void print_header() const;
+
 		/** @brief Run of application */
 		void run();
 
 	private:
-		bool m_is_running{true};							/**< Run status of application */
 		std::string m_buffer = std::string(1024, '\0');		/**< String buffer containing succesive expression given by user */
-
-		const std::string m_header{
-			"Calcli  Copyright (C) 2020 Bastian Gonzalez Acevedo\n"
-			"This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.\n"
-			"This is free software, and you are welcome to redistribute it "
-			"under certain conditions; type `show c' for details.\n\n"
-			"If you want quit Calcli, enter quit."
-		};
 	};
 }

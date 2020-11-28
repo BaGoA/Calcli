@@ -29,11 +29,18 @@
 #include <calcli/core/evaluator.hpp>
 
 
+void calcli::application::print_header() const
+{
+	std::cout <<  "Calcli  Copyright (C) 2020 Bastian Gonzalez Acevedo\n"
+					"This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.\n"
+					"This is free software, and you are welcome to redistribute it "
+					"under certain conditions; type `show c' for details.\n\n"
+					"If you want quit Calcli, enter quit.\n\n";
+}
+
 void calcli::application::run()
 {
-	std::cout << m_header.c_str() << "\n\n";
-
-	while(m_is_running)
+	while(true)
 	{
 		std::cout << ">>> ";
 		std::cin.getline(m_buffer.data(), m_buffer.size());
@@ -46,7 +53,7 @@ void calcli::application::run()
 		}
 		else if(expression == "quit")
 		{
-			m_is_running = false;
+			break;
 		}
 		else
 		{

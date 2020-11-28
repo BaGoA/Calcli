@@ -22,6 +22,8 @@
 int main() 
 {
 	calcli::application app;
+
+	app.print_header();
 	app.run();
 
 	return 0;
