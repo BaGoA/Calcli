@@ -16,51 +16,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <iostream>
-#include <algorithm>
-#include <cstring>
-
-#include <calcli/app/calcli.hpp>
+#include <calcli/app/application.hpp>
 
 
 int main() 
 {
-	std::cout << calcli::header.c_str() << "\n\n";
-	std::cout << "If you want quit Calcli, enter quit.\n\n";
-
-	std::string buffer(1024, '\0');
-	bool is_running = true;
-
-	while(is_running)
-	{
-		std::cout << ">>> ";
-		std::cin.getline(buffer.data(), buffer.size());
-
-		const std::string_view expression(buffer.data(), std::strlen(buffer.c_str()));
-
-		if(expression.empty())	// user push ENTER, then go to newline
-		{
-			continue;
-		}
-		else if(expression == "quit")
-		{
-			is_running = false;
-		}
-		else
-		{
-			try
-			{
-				const double result = calcli::compute(expression);
-				std::cout << result << "\n";
-			}
-			catch(const std::exception& error)
-			{
-				std::cout << "Error: " << error.what() << "\n";
-			}
-
-			std::fill(std::begin(buffer), std::end(buffer), '\0');
-		}
-	}
+	calcli::application app;
+	app.run();
 
 	return 0;
 }
