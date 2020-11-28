@@ -39,7 +39,7 @@ static bool last_operator_is_primary(const calcli::token& last, const calcli::to
 	const bool is_primary_from_left_associativity = (calcli::precedence.at(last.value) == calcli::precedence.at(current.value)) && 
 														calcli::is_left_associative.at(current.value);
 
-	return  is_primary || is_primary_from_left_associativity;
+	return  is_primary || is_primary_from_left_associativity || (last.type == calcli::token::Unary_Operator);
 }
 
 std::vector<calcli::token> calcli::infix_to_postfix(const std::vector<calcli::token>& tokens)
@@ -59,7 +59,12 @@ std::vector<calcli::token> calcli::infix_to_postfix(const std::vector<calcli::to
 				tokens_postfix.push_back(token);
 				break;
 			}
-			case calcli::token::Operator:
+			case calcli::token::Unary_Operator:
+			{
+				stack_operator.push_back(token);
+				break;
+			}
+			case calcli::token::Binary_Operator:
 			{
 				// Pop stack operator according to last operators precedence
 				while(!stack_operator.empty() && last_operator_is_primary(stack_operator.back(), token))
@@ -144,7 +149,15 @@ double calcli::postfix_evaluation(const std::vector<calcli::token>& tokens)
 				stack_operand.push_back(std::stod(token.value));
 				break;
 			}
-			case calcli::token::Operator:
+			case calcli::token::Unary_Operator:
+			{
+				const double arg = stack_operand.back();
+				stack_operand.pop_back();
+
+				stack_operand.push_back(calcli::unary_operation.at(token.value)(arg));
+				break;
+			}
+			case calcli::token::Binary_Operator:
 			{
 				const double right = stack_operand.back();
 				stack_operand.pop_back();
@@ -152,7 +165,7 @@ double calcli::postfix_evaluation(const std::vector<calcli::token>& tokens)
 				const double left = stack_operand.back();
 				stack_operand.pop_back();
 
-				stack_operand.push_back(calcli::operation.at(token.value)(left, right));
+				stack_operand.push_back(calcli::binary_operation.at(token.value)(left, right));
 				break;
 			}
 			case calcli::token::Function:

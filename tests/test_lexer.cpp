@@ -33,7 +33,7 @@ TEST(test_lexer, lexing_expression_containing_numbers_and_operator_plus)
 	EXPECT_EQ(tokens[0].type, calcli::token::Number);
 	EXPECT_EQ(tokens[0].value, "8.43");
 
-	EXPECT_EQ(tokens[1].type, calcli::token::Operator);
+	EXPECT_EQ(tokens[1].type, calcli::token::Binary_Operator);
 	EXPECT_EQ(tokens[1].value, "+");
 
 	EXPECT_EQ(tokens[2].type, calcli::token::Number);
@@ -50,7 +50,7 @@ TEST(test_lexer, lexing_expression_containing_numbers_and_operator_minus)
 	EXPECT_EQ(tokens[0].type, calcli::token::Number);
 	EXPECT_EQ(tokens[0].value, "8.43");
 
-	EXPECT_EQ(tokens[1].type, calcli::token::Operator);
+	EXPECT_EQ(tokens[1].type, calcli::token::Binary_Operator);
 	EXPECT_EQ(tokens[1].value, "-");
 
 	EXPECT_EQ(tokens[2].type, calcli::token::Number);
@@ -67,7 +67,7 @@ TEST(test_lexer, lexing_expression_containing_numbers_and_operator_multiply)
 	EXPECT_EQ(tokens[0].type, calcli::token::Number);
 	EXPECT_EQ(tokens[0].value, "8.43");
 
-	EXPECT_EQ(tokens[1].type, calcli::token::Operator);
+	EXPECT_EQ(tokens[1].type, calcli::token::Binary_Operator);
 	EXPECT_EQ(tokens[1].value, "*");
 
 	EXPECT_EQ(tokens[2].type, calcli::token::Number);
@@ -84,7 +84,7 @@ TEST(test_lexer, lexing_expression_containing_numbers_and_operator_divide)
 	EXPECT_EQ(tokens[0].type, calcli::token::Number);
 	EXPECT_EQ(tokens[0].value, "8.43");
 
-	EXPECT_EQ(tokens[1].type, calcli::token::Operator);
+	EXPECT_EQ(tokens[1].type, calcli::token::Binary_Operator);
 	EXPECT_EQ(tokens[1].value, "/");
 
 	EXPECT_EQ(tokens[2].type, calcli::token::Number);
@@ -101,7 +101,7 @@ TEST(test_lexer, lexing_expression_containing_numbers_and_operator_power)
 	EXPECT_EQ(tokens[0].type, calcli::token::Number);
 	EXPECT_EQ(tokens[0].value, "8.43");
 
-	EXPECT_EQ(tokens[1].type, calcli::token::Operator);
+	EXPECT_EQ(tokens[1].type, calcli::token::Binary_Operator);
 	EXPECT_EQ(tokens[1].value, "^");
 
 	EXPECT_EQ(tokens[2].type, calcli::token::Number);
@@ -118,7 +118,7 @@ TEST(test_lexer, lexing_expression_containing_numbers_operators_and_parenthesis)
 	EXPECT_EQ(tokens[0].type, calcli::token::Number);
 	EXPECT_EQ(tokens[0].value, "8.43");
 
-	EXPECT_EQ(tokens[1].type, calcli::token::Operator);
+	EXPECT_EQ(tokens[1].type, calcli::token::Binary_Operator);
 	EXPECT_EQ(tokens[1].value, "*");
 
 	EXPECT_EQ(tokens[2].type, calcli::token::Left_Parenthesis);
@@ -127,7 +127,7 @@ TEST(test_lexer, lexing_expression_containing_numbers_operators_and_parenthesis)
 	EXPECT_EQ(tokens[3].type, calcli::token::Number);
 	EXPECT_EQ(tokens[3].value, "9.12");
 
-	EXPECT_EQ(tokens[4].type, calcli::token::Operator);
+	EXPECT_EQ(tokens[4].type, calcli::token::Binary_Operator);
 	EXPECT_EQ(tokens[4].value, "-");
 
 	EXPECT_EQ(tokens[5].type, calcli::token::Number);
@@ -173,7 +173,7 @@ TEST(test_lexer, lexing_expression_containing_all)
 	EXPECT_EQ(tokens[2].type, calcli::token::Number);
 	EXPECT_EQ(tokens[2].value, "3.0");
 
-	EXPECT_EQ(tokens[3].type, calcli::token::Operator);
+	EXPECT_EQ(tokens[3].type, calcli::token::Binary_Operator);
 	EXPECT_EQ(tokens[3].value, "*");
 
 	EXPECT_EQ(tokens[4].type, calcli::token::Number);
@@ -182,7 +182,7 @@ TEST(test_lexer, lexing_expression_containing_all)
 	EXPECT_EQ(tokens[5].type, calcli::token::Right_Parenthesis);
 	EXPECT_EQ(tokens[5].value, ")");
 	
-	EXPECT_EQ(tokens[6].type, calcli::token::Operator);
+	EXPECT_EQ(tokens[6].type, calcli::token::Binary_Operator);
 	EXPECT_EQ(tokens[6].value, "+");
 
 	EXPECT_EQ(tokens[7].type, calcli::token::Function);
@@ -194,7 +194,7 @@ TEST(test_lexer, lexing_expression_containing_all)
 	EXPECT_EQ(tokens[9].type, calcli::token::Number);
 	EXPECT_EQ(tokens[9].value, "9.11");
 
-	EXPECT_EQ(tokens[10].type, calcli::token::Operator);
+	EXPECT_EQ(tokens[10].type, calcli::token::Binary_Operator);
 	EXPECT_EQ(tokens[10].value, "-");
 
 	EXPECT_EQ(tokens[11].type, calcli::token::Number);
@@ -203,9 +203,87 @@ TEST(test_lexer, lexing_expression_containing_all)
 	EXPECT_EQ(tokens[12].type, calcli::token::Right_Parenthesis);
 	EXPECT_EQ(tokens[12].value, ")");
 
-	EXPECT_EQ(tokens[13].type, calcli::token::Operator);
+	EXPECT_EQ(tokens[13].type, calcli::token::Binary_Operator);
 	EXPECT_EQ(tokens[13].value, "^");
 
 	EXPECT_EQ(tokens[14].type, calcli::token::Number);
 	EXPECT_EQ(tokens[14].value, "2");
+}
+
+TEST(test_lexer, lexing_expression_containing_numbers_and_unary_operator)
+{
+	const std::string_view expression("-8.43 + 9.12");
+	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
+
+	ASSERT_EQ(tokens.size(), 4);
+
+	EXPECT_EQ(tokens[0].type, calcli::token::Unary_Operator);
+	EXPECT_EQ(tokens[0].value, "-");
+
+	EXPECT_EQ(tokens[1].type, calcli::token::Number);
+	EXPECT_EQ(tokens[1].value, "8.43");
+
+	EXPECT_EQ(tokens[2].type, calcli::token::Binary_Operator);
+	EXPECT_EQ(tokens[2].value, "+");
+
+	EXPECT_EQ(tokens[3].type, calcli::token::Number);
+	EXPECT_EQ(tokens[3].value, "9.12");
+}
+
+TEST(test_lexer, lexing_expression_containing_numbers_parenthesis_unary_operator)
+{
+	const std::string_view expression("-8.43 * (-9.12 + 22.54)");
+	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
+
+	ASSERT_EQ(tokens.size(), 9);
+
+	EXPECT_EQ(tokens[0].type, calcli::token::Unary_Operator);
+	EXPECT_EQ(tokens[0].value, "-");
+
+	EXPECT_EQ(tokens[1].type, calcli::token::Number);
+	EXPECT_EQ(tokens[1].value, "8.43");
+
+	EXPECT_EQ(tokens[2].type, calcli::token::Binary_Operator);
+	EXPECT_EQ(tokens[2].value, "*");
+
+	EXPECT_EQ(tokens[3].type, calcli::token::Left_Parenthesis);
+	EXPECT_EQ(tokens[3].value, "(");
+
+	EXPECT_EQ(tokens[4].type, calcli::token::Unary_Operator);
+	EXPECT_EQ(tokens[4].value, "-");
+
+	EXPECT_EQ(tokens[5].type, calcli::token::Number);
+	EXPECT_EQ(tokens[5].value, "9.12");
+
+	EXPECT_EQ(tokens[6].type, calcli::token::Binary_Operator);
+	EXPECT_EQ(tokens[6].value, "+");
+
+	EXPECT_EQ(tokens[7].type, calcli::token::Number);
+	EXPECT_EQ(tokens[7].value, "22.54");
+
+	EXPECT_EQ(tokens[8].type, calcli::token::Right_Parenthesis);
+	EXPECT_EQ(tokens[8].value, ")");
+}
+
+TEST(test_lexer, lexing_expression_containing_numbers_unary_operator_function)
+{
+	const std::string_view expression("acos(-1.0)");
+	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
+
+	ASSERT_EQ(tokens.size(), 5);
+
+	EXPECT_EQ(tokens[0].type, calcli::token::Function);
+	EXPECT_EQ(tokens[0].value, "acos");
+
+	EXPECT_EQ(tokens[1].type, calcli::token::Left_Parenthesis);
+	EXPECT_EQ(tokens[1].value, "(");
+
+	EXPECT_EQ(tokens[2].type, calcli::token::Unary_Operator);
+	EXPECT_EQ(tokens[2].value, "-");
+
+	EXPECT_EQ(tokens[3].type, calcli::token::Number);
+	EXPECT_EQ(tokens[3].value, "1.0");
+
+	EXPECT_EQ(tokens[4].type, calcli::token::Right_Parenthesis);
+	EXPECT_EQ(tokens[4].value, ")");
 }

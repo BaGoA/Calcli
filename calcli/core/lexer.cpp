@@ -76,7 +76,10 @@ std::vector<calcli::token> calcli::tokenize(const std::string_view& expression)
 		}
 		else if(is_operator(*it_char))
 		{
-			tokens.push_back(calcli::token{calcli::token::Operator, std::string{*it_char}});
+			const bool is_unary_operator = tokens.empty() || (tokens.back().type == calcli::token::Left_Parenthesis);	
+			const calcli::token::etype token_type = is_unary_operator ? calcli::token::Unary_Operator : calcli::token::Binary_Operator;
+
+			tokens.push_back(calcli::token{token_type, std::string{*it_char}});
 			++it_char;
 		}
 		else if(*it_char == '(')
