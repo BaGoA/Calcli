@@ -25,6 +25,7 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
+            - g++-9
             - clang++-9
             - python3
             - ninja-build
