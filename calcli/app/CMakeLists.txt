@@ -14,7 +14,7 @@ add_executable(${exe_name} ${calci-hearders} ${calcli-sources})
 
 target_include_directories(${exe_name} PRIVATE ${CMAKE_SOURCE_DIR})
 
-target_compile_features(${exe_name} PRIVATE cxx_std_17)
+target_compile_features(${exe_name} PRIVATE cxx_std_20)
 
 target_compile_options(${exe_name} PRIVATE 
 	"-Wall"

@@ -19,7 +19,7 @@ add_library(${lib_name} STATIC ${calci-core-hearders} ${calcli-core-sources})
 
 target_include_directories(${lib_name} PRIVATE ${CMAKE_SOURCE_DIR})
 
-target_compile_features(${lib_name} PRIVATE cxx_std_17)
+target_compile_features(${lib_name} PRIVATE cxx_std_20)
 
 target_compile_options(${lib_name} PRIVATE 
 	"-Wall"

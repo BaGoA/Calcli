@@ -6,8 +6,6 @@ matrix:
   include:
     # Compilation with gcc
     - os: linux
-      #before_install:
-      #  - sudo apt-get -y install gtest.x86_64 gtest-devel.x86_64
       addons:
         apt:
           sources:
@@ -22,19 +20,18 @@ matrix:
 
     # Compilation with clang
     - os: linux
-      #before_install:
-      #  - sudo apt-get -y install gtest.x86_64 gtest-devel.x86_64
       addons:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+            - llvm-toolchain-bionic-9.0
           packages:
-            - g++-8
+            - clang++-9
             - python3
             - ninja-build
             - libgtest-dev
       env:
-        - MATRIX_EVAL="CC=clang && CXX=clang++"
+        - MATRIX_EVAL="CC=clang-9 && CXX=clang++-9"
 
 before_install:
   - eval "${MATRIX_EVAL}"

@@ -11,7 +11,7 @@ add_executable(${test_calcli_exe} ${test_calcli_sources})
 
 target_include_directories(${test_calcli_exe} PRIVATE ${CMAKE_SOURCE_DIR})
 
-target_compile_features(${test_calcli_exe} PRIVATE cxx_std_17)
+target_compile_features(${test_calcli_exe} PRIVATE cxx_std_20)
 
 target_compile_options(${test_calcli_exe} PRIVATE 
 	"-Wall"
