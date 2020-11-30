@@ -10,6 +10,8 @@ set(calcli-core-headers
 )
 
 set(calcli-core-sources
+	operator.cpp
+	function.cpp
 	lexer.cpp
 	evaluator.cpp
 )

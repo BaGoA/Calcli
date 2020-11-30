@@ -35,6 +35,33 @@ namespace calcli
 		}
 	};
 
+	/** @brief Binary operator is not defined */
+	struct binary_operator_is_not_defined : public std::exception
+	{
+		const char* what() const noexcept override
+		{
+			return "binary operator is not defined";
+		}
+	};
+
+	/** @brief Unary operator is not defined */
+	struct unary_operator_is_not_defined : public std::exception
+	{
+		const char* what() const noexcept override
+		{
+			return "unary operator is not defined";
+		}
+	};
+
+	/** @brief Function is not defined */
+	struct function_is_not_defined : public std::exception
+	{
+		const char* what() const noexcept override
+		{
+			return "function is not defined";
+		}
+	};
+
 	/** @brief Mismatched parenthesis error */
 	struct mismatched_parenthesis : public std::exception
 	{

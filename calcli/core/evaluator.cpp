@@ -21,10 +21,10 @@
 
 #include <calcli/core/evaluator.hpp>
 
-#include <calcli/core/operator.hpp>
-#include <calcli/core/function.hpp>
 #include <calcli/core/error.hpp>
 #include <calcli/core/cmap.hpp>
+#include <calcli/core/operator.hpp>
+#include <calcli/core/function.hpp>
 
 
 using namespace std::literals::string_view_literals;
@@ -177,7 +177,7 @@ double calcli::postfix_evaluation(const std::vector<calcli::token>& tokens)
 				const double arg = stack_operand.back();
 				stack_operand.pop_back();
 
-				stack_operand.push_back(calcli::unary_operation.at(token.value)(arg));
+				stack_operand.push_back(calcli::unary_operation(token.value, arg));
 				break;
 			}
 			case calcli::token::Binary_Operator:
@@ -188,7 +188,7 @@ double calcli::postfix_evaluation(const std::vector<calcli::token>& tokens)
 				const double left = stack_operand.back();
 				stack_operand.pop_back();
 
-				stack_operand.push_back(calcli::binary_operation.at(token.value)(left, right));
+				stack_operand.push_back(calcli::binary_operation(token.value, left, right));
 				break;
 			}
 			case calcli::token::Function:
@@ -196,7 +196,7 @@ double calcli::postfix_evaluation(const std::vector<calcli::token>& tokens)
 				const double arg = stack_operand.back();
 				stack_operand.pop_back();
 
-				stack_operand.push_back(calcli::function.at(token.value)(arg));
+				stack_operand.push_back(calcli::apply_function(token.value, arg));
 				break;
 			}
 			default:
