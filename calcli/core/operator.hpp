@@ -29,24 +29,6 @@
 
 namespace calcli
 {
-	/** @brief Association between operator and its precedence value */
-	const std::map<std::string, int> precedence{
-		{"+", 2},
-		{"-", 2},
-		{"*", 3},
-		{"/", 3},
-		{"^", 4}
-	};
-
-	/** @brief Map returning true if operator is left associative */
-	const std::map<std::string, bool> is_left_associative{
-		{"+", true},
-		{"-", true},
-		{"*", true},
-		{"/", true},
-		{"^", false}
-	};
-
 	/** @brief Association between string representing an binary operator and operator function */
 	const std::map< std::string, std::function<double(double, double)> > binary_operation{
 		{"+", std::plus<double>()},
