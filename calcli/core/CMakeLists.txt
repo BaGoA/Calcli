@@ -1,9 +1,10 @@
 # Lists of hearders and sources
 set(calcli-core-headers
 	token.hpp
+	error.hpp
+	cmap.hpp
 	operator.hpp
 	function.hpp
-	error.hpp
 	lexer.hpp
 	evaluator.hpp
 )

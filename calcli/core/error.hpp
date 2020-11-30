@@ -1,5 +1,5 @@
 /**
- * @file error.cpp
+ * @file error.hpp
  * @brief Error occuring in Calcli
  *
  * Calcli is a simple C++ command line calculator
@@ -26,6 +26,15 @@
 
 namespace calcli
 {
+	/** @brief cmap access error */
+	struct key_does_not_exist : public std::exception
+	{
+		const char* what() const noexcept override
+		{
+			return "cmap access error, the key does not exist";
+		}
+	};
+
 	/** @brief Mismatched parenthesis error */
 	struct mismatched_parenthesis : public std::exception
 	{
