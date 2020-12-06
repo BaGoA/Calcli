@@ -21,44 +21,25 @@
 
 #pragma once
 
-#include <map>
 #include <string>
-#include <functional>
-#include <cmath>
 
 
 namespace calcli
 {
-	/** @brief Association between operator and its precedence value */
-	const std::map<std::string, int> precedence{
-		{"+", 2},
-		{"-", 2},
-		{"*", 3},
-		{"/", 3},
-		{"^", 4}
-	};
+	/**
+	 * @brief Apply binary operator function according to operator string representation
+	 * @param str_operator Operator string representation
+	 * @param left_operand Left operand
+	 * @param right_operand Right operand
+	 * @return The result of operation
+	 */
+	double binary_operation(const std::string& str_operator, double left_operand, double right_operand);
 
-	/** @brief Map returning true if operator is left associative */
-	const std::map<std::string, bool> is_left_associative{
-		{"+", true},
-		{"-", true},
-		{"*", true},
-		{"/", true},
-		{"^", false}
-	};
-
-	/** @brief Association between string representing an binary operator and operator function */
-	const std::map< std::string, std::function<double(double, double)> > binary_operation{
-		{"+", std::plus<double>()},
-		{"-", std::minus<double>()},
-		{"*", std::multiplies<double>()},
-		{"/", std::divides<double>()},
-		{"^", [](double x, double p){ return std::pow(x, p); }}
-	};
-
-	/** @brief Association between string representing an binary operator and operator function */
-	const std::map< std::string, std::function<double(double)> > unary_operation{
-		{"+", [](double x){ return x; }},
-		{"-", [](double x){ return -x; }}
-	};
+	/**
+	 * @brief Apply unary operator function according to operator string representation
+	 * @param str_operator Operator string representation
+	 * @param operand Operand
+	 * @return The result of operation
+	 */
+	double unary_operation(const std::string& str_operator, double operand);
 }

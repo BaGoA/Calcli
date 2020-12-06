@@ -1,5 +1,5 @@
 /**
- * @file error.cpp
+ * @file error.hpp
  * @brief Error occuring in Calcli
  *
  * Calcli is a simple C++ command line calculator
@@ -26,6 +26,42 @@
 
 namespace calcli
 {
+	/** @brief cmap access error */
+	struct key_does_not_exist : public std::exception
+	{
+		const char* what() const noexcept override
+		{
+			return "cmap access error, the key does not exist";
+		}
+	};
+
+	/** @brief Binary operator is not defined */
+	struct binary_operator_is_not_defined : public std::exception
+	{
+		const char* what() const noexcept override
+		{
+			return "binary operator is not defined";
+		}
+	};
+
+	/** @brief Unary operator is not defined */
+	struct unary_operator_is_not_defined : public std::exception
+	{
+		const char* what() const noexcept override
+		{
+			return "unary operator is not defined";
+		}
+	};
+
+	/** @brief Function is not defined */
+	struct function_is_not_defined : public std::exception
+	{
+		const char* what() const noexcept override
+		{
+			return "function is not defined";
+		}
+	};
+
 	/** @brief Mismatched parenthesis error */
 	struct mismatched_parenthesis : public std::exception
 	{
