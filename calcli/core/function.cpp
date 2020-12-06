@@ -24,6 +24,7 @@
 #include <cmath>
 
 #include <calcli/core/error.hpp>
+#include <calcli/core/cmap.hpp>
 
 
 double calcli::apply_function(const std::string& str_function, double x)
