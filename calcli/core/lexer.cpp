@@ -95,7 +95,17 @@ std::vector<calcli::token> calcli::tokenize(const std::string_view& expression)
 		}
 		else if(is_alpha(*it_char))
 		{
-			tokens.push_back(calcli::token{calcli::token::Function, extract_name(it_char)});
+			const std::string name = extract_name(it_char);
+
+			if(calcli::is_constant(name))
+			{
+				tokens.push_back(calcli::token{calcli::token::Constant, name});
+			}
+			else
+			{
+				tokens.push_back(calcli::token{calcli::token::Function, name});
+			}
+
 		}
 		else
 		{

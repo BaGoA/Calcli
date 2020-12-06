@@ -287,3 +287,40 @@ TEST(test_lexer, lexing_expression_containing_numbers_unary_operator_function)
 	EXPECT_EQ(tokens[4].type, calcli::token::Right_Parenthesis);
 	EXPECT_EQ(tokens[4].value, ")");
 }
+
+TEST(test_lexer, lexing_expression_containing_function_constant)
+{
+	const std::string_view expression("cos(pi)");
+	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
+
+	ASSERT_EQ(tokens.size(), 4);
+
+	EXPECT_EQ(tokens[0].type, calcli::token::Function);
+	EXPECT_EQ(tokens[0].value, "cos");
+
+	EXPECT_EQ(tokens[1].type, calcli::token::Left_Parenthesis);
+	EXPECT_EQ(tokens[1].value, "(");
+
+	EXPECT_EQ(tokens[2].type, calcli::token::Constant);
+	EXPECT_EQ(tokens[2].value, "pi");
+
+	EXPECT_EQ(tokens[3].type, calcli::token::Right_Parenthesis);
+	EXPECT_EQ(tokens[3].value, ")");
+}
+
+TEST(test_lexer, lexing_expression_containing_operator_constant)
+{
+	const std::string_view expression("e^2.0");
+	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
+
+	ASSERT_EQ(tokens.size(), 3);
+
+	EXPECT_EQ(tokens[0].type, calcli::token::Constant);
+	EXPECT_EQ(tokens[0].value, "e");
+
+	EXPECT_EQ(tokens[1].type, calcli::token::Binary_Operator);
+	EXPECT_EQ(tokens[1].value, "^");
+
+	EXPECT_EQ(tokens[2].type, calcli::token::Number);
+	EXPECT_EQ(tokens[2].value, "2.0");
+}

@@ -32,6 +32,7 @@ namespace calcli
 		enum etype
 		{
 			Number,
+			Constant,
 			Unary_Operator,
 			Binary_Operator,
 			Left_Parenthesis,
