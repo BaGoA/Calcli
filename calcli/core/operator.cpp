@@ -28,17 +28,49 @@
 
 double calcli::binary_operation(const std::string& str_operator, double left_operand, double right_operand)
 {
-	if(str_operator == "+") { return left_operand + right_operand; }
-	else if(str_operator == "-") { return left_operand - right_operand; }
-	else if(str_operator == "*") { return left_operand * right_operand; }
-	else if(str_operator == "/") { return left_operand / right_operand; }
-	else if(str_operator == "^") { return std::pow(left_operand, right_operand); }
-	else { throw calcli::binary_operator_is_not_defined(); }
+	if(str_operator == "+") 
+	{ 
+		return left_operand + right_operand; 
+	}
+	else if(str_operator == "-") 
+	{ 
+		return left_operand - right_operand; 
+	}
+	else if(str_operator == "*") 
+	{ 
+		return left_operand * right_operand; 
+	}
+	else if(str_operator == "/") 
+	{ 
+		if(right_operand == 0.0)
+		{
+			throw calcli::division_by_zero();
+		}
+
+		return left_operand / right_operand; 
+	}
+	else if(str_operator == "^") 
+	{ 
+		return std::pow(left_operand, right_operand); 
+	}
+	else 
+	{ 
+		throw calcli::binary_operator_is_not_defined(); 
+	}
 }
 
 double calcli::unary_operation(const std::string& str_operator, double operand)
 {
-	if(str_operator == "+") { return operand; }
-	else if(str_operator == "-") { return -operand; }
-	else { throw calcli::unary_operator_is_not_defined(); }
+	if(str_operator == "+") 
+	{ 
+		return operand; 
+	}
+	else if(str_operator == "-") 
+	{ 
+		return -operand; 
+	}
+	else 
+	{ 
+		throw calcli::unary_operator_is_not_defined(); 
+	}
 }

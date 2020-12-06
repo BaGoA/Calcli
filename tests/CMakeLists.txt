@@ -2,6 +2,7 @@ set(test_calcli_exe test-calcli)
 
 set(test_calcli_sources 
 	test_cmap.cpp
+	test_operator.cpp
 	test_lexer.cpp
 	test_infix_to_postfix.cpp
 	test_postfix_evaluation.cpp

@@ -35,6 +35,15 @@ namespace calcli
 		}
 	};
 
+	/** @brief Division by zero */
+	struct division_by_zero : public std::exception
+	{
+		const char* what() const noexcept override
+		{
+			return "division by zero";
+		}
+	};
+
 	/** @brief Binary operator is not defined */
 	struct binary_operator_is_not_defined : public std::exception
 	{
