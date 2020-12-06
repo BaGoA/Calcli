@@ -156,3 +156,17 @@ TEST(test_operator, unary_operator_is_not_defined)
 		ASSERT_EQ(str, str_ref);
 	}
 }
+
+TEST(test_operator, is_operator_must_return_true)
+{
+	ASSERT_TRUE(calcli::is_operator('+'));
+	ASSERT_TRUE(calcli::is_operator('-'));
+	ASSERT_TRUE(calcli::is_operator('*'));
+	ASSERT_TRUE(calcli::is_operator('/'));
+	ASSERT_TRUE(calcli::is_operator('^'));
+}
+
+TEST(test_operator, is_operator_must_return_false)
+{
+	ASSERT_FALSE(calcli::is_operator('.'));
+}
