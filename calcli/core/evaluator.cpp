@@ -22,32 +22,9 @@
 #include <calcli/core/evaluator.hpp>
 
 #include <calcli/core/error.hpp>
-#include <calcli/core/cmap.hpp>
 #include <calcli/core/operator.hpp>
 #include <calcli/core/function.hpp>
 
-
-using namespace std::literals::string_view_literals;
-
-constexpr calcli::cmap<std::string_view, int, 5> precedence{
-	{{
-		{"+"sv, 2},
-		{"-"sv, 2},
-		{"*"sv, 3},
-		{"/"sv, 3},
-		{"^"sv, 4}
-	}}
-};
-
-constexpr calcli::cmap<std::string_view, bool, 5> is_left_associative{
-	{{
-		{"+"sv, true},
-		{"-"sv, true},
-		{"*"sv, true},
-		{"/"sv, true},
-		{"^"sv, false}
-	}}
-};
 
 static bool last_operator_is_primary(const calcli::token& last, const calcli::token& current)
 {
@@ -56,11 +33,12 @@ static bool last_operator_is_primary(const calcli::token& last, const calcli::to
 		return false;
 	}
 
-	const int last_precedence = precedence.at(last.value);
-	const int current_precedence = precedence.at(current.value);
+	const int last_precedence = calcli::precedence.at(last.value);
+	const int current_precedence = calcli::precedence.at(current.value);
 
 	const bool is_primary = (last_precedence > current_precedence);
-	const bool is_primary_from_left_associativity = (last_precedence == current_precedence) && is_left_associative.at(current.value);
+	const bool is_primary_from_left_associativity = (last_precedence == current_precedence) && 
+													calcli::is_left_associative.at(current.value);
 
 	return  is_primary || is_primary_from_left_associativity || (last.type == calcli::token::Unary_Operator);
 }
