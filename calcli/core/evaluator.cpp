@@ -22,6 +22,7 @@
 #include <calcli/core/evaluator.hpp>
 
 #include <calcli/core/error.hpp>
+#include <calcli/core/constant.hpp>
 #include <calcli/core/operator.hpp>
 #include <calcli/core/function.hpp>
 
@@ -56,6 +57,11 @@ std::vector<calcli::token> calcli::infix_to_postfix(const std::vector<calcli::to
 		switch(token.type)
 		{
 			case calcli::token::Number:
+			{
+				tokens_postfix.push_back(token);
+				break;
+			}
+			case calcli::token::Constant:
 			{
 				tokens_postfix.push_back(token);
 				break;
@@ -148,6 +154,11 @@ double calcli::postfix_evaluation(const std::vector<calcli::token>& tokens)
 			case calcli::token::Number:
 			{
 				stack_operand.push_back(std::stod(token.value));
+				break;
+			}
+			case calcli::token::Constant:
+			{
+				stack_operand.push_back(calcli::constant.at(token.value));
 				break;
 			}
 			case calcli::token::Unary_Operator:

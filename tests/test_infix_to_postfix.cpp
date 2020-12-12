@@ -440,3 +440,23 @@ TEST(test_evaluator, infix_to_postfix_function_with_negative_argument)
 	EXPECT_EQ(tokens_postfix[2].type, calcli::token::Function);
 	EXPECT_EQ(tokens_postfix[2].value, "acos");
 }
+
+TEST(test_evaluator, infix_to_postfix_function_with_constant)
+{
+	const std::vector<calcli::token> tokens = {
+		{calcli::token::Function, "cos"},
+		{calcli::token::Left_Parenthesis, "("},
+		{calcli::token::Constant, "pi"},
+		{calcli::token::Right_Parenthesis, ")"}
+	};
+
+	const std::vector<calcli::token> tokens_postfix = calcli::infix_to_postfix(tokens);
+
+	ASSERT_EQ(tokens_postfix.size(), 2);
+
+	EXPECT_EQ(tokens_postfix[0].type, calcli::token::Constant);
+	EXPECT_EQ(tokens_postfix[0].value, "pi");
+
+	EXPECT_EQ(tokens_postfix[1].type, calcli::token::Function);
+	EXPECT_EQ(tokens_postfix[1].value, "cos");
+}

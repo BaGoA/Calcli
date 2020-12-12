@@ -39,7 +39,7 @@ namespace calcli
 	};
 
 	/** @brief Association between mathematical constant string and its value */
-	constexpr calcli::cmap<std::string_view, int, nb_constant> constant{
+	constexpr calcli::cmap<std::string_view, double, nb_constant> constant{
 		{{
 			{"pi"sv, 3.14159265358979323846},
 			{"e"sv, 2.71828182845904523536},
