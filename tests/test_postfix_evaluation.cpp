@@ -170,3 +170,15 @@ TEST(test_evaluator, postfix_evaluation_function_with_negative_argument)
 	const double value_ref = std::acos(-1.0);
 	ASSERT_NEAR(value, value_ref, 0.01 * std::abs(value_ref));
 }
+
+TEST(test_evaluator, postfix_evaluation_function_with_constant)
+{
+	const std::vector<calcli::token> tokens = {
+		{calcli::token::Constant, "pi"},
+		{calcli::token::Function, "cos"}
+	};
+
+	const double value = calcli::postfix_evaluation(tokens);
+	const double value_ref = -1.0;
+	ASSERT_NEAR(value, value_ref, 0.01 * std::abs(value_ref));
+}

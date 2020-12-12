@@ -33,6 +33,15 @@ namespace calcli
 	/** @brief Number of operators */
 	constexpr std::size_t nb_operator = 5;
 
+	/** @brief Operator list */
+	constexpr std::array<std::string_view, nb_operator> operator_list{
+		"+"sv, 
+		"-"sv, 
+		"*"sv, 
+		"/"sv, 
+		"^"sv
+	};
+
 	/** @brief Association between operator and its precedence */
 	constexpr calcli::cmap<std::string_view, int, nb_operator> precedence{
 		{{
@@ -54,6 +63,16 @@ namespace calcli
 			{"^"sv, false}
 		}}
 	};
+
+	/**
+	 * @brief Check if character correspond to operator
+	 * @param c Character to test
+	 * @return True if character is an operator
+	 */
+	inline bool is_operator(char c)
+	{
+		return std::find(std::cbegin(operator_list), std::cend(operator_list), std::string(1, c)) != std::cend(operator_list);
+	}
 
 	/**
 	 * @brief Apply binary operator function according to operator string representation

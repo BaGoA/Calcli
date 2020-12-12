@@ -23,12 +23,13 @@
 
 #include <cctype>
 
+#include <calcli/core/constant.hpp>
+#include <calcli/core/operator.hpp>
+
 
 static inline bool is_digit(char c) { return std::isdigit(c) != 0; }
 
 static inline bool is_alpha(char c) { return std::isalpha(c) != 0; }
-
-static inline bool is_operator(char c) { return (c == '+') || (c == '-') || (c == '*') || (c == '/') || (c == '^'); }
 
 static inline bool is_not_end_expression(char c) { return c != '\0'; }
 
@@ -74,7 +75,7 @@ std::vector<calcli::token> calcli::tokenize(const std::string_view& expression)
 		{
 			tokens.push_back(calcli::token{calcli::token::Number, extract_number(it_char)});
 		}
-		else if(is_operator(*it_char))
+		else if(calcli::is_operator(*it_char))
 		{
 			const bool is_unary_operator = tokens.empty() || (tokens.back().type == calcli::token::Left_Parenthesis);	
 			const calcli::token::etype token_type = is_unary_operator ? calcli::token::Unary_Operator : calcli::token::Binary_Operator;
@@ -94,7 +95,17 @@ std::vector<calcli::token> calcli::tokenize(const std::string_view& expression)
 		}
 		else if(is_alpha(*it_char))
 		{
-			tokens.push_back(calcli::token{calcli::token::Function, extract_name(it_char)});
+			const std::string name = extract_name(it_char);
+
+			if(calcli::is_constant(name))
+			{
+				tokens.push_back(calcli::token{calcli::token::Constant, name});
+			}
+			else
+			{
+				tokens.push_back(calcli::token{calcli::token::Function, name});
+			}
+
 		}
 		else
 		{

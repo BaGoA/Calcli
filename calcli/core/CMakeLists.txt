@@ -3,6 +3,7 @@ set(calcli-core-headers
 	token.hpp
 	error.hpp
 	cmap.hpp
+	constant.hpp
 	operator.hpp
 	function.hpp
 	lexer.hpp
