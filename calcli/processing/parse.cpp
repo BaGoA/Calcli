@@ -121,10 +121,9 @@ static bool last_operator_is_primary(const calcli::token& last, const calcli::to
 	const int current_precedence = calcli::precedence.at(current.value);
 
 	const bool is_primary = (last_precedence > current_precedence);
-	const bool is_primary_from_left_associativity = (last_precedence == current_precedence) && 
-													calcli::is_left_associative.at(current.value);
+	const bool is_left_associativity = (last_precedence == current_precedence) && calcli::is_left_associative.at(current.value);
 
-	return  is_primary || is_primary_from_left_associativity || (last.type == calcli::token::Unary_Operator);
+	return  is_primary || is_left_associativity || (last.type == calcli::token::Unary_Operator);
 }
 
 std::vector<calcli::token> calcli::infix_to_postfix(const std::vector<calcli::token>& tokens)
