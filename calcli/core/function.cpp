@@ -34,8 +34,8 @@ double calcli::apply_function(const std::string& str_function, double x)
 	else if(str_function == "cbrt") { return std::cbrt(x); }
 	else if(str_function == "exp") { return std::exp(x); }
 	else if(str_function == "log") { return std::log(x); }
-	else if(str_function == "log10") { return std::log10(x); }
-	else if(str_function == "log2") { return std::log2(x); }
+	else if(str_function == "logten") { return std::log10(x); }
+	else if(str_function == "logtwo") { return std::log2(x); }
 	else if(str_function == "sin") { return std::sin(x); }
 	else if(str_function == "cos") { return std::cos(x); }
 	else if(str_function == "tan") { return std::tan(x); }
