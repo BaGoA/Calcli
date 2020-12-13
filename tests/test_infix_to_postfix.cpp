@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <calcli/core/evaluator.hpp>
+#include <calcli/processing/parse.hpp>
 
 
 TEST(test_evaluator, infix_to_postfix_operation_between_two_numbers)

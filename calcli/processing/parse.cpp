@@ -1,6 +1,6 @@
 /**
- * @file evaluator.cpp
- * @brief Evaluation functionnalities
+ * @file parse.cpp
+ * @brief Parse functionnalities
  *
  * Calcli is a simple C++ command line calculator
  * Copyright (C) 2020 Bastian Gonzalez Acevedo
@@ -19,12 +19,95 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <calcli/core/evaluator.hpp>
+#include <calcli/processing/parse.hpp>
+
+#include <cctype>
 
 #include <calcli/core/error.hpp>
 #include <calcli/core/constant.hpp>
 #include <calcli/core/operator.hpp>
-#include <calcli/core/function.hpp>
+
+
+static inline bool is_digit(char c) { return std::isdigit(c) != 0; }
+
+static inline bool is_alpha(char c) { return std::isalpha(c) != 0; }
+
+static inline bool is_not_end_expression(char c) { return c != '\0'; }
+
+static std::string extract_number(std::string_view::iterator& it_char)
+{
+	std::string value;
+	value.reserve(21);
+
+	while(is_not_end_expression(*it_char) && (is_digit(*it_char) || *it_char == '.'))
+	{
+		value.push_back(*it_char);
+		++it_char;
+	}
+
+	return value;
+}
+
+static std::string extract_name(std::string_view::iterator& it_char)
+{
+	std::string value;
+	value.reserve(10);
+
+	while(is_not_end_expression(*it_char) && is_alpha(*it_char))
+	{
+		value.push_back(*it_char);
+		++it_char;
+	}
+
+	return value;
+}
+
+
+std::vector<calcli::token> calcli::tokenize(const std::string_view& expression)
+{
+	std::vector<calcli::token> tokens;
+	tokens.reserve(expression.size());
+
+	auto it_char = std::begin(expression);
+
+	while(it_char != std::end(expression))
+	{
+		if(is_digit(*it_char))
+		{
+			tokens.push_back(calcli::token{calcli::token::Number, extract_number(it_char)});
+		}
+		else if(calcli::is_operator(*it_char))
+		{
+			const bool is_unary_operator = tokens.empty() || (tokens.back().type == calcli::token::Left_Parenthesis);	
+			const calcli::token::etype token_type = is_unary_operator ? calcli::token::Unary_Operator : calcli::token::Binary_Operator;
+
+			tokens.push_back(calcli::token{token_type, std::string{*it_char}});
+			++it_char;
+		}
+		else if(*it_char == '(')
+		{
+			tokens.push_back(calcli::token{calcli::token::Left_Parenthesis, std::string{*it_char}});
+			++it_char;
+		}
+		else if(*it_char == ')')
+		{
+			tokens.push_back(calcli::token{calcli::token::Right_Parenthesis, std::string{*it_char}});
+			++it_char;
+		}
+		else if(is_alpha(*it_char))
+		{
+			const std::string name = extract_name(it_char);
+			const calcli::token::etype token_type = calcli::is_constant(name) ? calcli::token::Constant : calcli::token::Function;
+			tokens.push_back(calcli::token{token_type, name});
+		}
+		else
+		{
+			++it_char;
+		}
+	}
+
+	return tokens;
+}
 
 
 static bool last_operator_is_primary(const calcli::token& last, const calcli::token& current)
@@ -61,16 +144,6 @@ std::vector<calcli::token> calcli::infix_to_postfix(const std::vector<calcli::to
 				tokens_postfix.push_back(token);
 				break;
 			}
-			case calcli::token::Constant:
-			{
-				tokens_postfix.push_back(token);
-				break;
-			}
-			case calcli::token::Unary_Operator:
-			{
-				stack_operator.push_back(token);
-				break;
-			}
 			case calcli::token::Binary_Operator:
 			{
 				// Pop stack operator according to last operators precedence
@@ -83,7 +156,7 @@ std::vector<calcli::token> calcli::infix_to_postfix(const std::vector<calcli::to
 				stack_operator.push_back(token);
 				break;
 			}
-			case calcli::token::Function:
+			case calcli::token::Unary_Operator:
 			{
 				stack_operator.push_back(token);
 				break;
@@ -118,6 +191,16 @@ std::vector<calcli::token> calcli::infix_to_postfix(const std::vector<calcli::to
 
 				break;
 			}
+			case calcli::token::Function:
+			{
+				stack_operator.push_back(token);
+				break;
+			}
+			case calcli::token::Constant:
+			{
+				tokens_postfix.push_back(token);
+				break;
+			}
 			default:
 			{
 				break;
@@ -128,8 +211,9 @@ std::vector<calcli::token> calcli::infix_to_postfix(const std::vector<calcli::to
 	// Push rest of operator. If stack operator contains left parenthesis, then there is an error
 	if(!stack_operator.empty())
 	{
-		auto compare_token_type = [](const calcli::token& token) { return token.type == calcli::token::Left_Parenthesis; };
-		const bool contain_left_parenthesis = std::find_if(std::cbegin(stack_operator), std::cend(stack_operator), compare_token_type) != std::cend(stack_operator);
+		const auto compare_token_type = [](const calcli::token& token) { return token.type == calcli::token::Left_Parenthesis; };
+		const auto find_it = std::find_if(std::cbegin(stack_operator), std::cend(stack_operator), compare_token_type);
+		const bool contain_left_parenthesis = find_it != std::cend(stack_operator);
 
 		if(contain_left_parenthesis)
 		{
@@ -140,60 +224,4 @@ std::vector<calcli::token> calcli::infix_to_postfix(const std::vector<calcli::to
 	}
 
 	return tokens_postfix;
-}
-
-double calcli::postfix_evaluation(const std::vector<calcli::token>& tokens)
-{
-	std::vector<double> stack_operand;
-	stack_operand.reserve(10);
-
-	for(auto token : tokens)
-	{
-		switch(token.type)
-		{
-			case calcli::token::Number:
-			{
-				stack_operand.push_back(std::stod(token.value));
-				break;
-			}
-			case calcli::token::Constant:
-			{
-				stack_operand.push_back(calcli::constant.at(token.value));
-				break;
-			}
-			case calcli::token::Unary_Operator:
-			{
-				const double arg = stack_operand.back();
-				stack_operand.pop_back();
-
-				stack_operand.push_back(calcli::unary_operation(token.value, arg));
-				break;
-			}
-			case calcli::token::Binary_Operator:
-			{
-				const double right = stack_operand.back();
-				stack_operand.pop_back();
-
-				const double left = stack_operand.back();
-				stack_operand.pop_back();
-
-				stack_operand.push_back(calcli::binary_operation(token.value, left, right));
-				break;
-			}
-			case calcli::token::Function:
-			{
-				const double arg = stack_operand.back();
-				stack_operand.pop_back();
-
-				stack_operand.push_back(calcli::apply_function(token.value, arg));
-				break;
-			}
-			default:
-			{
-				break;
-			}
-		}
-	}
-
-	return stack_operand.at(0);
 }

@@ -4,7 +4,7 @@ set(test_calcli_sources
 	test_cmap.cpp
 	test_operator.cpp
 	test_function.cpp
-	test_lexer.cpp
+	test_tokenization.cpp
 	test_infix_to_postfix.cpp
 	test_postfix_evaluation.cpp
 	test_calcli.cpp
@@ -28,6 +28,7 @@ make_bin_directory(bin_directory)
 
 target_link_libraries(${test_calcli_exe}
 	${lib_directory}/libcalcli-core.a
+	${lib_directory}/libcalcli-processing.a
 	gtest gtest_main
 	stdc++fs
 )

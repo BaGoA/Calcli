@@ -1,4 +1,7 @@
 /**
+ * @file evaluation.hpp
+ * @brief Evaluation functionnalities
+ *
  * Calcli is a simple C++ command line calculator
  * Copyright (C) 2020 Bastian Gonzalez Acevedo
 
@@ -16,15 +19,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <calcli/app/application.hpp>
+#pragma once
+
+#include <vector>
+
+#include <calcli/core/token.hpp>
 
 
-int main() 
+namespace calcli
 {
-	calcli::application app;
-
-	app.print_header();
-	app.run();
-
-	return 0;
+	/**
+	 * @brief Evaluation of postfix expression
+	 * @details The algorithm use a stack containing operands. 
+	 * If token is a number, we push it in stack.
+	 * If token is a operator, we pop two operands and we push result of operation in stack
+	 * If token is a function, we pop one operand and we push result of function in stack
+	 * At the end, the stack contains only the result of expression.
+	 *
+	 * @param tokens Vector of token corresponding to postfix expression
+	 * @return Value of expression
+	 */
+	double postfix_evaluation(const std::vector<calcli::token>& tokens);
 }

@@ -1,6 +1,6 @@
 /**
- * @file token.hpp
- * @brief Token data structure
+ * @file application.hpp
+ * @brief Calcli application
  *
  * Calcli is a simple C++ command line calculator
  * Copyright (C) 2020 Bastian Gonzalez Acevedo
@@ -19,27 +19,28 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
 #include <string>
+
+#include <calcli/application/engine.hpp>
 
 
 namespace calcli
 {
-	/** @brief Token structure */
-	struct token
+	/**
+	 * @class application
+	 * @brief Manage Calcli application
+	 */
+	class application
 	{
-		enum etype
-		{
-			Number,
-			Binary_Operator,
-			Unary_Operator,
-			Left_Parenthesis,
-			Right_Parenthesis,
-			Function,
-			Constant
-		} type;
+	public:
+		/** @brief Print application header */
+		void print_header() const;
 
-		std::string value;
+		/** @brief Run of application */
+		void run();
+
+	private:
+		std::string m_buffer = std::string(1024, '\0');		/**< String buffer containing succesive expression given by user */
+		calcli::engine m_engine;							/**< Evaluation engine */
 	};
 }

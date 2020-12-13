@@ -1,9 +1,11 @@
 # Lists of hearders and sources
 set(calcli-headers
+	engine.hpp
 	application.hpp
 )
 
 set(calcli-sources
+	engine.cpp
 	application.cpp
 	main.cpp
 )
@@ -27,6 +29,7 @@ make_lib_directory(lib_directory)
 make_bin_directory(bin_directory)
 
 target_link_libraries(${exe_name}
+	${lib_directory}/libcalcli-processing.a
 	${lib_directory}/libcalcli-core.a
 )
 

@@ -19,14 +19,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <calcli/app/application.hpp>
+#include <calcli/application/application.hpp>
 
 #include <iostream>
 #include <algorithm>
 #include <cstring>
-
-#include <calcli/core/lexer.hpp>
-#include <calcli/core/evaluator.hpp>
 
 
 void calcli::application::print_header() const
@@ -59,9 +56,8 @@ void calcli::application::run()
 		{
 			try
 			{
-				const std::vector<calcli::token> tokens = calcli::tokenize(expression);
-				const std::vector<calcli::token> tokens_postfix = calcli::infix_to_postfix(tokens);
-				const double result  = calcli::postfix_evaluation(tokens_postfix);
+				const double result = m_engine.parse(expression)
+											  .evaluate();
 
 				std::cout << result << "\n";
 			}

@@ -1,6 +1,6 @@
 /**
- * @file token.hpp
- * @brief Token data structure
+ * @file engine.hpp
+ * @brief Calcli evaluation engine
  *
  * Calcli is a simple C++ command line calculator
  * Copyright (C) 2020 Bastian Gonzalez Acevedo
@@ -19,27 +19,35 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include <string_view>
+#include <vector>
 
-#include <string>
+#include <calcli/core/token.hpp>
 
 
 namespace calcli
 {
-	/** @brief Token structure */
-	struct token
+	/**
+	 * @class engine
+	 * @brief Calcli evaluation engine
+	 */
+	class engine
 	{
-		enum etype
-		{
-			Number,
-			Binary_Operator,
-			Unary_Operator,
-			Left_Parenthesis,
-			Right_Parenthesis,
-			Function,
-			Constant
-		} type;
+	public:
+		/** 
+		 * @brief Parse expression 
+		 * @param expression String view containing expression to parse
+		 * @return Reference on this engine
+		 */
+		calcli::engine& parse(const std::string_view& expression);
 
-		std::string value;
+		/** 
+		 * @brief Evaluation
+		 * @return Value corresponding to evaluation
+		 */
+		double evaluate() const;
+
+	private:
+		std::vector<calcli::token> m_tokens;	/** Vector of tokens containing parse result */
 	};
 }
