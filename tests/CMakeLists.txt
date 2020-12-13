@@ -28,6 +28,7 @@ make_bin_directory(bin_directory)
 
 target_link_libraries(${test_calcli_exe}
 	${lib_directory}/libcalcli-core.a
+	${lib_directory}/libcalcli-processing.a
 	gtest gtest_main
 	stdc++fs
 )

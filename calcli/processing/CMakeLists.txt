@@ -1,21 +1,17 @@
 # Lists of hearders and sources
-set(calcli-core-headers
-	token.hpp
-	error.hpp
-	cmap.hpp
-	constant.hpp
-	operator.hpp
-	function.hpp
+set(calcli-processing-headers
+	lexer.hpp
+	evaluator.hpp
 )
 
-set(calcli-core-sources
-	operator.cpp
-	function.cpp
+set(calcli-processing-sources
+	lexer.cpp
+	evaluator.cpp
 )
 
 # Executable compilation
-set(lib_name calcli-core)
-add_library(${lib_name} STATIC ${calci-core-hearders} ${calcli-core-sources})
+set(lib_name calcli-processing)
+add_library(${lib_name} STATIC ${calci-processing-hearders} ${calcli-processing-sources})
 
 target_include_directories(${lib_name} PRIVATE ${CMAKE_SOURCE_DIR})
 
@@ -29,6 +25,10 @@ target_compile_options(${lib_name} PRIVATE
 
 include(${CMAKE_SOURCE_DIR}/cmake/OutputDirectories.cmake)
 make_lib_directory(lib_directory)
+
+target_link_libraries(${lib_name}
+	${lib_directory}/libcalcli-core.a
+)
 
 set_target_properties(${lib_name} PROPERTIES 
 	LINKER_LANGUAGE CXX

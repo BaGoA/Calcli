@@ -6,7 +6,8 @@ add_subdirectory(vendor/googletest)
 
 # Compilation of sources
 add_subdirectory(calcli/core)
-add_subdirectory(calcli/app)
+add_subdirectory(calcli/processing)
+add_subdirectory(calcli/application)
 
 # Compilation of tests 
 add_subdirectory(tests)

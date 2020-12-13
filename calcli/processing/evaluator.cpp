@@ -19,7 +19,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <calcli/core/evaluator.hpp>
+#include <calcli/processing/evaluator.hpp>
 
 #include <calcli/core/error.hpp>
 #include <calcli/core/constant.hpp>

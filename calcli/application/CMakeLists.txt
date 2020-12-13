@@ -27,6 +27,7 @@ make_lib_directory(lib_directory)
 make_bin_directory(bin_directory)
 
 target_link_libraries(${exe_name}
+	${lib_directory}/libcalcli-processing.a
 	${lib_directory}/libcalcli-core.a
 )
 

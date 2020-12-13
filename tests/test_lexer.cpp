@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <calcli/core/lexer.hpp>
+#include <calcli/processing/lexer.hpp>
 
 
 TEST(test_lexer, lexing_expression_with_one_number)
