@@ -1,9 +1,11 @@
 # Lists of hearders and sources
 set(calcli-headers
+	engine.hpp
 	application.hpp
 )
 
 set(calcli-sources
+	engine.cpp
 	application.cpp
 	main.cpp
 )

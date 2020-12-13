@@ -1,6 +1,6 @@
 /**
- * @file application.hpp
- * @brief Calcli application
+ * @file engine.hpp
+ * @brief Calcli evaluation engine
  *
  * Calcli is a simple C++ command line calculator
  * Copyright (C) 2020 Bastian Gonzalez Acevedo
@@ -19,28 +19,35 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <string>
+#include <string_view>
+#include <vector>
 
-#include <calcli/application/engine.hpp>
+#include <calcli/core/token.hpp>
 
 
 namespace calcli
 {
 	/**
-	 * @class application
-	 * @brief Manage Calcli application
+	 * @class engine
+	 * @brief Calcli evaluation engine
 	 */
-	class application
+	class engine
 	{
 	public:
-		/** @brief Print application header */
-		void print_header() const;
+		/** 
+		 * @brief Parse expression 
+		 * @param expression String view containing expression to parse
+		 * @return Reference on this engine
+		 */
+		calcli::engine& parse(const std::string_view& expression);
 
-		/** @brief Run of application */
-		void run();
+		/** 
+		 * @brief Evaluation
+		 * @return Value corresponding to evaluation
+		 */
+		double evaluate() const;
 
 	private:
-		std::string m_buffer = std::string(1024, '\0');		/**< String buffer containing succesive expression given by user */
-		calcli::engine m_engine;							/**< Evaluation engine */
+		std::vector<calcli::token> m_tokens;	/** Vector of tokens containing parse result */
 	};
 }
