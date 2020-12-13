@@ -2,7 +2,7 @@
 
 #include <gtest/gtest.h>
 
-#include <calcli/processing/evaluator.hpp>
+#include <calcli/processing/evaluation.hpp>
 
 
 TEST(test_evaluator, postfix_evaluation_operation_between_two_numbers)

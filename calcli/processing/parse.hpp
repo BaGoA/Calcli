@@ -1,6 +1,6 @@
 /**
- * @file lexer.hpp
- * @brief Lexing functionnalities
+ * @file parse.hpp
+ * @brief Parse functionnalities
  *
  * Calcli is a simple C++ command line calculator
  * Copyright (C) 2020 Bastian Gonzalez Acevedo
@@ -35,4 +35,14 @@ namespace calcli
 	 * @return Vector of tokens
 	 */
 	std::vector<calcli::token> tokenize(const std::string_view& expression);
+
+	/**
+	 * @brief Convert vector of tokens which represent infix expression into 
+	 *			other vector of token which correspond to postfix expression
+	 *
+	 * @details We implement it with Shunting yard algorithm by Edgar Dijkstra.
+	 * @param tokens Vector of token corresponding to infix expression
+	 * @return Vector of token which represent postfix expression
+	 */
+	std::vector<calcli::token> infix_to_postfix(const std::vector<calcli::token>& tokens);
 }

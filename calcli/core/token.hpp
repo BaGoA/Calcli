@@ -32,12 +32,12 @@ namespace calcli
 		enum etype
 		{
 			Number,
-			Constant,
-			Unary_Operator,
 			Binary_Operator,
+			Unary_Operator,
 			Left_Parenthesis,
 			Right_Parenthesis,
-			Function
+			Function,
+			Constant
 		} type;
 
 		std::string value;

@@ -1,5 +1,5 @@
 /**
- * @file evaluator.hpp
+ * @file evaluation.hpp
  * @brief Evaluation functionnalities
  *
  * Calcli is a simple C++ command line calculator
@@ -28,16 +28,6 @@
 
 namespace calcli
 {
-	/**
-	 * @brief Convert vector of tokens which represent infix expression into 
-	 *			other vector of token which correspond to postfix expression
-	 *
-	 * @details We implement it with Shunting yard algorithm by Edgar Dijkstra.
-	 * @param tokens Vector of token corresponding to infix expression
-	 * @return Vector of token which represent postfix expression
-	 */
-	std::vector<calcli::token> infix_to_postfix(const std::vector<calcli::token>& tokens);
-
 	/**
 	 * @brief Evaluation of postfix expression
 	 * @details The algorithm use a stack containing operands. 

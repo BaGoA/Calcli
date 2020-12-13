@@ -25,8 +25,8 @@
 #include <algorithm>
 #include <cstring>
 
-#include <calcli/processing/lexer.hpp>
-#include <calcli/processing/evaluator.hpp>
+#include <calcli/processing/parse.hpp>
+#include <calcli/processing/evaluation.hpp>
 
 
 void calcli::application::print_header() const

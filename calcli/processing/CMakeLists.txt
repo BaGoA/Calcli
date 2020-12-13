@@ -1,12 +1,12 @@
 # Lists of hearders and sources
 set(calcli-processing-headers
-	lexer.hpp
-	evaluator.hpp
+	parse.hpp
+	evaluation.hpp
 )
 
 set(calcli-processing-sources
-	lexer.cpp
-	evaluator.cpp
+	parse.cpp
+	evaluation.cpp
 )
 
 # Executable compilation
