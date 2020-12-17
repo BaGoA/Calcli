@@ -39,6 +39,22 @@ def setup(build_type):
     return build_type, dir_build, dir_project
 
 
+def conan_install(dir_build, dir_project):
+    str_error = "No Error"
+
+    # Create conan command line 
+    conan_command = ["conan", "install", dir_project]
+
+    # Run cmake on project
+    os.chdir(dir_build) # go into build directory
+    response = subprocess.run(conan_command)
+
+    if response.returncode != 0:
+        str_error = "Error in Conan install"
+
+    return str_error
+
+
 def build(build_type, dir_build, dir_project):
     str_error = "No Error"
 
@@ -101,6 +117,13 @@ def main(argv):
         sys.exit(-1)
 
     build_type, dir_build, dir_project = setup(type_option)
+
+    str_error = conan_install(dir_build, dir_project)
+
+    if str_error != "No Error":
+        print(str_error)
+        sys.exit(-1)
+
     str_error = build(build_type, dir_build, dir_project)
 
     if str_error != "No Error":

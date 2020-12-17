@@ -1,49 +1,52 @@
-#include <gtest/gtest.h>
+#include <catch2/catch.hpp>
 
 #include <calcli/core/cmap.hpp>
 
 
-TEST(test_cmap, access_to_key_which_does_not_exist)
+TEST_CASE("cmap", "[core]")
 {
-	constexpr calcli::cmap<char, int, 3> map{
-		{{
-			 {'a', 1},
-			 {'b', 2},
-			 {'c', 3}
-		}}
-	};
+	SECTION("access to key which does not exist")
+	{
+		constexpr calcli::cmap<char, int, 3> map{
+			{{
+				 {'a', 1},
+				 {'b', 2},
+				 {'c', 3}
+			}}
+		};
 
-	try
-	{
-		const int value = map.at('e');
-		ASSERT_TRUE(false);
-		EXPECT_EQ(value, 0);
+		try
+		{
+			const int value = map.at('e');
+			REQUIRE(false);
+			CHECK(value == 0);
+		}
+		catch(const std::exception& error)
+		{
+			const std::string str{error.what()};
+			const std::string str_ref{"cmap access error, the key does not exist"};
+			CHECK(str == str_ref);
+		}
 	}
-	catch(const std::exception& error)
-	{
-		const std::string str{error.what()};
-		const std::string str_ref{"cmap access error, the key does not exist"};
-		EXPECT_EQ(str, str_ref);
-	}
-}
 
-TEST(test_cmap, access_to_key_which_exist)
-{
-	constexpr calcli::cmap<char, int, 3> map{
-		{{
-			 {'a', 1},
-			 {'b', 2},
-			 {'c', 3}
-		}}
-	};
+	SECTION("access to key which exist")
+	{
+		constexpr calcli::cmap<char, int, 3> map{
+			{{
+				 {'a', 1},
+				 {'b', 2},
+				 {'c', 3}
+			}}
+		};
 
-	try
-	{
-		const int value = map.at('b');
-		EXPECT_EQ(value, 2);
-	}
-	catch(const std::exception& error)
-	{
-		ASSERT_TRUE(false);
+		try
+		{
+			const int value = map.at('b');
+			CHECK(value == 2);
+		}
+		catch(const std::exception& error)
+		{
+			REQUIRE(false);
+		}
 	}
 }
