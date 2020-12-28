@@ -40,7 +40,7 @@ TEST_CASE("cmap - access to key which exist", "[core]")
 	try
 	{
 		const int value = map.at('b');
-		CHECK(value == 2);
+		CHECK(value == 1);
 	}
 	catch(const std::exception& error)
 	{
