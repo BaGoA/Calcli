@@ -35,7 +35,7 @@ before_install:
   - eval "${MATRIX_EVAL}"
 
 install:
-  - pip3.8 install conan
+  - pip3.6 install conan
   - conan user
 
 branches:
