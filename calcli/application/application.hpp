@@ -21,8 +21,6 @@
 
 #include <string>
 
-#include <calcli/application/engine.hpp>
-
 
 namespace calcli
 {
@@ -41,6 +39,5 @@ namespace calcli
 
 	private:
 		std::string m_buffer = std::string(1024, '\0');		/**< String buffer containing succesive expression given by user */
-		calcli::engine m_engine;							/**< Evaluation engine */
 	};
 }

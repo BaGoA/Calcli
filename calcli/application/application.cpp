@@ -25,6 +25,9 @@
 #include <algorithm>
 #include <cstring>
 
+#include <calcli/processing/parse.hpp>
+#include <calcli/processing/evaluation.hpp>
+
 
 void calcli::application::print_header() const
 {
@@ -37,6 +40,15 @@ void calcli::application::print_header() const
 
 void calcli::application::run()
 {
+	// Evaluation lambda
+	const auto evaluate = [](const std::string_view& expression) {
+		const std::vector<calcli::token> tokens = calcli::tokenize(expression);
+		const std::vector<calcli::token> postfix_tokens = calcli::infix_to_postfix(tokens);
+
+		return calcli::postfix_evaluation(postfix_tokens);
+	};
+
+	// Application core
 	while(true)
 	{
 		std::cout << ">>> ";
@@ -56,7 +68,7 @@ void calcli::application::run()
 		{
 			try
 			{
-				const double result = m_engine.parse(expression).evaluate();
+				const double result = evaluate(expression);
 				std::cout << result << "\n";
 			}
 			catch(const std::exception& error)
