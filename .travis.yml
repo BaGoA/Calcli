@@ -41,7 +41,6 @@ install:
 branches:
   only:
     - main
-    - conan-and-catch-integration
 
 script:
   - python3 ./ci/build.py --install --type release
