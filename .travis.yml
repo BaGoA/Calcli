@@ -41,5 +41,5 @@ branches:
   - main
 
 script:
-  - python3 ./ci/build.py --type release
+  - python3 ./ci/build.py --install --type release
   - python3 ./ci/tests.py --type release
