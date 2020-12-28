@@ -39,6 +39,22 @@ def setup(build_type):
     return build_type, dir_build, dir_project
 
 
+def conan_install(dir_build, dir_project):
+    str_error = "No Error"
+
+    # Create conan command line 
+    conan_command = ["conan", "install", dir_project]
+
+    # Run cmake on project
+    os.chdir(dir_build) # go into build directory
+    response = subprocess.run(conan_command)
+
+    if response.returncode != 0:
+        str_error = "Error in Conan install"
+
+    return str_error
+
+
 def build(build_type, dir_build, dir_project):
     str_error = "No Error"
 
@@ -82,9 +98,10 @@ def build(build_type, dir_build, dir_project):
 
 
 def main(argv):
-    # Intialization of arguments parser
-    parser = argparse.ArgumentParser(description="Build of SciCo project")
+    # Initialization of arguments parser
+    parser = argparse.ArgumentParser(description="Build of Calcli project")
     parser.add_argument("-t", "--type", default="", help="Build project according to build type (debug or release)")
+    parser.add_argument("-i", "--install", action="store_true", help="Thirds parties installation with Conan before build")
 
     # Check if list of argument is not empty
     if len(argv) == 0:
@@ -97,10 +114,22 @@ def main(argv):
     type_option = arguments.type
 
     if type_option != "debug" and type_option != "release":
+        print("type cause")
         parser.print_help()
         sys.exit(-1)
 
+    # Recovery build information
     build_type, dir_build, dir_project = setup(type_option)
+
+    # Thirds parties installation
+    if arguments.install:
+        str_error = conan_install(dir_build, dir_project)
+
+        if str_error != "No Error":
+            print(str_error)
+            sys.exit(-1)
+
+    # Build project
     str_error = build(build_type, dir_build, dir_project)
 
     if str_error != "No Error":

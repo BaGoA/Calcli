@@ -1,11 +1,11 @@
 #include <cmath>
 
-#include <gtest/gtest.h>
+#include <catch2/catch.hpp>
 
 #include <calcli/core/function.hpp>
 
 
-TEST(test_function, apply_abs)
+TEST_CASE("function - apply abs", "[core]")
 {
 	try
 	{
@@ -13,15 +13,15 @@ TEST(test_function, apply_abs)
 		const double value = calcli::apply_function("abs", x);
 		const double value_ref = std::abs(x);
 
-		ASSERT_NEAR(value, value_ref, 0.01 * std::abs(value_ref));
+		REQUIRE(value == Approx(value_ref).epsilon(0.01));
 	}
 	catch(const std::exception&)
 	{
-		ASSERT_TRUE(false);
+		REQUIRE(false);
 	}
 }
 
-TEST(test_function, apply_sqrt)
+TEST_CASE("function - apply sqrt", "[core]")
 {
 	try
 	{
@@ -29,15 +29,15 @@ TEST(test_function, apply_sqrt)
 		const double value = calcli::apply_function("sqrt", x);
 		const double value_ref = std::sqrt(x);
 
-		ASSERT_NEAR(value, value_ref, 0.01 * std::abs(value_ref));
+		REQUIRE(value == Approx(value_ref).epsilon(0.01));
 	}
 	catch(const std::exception&)
 	{
-		ASSERT_TRUE(false);
+		REQUIRE(false);
 	}
 }
 
-TEST(test_function, apply_cos)
+TEST_CASE("function - apply cos", "[core]")
 {
 	try
 	{
@@ -45,15 +45,15 @@ TEST(test_function, apply_cos)
 		const double value = calcli::apply_function("cos", x);
 		const double value_ref = std::cos(x);
 
-		ASSERT_NEAR(value, value_ref, 0.01 * std::abs(value_ref));
+		REQUIRE(value == Approx(value_ref).epsilon(0.01));
 	}
 	catch(const std::exception&)
 	{
-		ASSERT_TRUE(false);
+		REQUIRE(false);
 	}
 }
 
-TEST(test_function, apply_function_not_defined)
+TEST_CASE("function - apply function which is not defined", "[core]")
 {
 	try
 	{
@@ -61,12 +61,12 @@ TEST(test_function, apply_function_not_defined)
 		const double value = calcli::apply_function("bunny", x);
 		const double value_ref = std::sqrt(x);
 
-		ASSERT_NEAR(value, value_ref, 0.01 * std::abs(value_ref));
+		REQUIRE(value == Approx(value_ref).epsilon(0.01));
 	}
 	catch(const std::exception& error)
 	{
 		const std::string str{error.what()};
 		const std::string str_ref{"function is not defined"};
-		ASSERT_EQ(str, str_ref);
+		REQUIRE(str == str_ref);
 	}
 }

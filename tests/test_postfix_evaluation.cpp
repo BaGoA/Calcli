@@ -1,11 +1,11 @@
 #include <cmath>
 
-#include <gtest/gtest.h>
+#include <catch2/catch.hpp>
 
 #include <calcli/processing/evaluation.hpp>
 
 
-TEST(test_evaluator, postfix_evaluation_operation_between_two_numbers)
+TEST_CASE("postfix_evaluation - operation between two numbers", "[processing]")
 {
 	const std::vector<calcli::token> tokens = {
 		{calcli::token::Number, "8"},
@@ -15,10 +15,10 @@ TEST(test_evaluator, postfix_evaluation_operation_between_two_numbers)
 
 	const double value = calcli::postfix_evaluation(tokens);
 	const double value_ref = 8.0 + 9.0;
-	ASSERT_NEAR(value, value_ref, 0.01 * std::abs(value_ref));
+	REQUIRE(value == Approx(value_ref).epsilon(0.01));
 }
 
-TEST(test_evaluator, postfix_evaluation_multiple_operation_plus_multiply)
+TEST_CASE("postfix_evaluation - multiple operation plus multiply", "[processing]")
 {
 	const std::vector<calcli::token> tokens = {
 		{calcli::token::Number, "8"},
@@ -32,10 +32,10 @@ TEST(test_evaluator, postfix_evaluation_multiple_operation_plus_multiply)
 
 	const double value = calcli::postfix_evaluation(tokens);
 	const double value_ref = 8.0 + 9.0 * 2.0 + 3.0;
-	ASSERT_NEAR(value, value_ref, 0.01 * std::abs(value_ref));
+	REQUIRE(value == Approx(value_ref).epsilon(0.01));
 }
 
-TEST(test_evaluator, postfix_evaluation_multiple_operation_minus_divide)
+TEST_CASE("postfix_evaluation - multiple operation minus divide", "[processing]")
 {
 	const std::vector<calcli::token> tokens = {
 		{calcli::token::Number, "8"},
@@ -49,10 +49,10 @@ TEST(test_evaluator, postfix_evaluation_multiple_operation_minus_divide)
 
 	const double value = calcli::postfix_evaluation(tokens);
 	const double value_ref = 8.0 / 2.0 - 9.0 / 3.0;
-	ASSERT_NEAR(value, value_ref, 0.01 * std::abs(value_ref));
+	REQUIRE(value == Approx(value_ref).epsilon(0.01));
 }
 
-TEST(test_evaluator, postfix_evaluation_multiple_operation_plus)
+TEST_CASE("postfix_evaluation - multiple operation plus", "[processing]")
 {
 	const std::vector<calcli::token> tokens = {
 		{calcli::token::Number, "8"},
@@ -66,10 +66,10 @@ TEST(test_evaluator, postfix_evaluation_multiple_operation_plus)
 	
 	const double value = calcli::postfix_evaluation(tokens);
 	const double value_ref = 8.0 + 2.0 + 9.0 + 3.0;
-	ASSERT_NEAR(value, value_ref, 0.01 * std::abs(value_ref));
+	REQUIRE(value == Approx(value_ref).epsilon(0.01));
 }
 
-TEST(test_evaluator, postfix_evaluation_operation_plus_multiply_parenthesis)
+TEST_CASE("postfix_evaluation - operation plus multiply parenthesis", "[processing]")
 {
 	const std::vector<calcli::token> tokens = {
 		{calcli::token::Number, "8"},
@@ -83,10 +83,10 @@ TEST(test_evaluator, postfix_evaluation_operation_plus_multiply_parenthesis)
 	
 	const double value = calcli::postfix_evaluation(tokens);
 	const double value_ref = (8.0 + 2.0) * (9.0 + 3.0);
-	ASSERT_NEAR(value, value_ref, 0.01 * std::abs(value_ref));
+	REQUIRE(value == Approx(value_ref).epsilon(0.01));
 }
 
-TEST(test_evaluator, postfix_evaluation_multiple_operation_parenthesis)
+TEST_CASE("postfix_evaluation - multiple operation parenthesis", "[processing]")
 {
 	const std::vector<calcli::token> tokens = {
 		{calcli::token::Number, "3"},
@@ -106,10 +106,10 @@ TEST(test_evaluator, postfix_evaluation_multiple_operation_parenthesis)
 
 	const double value = calcli::postfix_evaluation(tokens);
 	const double value_ref = 3.0 + 4.0 * 2.0 / std::pow(16.0, 3.0);
-	ASSERT_NEAR(value, value_ref, 0.01 * std::abs(value_ref));
+	REQUIRE(value == Approx(value_ref).epsilon(0.01));
 }
 
-TEST(test_evaluator, postfix_evaluation_multiple_operation_parenthesis_function)
+TEST_CASE("postfix_evaluation - multiple operation parenthesis function", "[processing]")
 {
 	const std::vector<calcli::token> tokens = {
 		{calcli::token::Number, "9"},
@@ -123,10 +123,10 @@ TEST(test_evaluator, postfix_evaluation_multiple_operation_parenthesis_function)
 
 	const double value = calcli::postfix_evaluation(tokens);
 	const double value_ref = std::sin(std::sqrt(9.0) / 3.0 * 3.1415);
-	ASSERT_NEAR(value, value_ref, 0.01 * std::abs(value_ref));
+	REQUIRE(value == Approx(value_ref).epsilon(0.01));
 }
 
-TEST(test_evaluator, postfix_evaluation_operation_between_negative_and_postive_number)
+TEST_CASE("postfix_evaluation - operation between negative and postive number", "[processing]")
 {
 	const std::vector<calcli::token> tokens = {
 		{calcli::token::Number, "8"},
@@ -137,10 +137,10 @@ TEST(test_evaluator, postfix_evaluation_operation_between_negative_and_postive_n
 
 	const double value = calcli::postfix_evaluation(tokens);
 	const double value_ref = -8.0 + 9.0;
-	ASSERT_NEAR(value, value_ref, 0.01 * std::abs(value_ref));
+	REQUIRE(value == Approx(value_ref).epsilon(0.01));
 }
 
-TEST(test_evaluator, postfix_evaluation_operation_unary_minus_plus_multiply_parenthesis)
+TEST_CASE("postfix_evaluation - operation unary minus plus multiply parenthesis", "[processing]")
 {
 	const std::vector<calcli::token> tokens = {
 		{calcli::token::Number, "8"},
@@ -155,10 +155,10 @@ TEST(test_evaluator, postfix_evaluation_operation_unary_minus_plus_multiply_pare
 
 	const double value = calcli::postfix_evaluation(tokens);
 	const double value_ref = (8.0 + 2.0) * (-9.0 / 3.0);
-	ASSERT_NEAR(value, value_ref, 0.01 * std::abs(value_ref));
+	REQUIRE(value == Approx(value_ref).epsilon(0.01));
 }
 
-TEST(test_evaluator, postfix_evaluation_function_with_negative_argument)
+TEST_CASE("postfix_evaluation - function with negative argument", "[processing]")
 {
 	const std::vector<calcli::token> tokens = {
 		{calcli::token::Number, "1"},
@@ -168,10 +168,10 @@ TEST(test_evaluator, postfix_evaluation_function_with_negative_argument)
 
 	const double value = calcli::postfix_evaluation(tokens);
 	const double value_ref = std::acos(-1.0);
-	ASSERT_NEAR(value, value_ref, 0.01 * std::abs(value_ref));
+	REQUIRE(value == Approx(value_ref).epsilon(0.01));
 }
 
-TEST(test_evaluator, postfix_evaluation_function_with_constant)
+TEST_CASE("postfix_evaluation - function with constant", "[processing]")
 {
 	const std::vector<calcli::token> tokens = {
 		{calcli::token::Constant, "pi"},
@@ -180,5 +180,5 @@ TEST(test_evaluator, postfix_evaluation_function_with_constant)
 
 	const double value = calcli::postfix_evaluation(tokens);
 	const double value_ref = -1.0;
-	ASSERT_NEAR(value, value_ref, 0.01 * std::abs(value_ref));
+	REQUIRE(value == Approx(value_ref).epsilon(0.01));
 }

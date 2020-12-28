@@ -1,11 +1,11 @@
 #include <cmath>
 
-#include <gtest/gtest.h>
+#include <catch2/catch.hpp>
 
 #include <calcli/core/operator.hpp>
 
 
-TEST(test_operator, binary_operator_plus)
+TEST_CASE("operator - binary operator plus", "[core]")
 {
 	try
 	{
@@ -14,15 +14,15 @@ TEST(test_operator, binary_operator_plus)
 		const double sum = calcli::binary_operation("+", x, y);
 		const double sum_ref = x + y;
 
-		ASSERT_NEAR(sum, sum_ref, 0.01 * std::abs(sum_ref));
+		REQUIRE(sum == Approx(sum_ref).epsilon(0.01));
 	}
 	catch(const std::exception&)
 	{
-		ASSERT_TRUE(false);
+		REQUIRE(false);
 	}
 }
 
-TEST(test_operator, binary_operator_minus)
+TEST_CASE("operator - binary operator minus", "[core]")
 {
 	try
 	{
@@ -31,15 +31,15 @@ TEST(test_operator, binary_operator_minus)
 		const double diff = calcli::binary_operation("-", x, y);
 		const double diff_ref = x - y;
 
-		ASSERT_NEAR(diff, diff_ref, 0.01 * std::abs(diff_ref));
+		REQUIRE(diff == Approx(diff_ref).epsilon(0.01));
 	}
 	catch(const std::exception&)
 	{
-		ASSERT_TRUE(false);
+		REQUIRE(false);
 	}
 }
 
-TEST(test_operator, binary_operator_product)
+TEST_CASE("operator - binary operator product", "[core]")
 {
 	try
 	{
@@ -48,15 +48,15 @@ TEST(test_operator, binary_operator_product)
 		const double prod = calcli::binary_operation("*", x, y);
 		const double prod_ref = x * y;
 
-		ASSERT_NEAR(prod, prod_ref, 0.01 * std::abs(prod_ref));
+		REQUIRE(prod == Approx(prod_ref).epsilon(0.01));
 	}
 	catch(const std::exception&)
 	{
-		ASSERT_TRUE(false);
+		REQUIRE(false);
 	}
 }
 
-TEST(test_operator, binary_operator_divide)
+TEST_CASE("operator - binary operator divide", "[core]")
 {
 	try
 	{
@@ -65,15 +65,15 @@ TEST(test_operator, binary_operator_divide)
 		const double div = calcli::binary_operation("/", x, y);
 		const double div_ref = x / y;
 
-		ASSERT_NEAR(div, div_ref, 0.01 * std::abs(div_ref));
+		REQUIRE(div == Approx(div_ref).epsilon(0.01));
 	}
 	catch(const std::exception&)
 	{
-		ASSERT_TRUE(false);
+		REQUIRE(false);
 	}
 }
 
-TEST(test_operator, binary_operator_divide_by_zero)
+TEST_CASE("operator - binary operator divide by zero", "[core]")
 {
 	try
 	{
@@ -82,17 +82,17 @@ TEST(test_operator, binary_operator_divide_by_zero)
 		const double div = calcli::binary_operation("/", x, y);
 		const double div_ref = x / y;
 
-		ASSERT_NEAR(div, div_ref, 0.01 * std::abs(div_ref));
+		REQUIRE(div == Approx(div_ref).epsilon(0.01));
 	}
 	catch(const std::exception& error)
 	{
 		const std::string str{error.what()};
 		const std::string str_ref{"division by zero"};
-		ASSERT_EQ(str, str_ref);
+		REQUIRE(str == str_ref);
 	}
 }
 
-TEST(test_operator, binary_operator_is_not_defined)
+TEST_CASE("operator - binary operator is not defined", "[core]")
 {
 	try
 	{
@@ -100,73 +100,73 @@ TEST(test_operator, binary_operator_is_not_defined)
 		const double y = 3.0;
 		const double div = calcli::binary_operation(".", x, y);
 
-		ASSERT_TRUE(div == 3.0);
+		REQUIRE(div == 3.0);
 	}
 	catch(const std::exception& error)
 	{
 		const std::string str{error.what()};
 		const std::string str_ref{"binary operator is not defined"};
-		ASSERT_EQ(str, str_ref);
+		REQUIRE(str == str_ref);
 	}
 }
 
-TEST(test_operator, unary_operator_plus)
+TEST_CASE("operator - unary operator plus", "[core]")
 {
 	try
 	{
 		const double x = 2.0;
 		const double px = calcli::unary_operation("+", x);
 
-		ASSERT_NEAR(px, x, 0.01 * std::abs(x));
+		REQUIRE(px == Approx(x).epsilon(0.01));
 	}
 	catch(const std::exception&)
 	{
-		ASSERT_TRUE(false);
+		REQUIRE(false);
 	}
 }
 
-TEST(test_operator, unary_operator_minus)
+TEST_CASE("operator - unary operator minus", "[core]")
 {
 	try
 	{
 		const double x = 2.0;
 		const double mx = calcli::unary_operation("-", x);
 
-		ASSERT_NEAR(mx, -x, 0.01 * std::abs(x));
+		REQUIRE(mx == Approx(-x).epsilon(0.01));
 	}
 	catch(const std::exception&)
 	{
-		ASSERT_TRUE(false);
+		REQUIRE(false);
 	}
 }
 
-TEST(test_operator, unary_operator_is_not_defined)
+TEST_CASE("operator - unary operator is not defined", "[core]")
 {
 	try
 	{
 		const double x = 2.0;
 		const double px = calcli::unary_operation("*", x);
 
-		ASSERT_TRUE(px == 3.0);
+		REQUIRE(px == 3.0);
 	}
 	catch(const std::exception& error)
 	{
 		const std::string str{error.what()};
 		const std::string str_ref{"unary operator is not defined"};
-		ASSERT_EQ(str, str_ref);
+		REQUIRE(str == str_ref);
 	}
 }
 
-TEST(test_operator, is_operator_must_return_true)
+TEST_CASE("operator - is_operator must return true", "[core]")
 {
-	ASSERT_TRUE(calcli::is_operator('+'));
-	ASSERT_TRUE(calcli::is_operator('-'));
-	ASSERT_TRUE(calcli::is_operator('*'));
-	ASSERT_TRUE(calcli::is_operator('/'));
-	ASSERT_TRUE(calcli::is_operator('^'));
+	REQUIRE(calcli::is_operator('+'));
+	REQUIRE(calcli::is_operator('-'));
+	REQUIRE(calcli::is_operator('*'));
+	REQUIRE(calcli::is_operator('/'));
+	REQUIRE(calcli::is_operator('^'));
 }
 
-TEST(test_operator, is_operator_must_return_false)
+TEST_CASE("operator - is_operator must return false", "[core]")
 {
-	ASSERT_FALSE(calcli::is_operator('.'));
+	REQUIRE(!calcli::is_operator('.'));
 }

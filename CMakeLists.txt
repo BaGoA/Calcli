@@ -1,8 +1,12 @@
 cmake_minimum_required(VERSION 3.12)
 project(calcli VERSION 0.1.0 LANGUAGES CXX)
 
-# Compilation of vendors
-add_subdirectory(vendor/googletest)
+# Check presence of Conan
+find_program(CONAN conan)
+
+if (NOT CONAN)
+    message(FATAL_ERROR "Needs conan package manager: please visit https://conan.io and install")
+endif ()
 
 # Compilation of sources
 add_subdirectory(calcli/core)

@@ -26,10 +26,13 @@ include(${CMAKE_SOURCE_DIR}/cmake/OutputDirectories.cmake)
 make_lib_directory(lib_directory)
 make_bin_directory(bin_directory)
 
-target_link_libraries(${test_calcli_exe}
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
+
+target_link_libraries(${test_calcli_exe} PRIVATE
 	${lib_directory}/libcalcli-core.a
 	${lib_directory}/libcalcli-processing.a
-	gtest gtest_main
+	${CONAN_LIBS}
 	stdc++fs
 )
 
@@ -38,4 +41,3 @@ set_target_properties(${test_calcli_exe} PROPERTIES
 	CXX_EXTENSIONS OFF
 	RUNTIME_OUTPUT_DIRECTORY ${bin_directory}/tests
 )
-

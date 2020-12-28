@@ -1,326 +1,326 @@
-#include <gtest/gtest.h>
+#include <catch2/catch.hpp>
 
 #include <calcli/processing/parse.hpp>
 
 
-TEST(test_lexer, tokenization_expression_with_one_number)
+TEST_CASE("tokenization - expression with one number", "[processing]")
 {
 	const std::string_view expression("8");
 	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
-	ASSERT_EQ(tokens.size(), 1);
-	EXPECT_EQ(tokens[0].type, calcli::token::Number);
-	EXPECT_EQ(tokens[0].value, "8");
+	REQUIRE(tokens.size() == 1);
+	CHECK(tokens[0].type == calcli::token::Number);
+	CHECK(tokens[0].value == "8");
 }
 
-TEST(test_lexer, tokenization_expression_with_one_floating_number)
+TEST_CASE("tokenization - expression with one floating number", "[processing]")
 {
 	const std::string_view expression("8.43");
 	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
-	ASSERT_EQ(tokens.size(), 1);
-	EXPECT_EQ(tokens[0].type, calcli::token::Number);
-	EXPECT_EQ(tokens[0].value, "8.43");
+	REQUIRE(tokens.size() == 1);
+	CHECK(tokens[0].type == calcli::token::Number);
+	CHECK(tokens[0].value == "8.43");
 }
 
-TEST(test_lexer, tokenization_expression_containing_numbers_and_operator_plus)
+TEST_CASE("tokenization - expression containing numbers and operator plus", "[processing]")
 {
 	const std::string_view expression("8.43 + 9.12");
 	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
-	ASSERT_EQ(tokens.size(), 3);
+	REQUIRE(tokens.size() == 3);
 
-	EXPECT_EQ(tokens[0].type, calcli::token::Number);
-	EXPECT_EQ(tokens[0].value, "8.43");
+	CHECK(tokens[0].type == calcli::token::Number);
+	CHECK(tokens[0].value == "8.43");
 
-	EXPECT_EQ(tokens[1].type, calcli::token::Binary_Operator);
-	EXPECT_EQ(tokens[1].value, "+");
+	CHECK(tokens[1].type == calcli::token::Binary_Operator);
+	CHECK(tokens[1].value == "+");
 
-	EXPECT_EQ(tokens[2].type, calcli::token::Number);
-	EXPECT_EQ(tokens[2].value, "9.12");
+	CHECK(tokens[2].type == calcli::token::Number);
+	CHECK(tokens[2].value == "9.12");
 }
 
-TEST(test_lexer, tokenization_expression_containing_numbers_and_operator_minus)
+TEST_CASE("tokenization - expression containing numbers and operator minus", "[processing]")
 {
 	const std::string_view expression("8.43 - 9.12");
 	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
-	ASSERT_EQ(tokens.size(), 3);
+	REQUIRE(tokens.size() == 3);
 
-	EXPECT_EQ(tokens[0].type, calcli::token::Number);
-	EXPECT_EQ(tokens[0].value, "8.43");
+	CHECK(tokens[0].type == calcli::token::Number);
+	CHECK(tokens[0].value == "8.43");
 
-	EXPECT_EQ(tokens[1].type, calcli::token::Binary_Operator);
-	EXPECT_EQ(tokens[1].value, "-");
+	CHECK(tokens[1].type == calcli::token::Binary_Operator);
+	CHECK(tokens[1].value == "-");
 
-	EXPECT_EQ(tokens[2].type, calcli::token::Number);
-	EXPECT_EQ(tokens[2].value, "9.12");
+	CHECK(tokens[2].type == calcli::token::Number);
+	CHECK(tokens[2].value == "9.12");
 }
 
-TEST(test_lexer, tokenization_expression_containing_numbers_and_operator_multiply)
+TEST_CASE("tokenization - expression containing numbers and operator multiply", "[processing]")
 {
 	const std::string_view expression("8.43 * 9.12");
 	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
-	ASSERT_EQ(tokens.size(), 3);
+	REQUIRE(tokens.size() == 3);
 
-	EXPECT_EQ(tokens[0].type, calcli::token::Number);
-	EXPECT_EQ(tokens[0].value, "8.43");
+	CHECK(tokens[0].type == calcli::token::Number);
+	CHECK(tokens[0].value == "8.43");
 
-	EXPECT_EQ(tokens[1].type, calcli::token::Binary_Operator);
-	EXPECT_EQ(tokens[1].value, "*");
+	CHECK(tokens[1].type == calcli::token::Binary_Operator);
+	CHECK(tokens[1].value == "*");
 
-	EXPECT_EQ(tokens[2].type, calcli::token::Number);
-	EXPECT_EQ(tokens[2].value, "9.12");
+	CHECK(tokens[2].type == calcli::token::Number);
+	CHECK(tokens[2].value == "9.12");
 }
 
-TEST(test_lexer, tokenization_expression_containing_numbers_and_operator_divide)
+TEST_CASE("tokenization - expression containing numbers and operator divide", "[processing]")
 {
 	const std::string_view expression("8.43 / 9.12");
 	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
-	ASSERT_EQ(tokens.size(), 3);
+	REQUIRE(tokens.size() == 3);
 
-	EXPECT_EQ(tokens[0].type, calcli::token::Number);
-	EXPECT_EQ(tokens[0].value, "8.43");
+	CHECK(tokens[0].type == calcli::token::Number);
+	CHECK(tokens[0].value == "8.43");
 
-	EXPECT_EQ(tokens[1].type, calcli::token::Binary_Operator);
-	EXPECT_EQ(tokens[1].value, "/");
+	CHECK(tokens[1].type == calcli::token::Binary_Operator);
+	CHECK(tokens[1].value == "/");
 
-	EXPECT_EQ(tokens[2].type, calcli::token::Number);
-	EXPECT_EQ(tokens[2].value, "9.12");
+	CHECK(tokens[2].type == calcli::token::Number);
+	CHECK(tokens[2].value == "9.12");
 }
 
-TEST(test_lexer, tokenization_expression_containing_numbers_and_operator_power)
+TEST_CASE("tokenization - expression containing numbers and operator power", "[processing]")
 {
 	const std::string_view expression("8.43 ^ 9.12");
 	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
-	ASSERT_EQ(tokens.size(), 3);
+	REQUIRE(tokens.size() == 3);
 
-	EXPECT_EQ(tokens[0].type, calcli::token::Number);
-	EXPECT_EQ(tokens[0].value, "8.43");
+	CHECK(tokens[0].type == calcli::token::Number);
+	CHECK(tokens[0].value == "8.43");
 
-	EXPECT_EQ(tokens[1].type, calcli::token::Binary_Operator);
-	EXPECT_EQ(tokens[1].value, "^");
+	CHECK(tokens[1].type == calcli::token::Binary_Operator);
+	CHECK(tokens[1].value == "^");
 
-	EXPECT_EQ(tokens[2].type, calcli::token::Number);
-	EXPECT_EQ(tokens[2].value, "9.12");
+	CHECK(tokens[2].type == calcli::token::Number);
+	CHECK(tokens[2].value == "9.12");
 }
 
-TEST(test_lexer, tokenization_expression_containing_numbers_operators_and_parenthesis)
+TEST_CASE("tokenization - expression containing numbers operators and parenthesis", "[processing]")
 {
 	const std::string_view expression("8.43 * (9.12 - 4.314)");
 	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
-	ASSERT_EQ(tokens.size(), 7);
+	REQUIRE(tokens.size() == 7);
 
-	EXPECT_EQ(tokens[0].type, calcli::token::Number);
-	EXPECT_EQ(tokens[0].value, "8.43");
+	CHECK(tokens[0].type == calcli::token::Number);
+	CHECK(tokens[0].value == "8.43");
 
-	EXPECT_EQ(tokens[1].type, calcli::token::Binary_Operator);
-	EXPECT_EQ(tokens[1].value, "*");
+	CHECK(tokens[1].type == calcli::token::Binary_Operator);
+	CHECK(tokens[1].value == "*");
 
-	EXPECT_EQ(tokens[2].type, calcli::token::Left_Parenthesis);
-	EXPECT_EQ(tokens[2].value, "(");
+	CHECK(tokens[2].type == calcli::token::Left_Parenthesis);
+	CHECK(tokens[2].value == "(");
 
-	EXPECT_EQ(tokens[3].type, calcli::token::Number);
-	EXPECT_EQ(tokens[3].value, "9.12");
+	CHECK(tokens[3].type == calcli::token::Number);
+	CHECK(tokens[3].value == "9.12");
 
-	EXPECT_EQ(tokens[4].type, calcli::token::Binary_Operator);
-	EXPECT_EQ(tokens[4].value, "-");
+	CHECK(tokens[4].type == calcli::token::Binary_Operator);
+	CHECK(tokens[4].value == "-");
 
-	EXPECT_EQ(tokens[5].type, calcli::token::Number);
-	EXPECT_EQ(tokens[5].value, "4.314");
+	CHECK(tokens[5].type == calcli::token::Number);
+	CHECK(tokens[5].value == "4.314");
 
-	EXPECT_EQ(tokens[6].type, calcli::token::Right_Parenthesis);
-	EXPECT_EQ(tokens[6].value, ")");
+	CHECK(tokens[6].type == calcli::token::Right_Parenthesis);
+	CHECK(tokens[6].value == ")");
 }
 
-TEST(test_lexer, tokenization_expression_containing_function)
+TEST_CASE("tokenization - expression containing function", "[processing]")
 {
 	const std::string_view expression("sin(1.57)");
 	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
-	ASSERT_EQ(tokens.size(), 4);
+	REQUIRE(tokens.size() == 4);
 
-	EXPECT_EQ(tokens[0].type, calcli::token::Function);
-	EXPECT_EQ(tokens[0].value, "sin");
+	CHECK(tokens[0].type == calcli::token::Function);
+	CHECK(tokens[0].value == "sin");
 
-	EXPECT_EQ(tokens[1].type, calcli::token::Left_Parenthesis);
-	EXPECT_EQ(tokens[1].value, "(");
+	CHECK(tokens[1].type == calcli::token::Left_Parenthesis);
+	CHECK(tokens[1].value == "(");
 
-	EXPECT_EQ(tokens[2].type, calcli::token::Number);
-	EXPECT_EQ(tokens[2].value, "1.57");
+	CHECK(tokens[2].type == calcli::token::Number);
+	CHECK(tokens[2].value == "1.57");
 
-	EXPECT_EQ(tokens[3].type, calcli::token::Right_Parenthesis);
-	EXPECT_EQ(tokens[3].value, ")");
+	CHECK(tokens[3].type == calcli::token::Right_Parenthesis);
+	CHECK(tokens[3].value == ")");
 }
 
-TEST(test_lexer, tokenization_expression_containing_all)
+TEST_CASE("tokenization - expression containing all", "[processing]")
 {
 	const std::string_view expression("sin(3.0 * 1.57) + sqrt(9.11 - 1.54)^2");
 	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
-	ASSERT_EQ(tokens.size(), 15);
+	REQUIRE(tokens.size() == 15);
 
-	EXPECT_EQ(tokens[0].type, calcli::token::Function);
-	EXPECT_EQ(tokens[0].value, "sin");
+	CHECK(tokens[0].type == calcli::token::Function);
+	CHECK(tokens[0].value == "sin");
 
-	EXPECT_EQ(tokens[1].type, calcli::token::Left_Parenthesis);
-	EXPECT_EQ(tokens[1].value, "(");
+	CHECK(tokens[1].type == calcli::token::Left_Parenthesis);
+	CHECK(tokens[1].value == "(");
 
-	EXPECT_EQ(tokens[2].type, calcli::token::Number);
-	EXPECT_EQ(tokens[2].value, "3.0");
+	CHECK(tokens[2].type == calcli::token::Number);
+	CHECK(tokens[2].value == "3.0");
 
-	EXPECT_EQ(tokens[3].type, calcli::token::Binary_Operator);
-	EXPECT_EQ(tokens[3].value, "*");
+	CHECK(tokens[3].type == calcli::token::Binary_Operator);
+	CHECK(tokens[3].value == "*");
 
-	EXPECT_EQ(tokens[4].type, calcli::token::Number);
-	EXPECT_EQ(tokens[4].value, "1.57");
+	CHECK(tokens[4].type == calcli::token::Number);
+	CHECK(tokens[4].value == "1.57");
 
-	EXPECT_EQ(tokens[5].type, calcli::token::Right_Parenthesis);
-	EXPECT_EQ(tokens[5].value, ")");
+	CHECK(tokens[5].type == calcli::token::Right_Parenthesis);
+	CHECK(tokens[5].value == ")");
 	
-	EXPECT_EQ(tokens[6].type, calcli::token::Binary_Operator);
-	EXPECT_EQ(tokens[6].value, "+");
+	CHECK(tokens[6].type == calcli::token::Binary_Operator);
+	CHECK(tokens[6].value == "+");
 
-	EXPECT_EQ(tokens[7].type, calcli::token::Function);
-	EXPECT_EQ(tokens[7].value, "sqrt");
+	CHECK(tokens[7].type == calcli::token::Function);
+	CHECK(tokens[7].value == "sqrt");
 
-	EXPECT_EQ(tokens[8].type, calcli::token::Left_Parenthesis);
-	EXPECT_EQ(tokens[8].value, "(");
+	CHECK(tokens[8].type == calcli::token::Left_Parenthesis);
+	CHECK(tokens[8].value == "(");
 	
-	EXPECT_EQ(tokens[9].type, calcli::token::Number);
-	EXPECT_EQ(tokens[9].value, "9.11");
+	CHECK(tokens[9].type == calcli::token::Number);
+	CHECK(tokens[9].value == "9.11");
 
-	EXPECT_EQ(tokens[10].type, calcli::token::Binary_Operator);
-	EXPECT_EQ(tokens[10].value, "-");
+	CHECK(tokens[10].type == calcli::token::Binary_Operator);
+	CHECK(tokens[10].value == "-");
 
-	EXPECT_EQ(tokens[11].type, calcli::token::Number);
-	EXPECT_EQ(tokens[11].value, "1.54");
+	CHECK(tokens[11].type == calcli::token::Number);
+	CHECK(tokens[11].value == "1.54");
 
-	EXPECT_EQ(tokens[12].type, calcli::token::Right_Parenthesis);
-	EXPECT_EQ(tokens[12].value, ")");
+	CHECK(tokens[12].type == calcli::token::Right_Parenthesis);
+	CHECK(tokens[12].value == ")");
 
-	EXPECT_EQ(tokens[13].type, calcli::token::Binary_Operator);
-	EXPECT_EQ(tokens[13].value, "^");
+	CHECK(tokens[13].type == calcli::token::Binary_Operator);
+	CHECK(tokens[13].value == "^");
 
-	EXPECT_EQ(tokens[14].type, calcli::token::Number);
-	EXPECT_EQ(tokens[14].value, "2");
+	CHECK(tokens[14].type == calcli::token::Number);
+	CHECK(tokens[14].value == "2");
 }
 
-TEST(test_lexer, tokenization_expression_containing_numbers_and_unary_operator)
+TEST_CASE("tokenization - expression containing numbers and unary operator", "[processing]")
 {
 	const std::string_view expression("-8.43 + 9.12");
 	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
-	ASSERT_EQ(tokens.size(), 4);
+	REQUIRE(tokens.size() == 4);
 
-	EXPECT_EQ(tokens[0].type, calcli::token::Unary_Operator);
-	EXPECT_EQ(tokens[0].value, "-");
+	CHECK(tokens[0].type == calcli::token::Unary_Operator);
+	CHECK(tokens[0].value == "-");
 
-	EXPECT_EQ(tokens[1].type, calcli::token::Number);
-	EXPECT_EQ(tokens[1].value, "8.43");
+	CHECK(tokens[1].type == calcli::token::Number);
+	CHECK(tokens[1].value == "8.43");
 
-	EXPECT_EQ(tokens[2].type, calcli::token::Binary_Operator);
-	EXPECT_EQ(tokens[2].value, "+");
+	CHECK(tokens[2].type == calcli::token::Binary_Operator);
+	CHECK(tokens[2].value == "+");
 
-	EXPECT_EQ(tokens[3].type, calcli::token::Number);
-	EXPECT_EQ(tokens[3].value, "9.12");
+	CHECK(tokens[3].type == calcli::token::Number);
+	CHECK(tokens[3].value == "9.12");
 }
 
-TEST(test_lexer, tokenization_expression_containing_numbers_parenthesis_unary_operator)
+TEST_CASE("tokenization - expression containing numbers parenthesis unary operator", "[processing]")
 {
 	const std::string_view expression("-8.43 * (-9.12 + 22.54)");
 	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
-	ASSERT_EQ(tokens.size(), 9);
+	REQUIRE(tokens.size() == 9);
 
-	EXPECT_EQ(tokens[0].type, calcli::token::Unary_Operator);
-	EXPECT_EQ(tokens[0].value, "-");
+	CHECK(tokens[0].type == calcli::token::Unary_Operator);
+	CHECK(tokens[0].value == "-");
 
-	EXPECT_EQ(tokens[1].type, calcli::token::Number);
-	EXPECT_EQ(tokens[1].value, "8.43");
+	CHECK(tokens[1].type == calcli::token::Number);
+	CHECK(tokens[1].value == "8.43");
 
-	EXPECT_EQ(tokens[2].type, calcli::token::Binary_Operator);
-	EXPECT_EQ(tokens[2].value, "*");
+	CHECK(tokens[2].type == calcli::token::Binary_Operator);
+	CHECK(tokens[2].value == "*");
 
-	EXPECT_EQ(tokens[3].type, calcli::token::Left_Parenthesis);
-	EXPECT_EQ(tokens[3].value, "(");
+	CHECK(tokens[3].type == calcli::token::Left_Parenthesis);
+	CHECK(tokens[3].value == "(");
 
-	EXPECT_EQ(tokens[4].type, calcli::token::Unary_Operator);
-	EXPECT_EQ(tokens[4].value, "-");
+	CHECK(tokens[4].type == calcli::token::Unary_Operator);
+	CHECK(tokens[4].value == "-");
 
-	EXPECT_EQ(tokens[5].type, calcli::token::Number);
-	EXPECT_EQ(tokens[5].value, "9.12");
+	CHECK(tokens[5].type == calcli::token::Number);
+	CHECK(tokens[5].value == "9.12");
 
-	EXPECT_EQ(tokens[6].type, calcli::token::Binary_Operator);
-	EXPECT_EQ(tokens[6].value, "+");
+	CHECK(tokens[6].type == calcli::token::Binary_Operator);
+	CHECK(tokens[6].value == "+");
 
-	EXPECT_EQ(tokens[7].type, calcli::token::Number);
-	EXPECT_EQ(tokens[7].value, "22.54");
+	CHECK(tokens[7].type == calcli::token::Number);
+	CHECK(tokens[7].value == "22.54");
 
-	EXPECT_EQ(tokens[8].type, calcli::token::Right_Parenthesis);
-	EXPECT_EQ(tokens[8].value, ")");
+	CHECK(tokens[8].type == calcli::token::Right_Parenthesis);
+	CHECK(tokens[8].value == ")");
 }
 
-TEST(test_lexer, tokenization_expression_containing_numbers_unary_operator_function)
+TEST_CASE("tokenization - expression containing numbers unary operator function", "[processing]")
 {
 	const std::string_view expression("acos(-1.0)");
 	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
-	ASSERT_EQ(tokens.size(), 5);
+	REQUIRE(tokens.size() == 5);
 
-	EXPECT_EQ(tokens[0].type, calcli::token::Function);
-	EXPECT_EQ(tokens[0].value, "acos");
+	CHECK(tokens[0].type == calcli::token::Function);
+	CHECK(tokens[0].value == "acos");
 
-	EXPECT_EQ(tokens[1].type, calcli::token::Left_Parenthesis);
-	EXPECT_EQ(tokens[1].value, "(");
+	CHECK(tokens[1].type == calcli::token::Left_Parenthesis);
+	CHECK(tokens[1].value == "(");
 
-	EXPECT_EQ(tokens[2].type, calcli::token::Unary_Operator);
-	EXPECT_EQ(tokens[2].value, "-");
+	CHECK(tokens[2].type == calcli::token::Unary_Operator);
+	CHECK(tokens[2].value == "-");
 
-	EXPECT_EQ(tokens[3].type, calcli::token::Number);
-	EXPECT_EQ(tokens[3].value, "1.0");
+	CHECK(tokens[3].type == calcli::token::Number);
+	CHECK(tokens[3].value == "1.0");
 
-	EXPECT_EQ(tokens[4].type, calcli::token::Right_Parenthesis);
-	EXPECT_EQ(tokens[4].value, ")");
+	CHECK(tokens[4].type == calcli::token::Right_Parenthesis);
+	CHECK(tokens[4].value == ")");
 }
 
-TEST(test_lexer, tokenization_expression_containing_function_constant)
+TEST_CASE("tokenization - expression containing function constant", "[processing]")
 {
 	const std::string_view expression("cos(pi)");
 	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
-	ASSERT_EQ(tokens.size(), 4);
+	REQUIRE(tokens.size() == 4);
 
-	EXPECT_EQ(tokens[0].type, calcli::token::Function);
-	EXPECT_EQ(tokens[0].value, "cos");
+	CHECK(tokens[0].type == calcli::token::Function);
+	CHECK(tokens[0].value == "cos");
 
-	EXPECT_EQ(tokens[1].type, calcli::token::Left_Parenthesis);
-	EXPECT_EQ(tokens[1].value, "(");
+	CHECK(tokens[1].type == calcli::token::Left_Parenthesis);
+	CHECK(tokens[1].value == "(");
 
-	EXPECT_EQ(tokens[2].type, calcli::token::Constant);
-	EXPECT_EQ(tokens[2].value, "pi");
+	CHECK(tokens[2].type == calcli::token::Constant);
+	CHECK(tokens[2].value == "pi");
 
-	EXPECT_EQ(tokens[3].type, calcli::token::Right_Parenthesis);
-	EXPECT_EQ(tokens[3].value, ")");
+	CHECK(tokens[3].type == calcli::token::Right_Parenthesis);
+	CHECK(tokens[3].value == ")");
 }
 
-TEST(test_lexer, tokenization_expression_containing_operator_constant)
+TEST_CASE("tokenization - expression containing operator constant", "[processing]")
 {
 	const std::string_view expression("e^2.0");
 	const std::vector<calcli::token> tokens = calcli::tokenize(expression);
 
-	ASSERT_EQ(tokens.size(), 3);
+	REQUIRE(tokens.size() == 3);
 
-	EXPECT_EQ(tokens[0].type, calcli::token::Constant);
-	EXPECT_EQ(tokens[0].value, "e");
+	CHECK(tokens[0].type == calcli::token::Constant);
+	CHECK(tokens[0].value == "e");
 
-	EXPECT_EQ(tokens[1].type, calcli::token::Binary_Operator);
-	EXPECT_EQ(tokens[1].value, "^");
+	CHECK(tokens[1].type == calcli::token::Binary_Operator);
+	CHECK(tokens[1].value == "^");
 
-	EXPECT_EQ(tokens[2].type, calcli::token::Number);
-	EXPECT_EQ(tokens[2].value, "2.0");
+	CHECK(tokens[2].type == calcli::token::Number);
+	CHECK(tokens[2].value == "2.0");
 }

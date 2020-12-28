@@ -14,7 +14,6 @@ matrix:
             - g++-9
             - python3
             - ninja-build
-            - libgtest-dev
       env:
         - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
 
@@ -29,17 +28,20 @@ matrix:
             - clang++-9
             - python3
             - ninja-build
-            - libgtest-dev
       env:
         - MATRIX_EVAL="CC=clang-9 && CXX=clang++-9"
 
 before_install:
   - eval "${MATRIX_EVAL}"
 
+install:
+  - pip install conan
+  - conan user
+
 branches:
   only:
-  - main
+    - main
 
 script:
-  - python3 ./ci/build.py --type release
+  - python3 ./ci/build.py --install --type release
   - python3 ./ci/tests.py --type release

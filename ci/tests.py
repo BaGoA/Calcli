@@ -38,10 +38,15 @@ def launch_tests(binaries_test):
         response = subprocess.run([binary], stdout=subprocess.PIPE)
         print(response.stdout.decode('ascii'))
 
-        tests_pass = (response.returncode == 0) and (response.stdout.find(b"(FAILED)") == -1)
+        tests_are_run = (response.returncode == 0)
 
-        if not tests_pass:
+        if not tests_are_run:
             str_error = "Error when executing " + os.path.relpath(binary)
+
+        tests_are_passed = (response.stdout.find(b"failed") == -1)
+
+        if not tests_are_passed:
+            str_error = "Some tests failed in " + os.path.relpath(binary)
 
     return str_error
 
