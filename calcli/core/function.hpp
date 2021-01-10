@@ -3,7 +3,7 @@
  * @brief Function utilities
  *
  * Calcli is a simple C++ command line calculator
- * Copyright (C) 2020 Bastian Gonzalez Acevedo
+ * Copyright (C) 2020-2021 Bastian Gonzalez Acevedo
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
