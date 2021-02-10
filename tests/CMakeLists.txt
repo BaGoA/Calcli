@@ -26,13 +26,9 @@ include(${CMAKE_SOURCE_DIR}/cmake/OutputDirectories.cmake)
 make_lib_directory(lib_directory)
 make_bin_directory(bin_directory)
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
-
 target_link_libraries(${test_calcli_exe} PRIVATE
 	${lib_directory}/libcalcli-core.a
 	${lib_directory}/libcalcli-processing.a
-	${CONAN_LIBS}
 	stdc++fs
 )
 

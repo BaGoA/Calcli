@@ -1,6 +1,6 @@
 #include <cmath>
 
-#include <catch2/catch.hpp>
+#include <vendor/catch2/catch.hpp>
 
 #include <calcli/processing/evaluation.hpp>
 
