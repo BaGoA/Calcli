@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <calcli/core/cmap.hpp>
+#include <calcli-core/cmap.hpp>
 
 
 using namespace std::literals::string_view_literals;

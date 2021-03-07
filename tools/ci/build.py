@@ -12,7 +12,8 @@ def setup(build_type):
     path_script = os.path.realpath(__file__)
     dir_script = os.path.dirname(path_script)
     
-    dir_project = os.path.dirname(dir_script)
+    dir_tools = os.path.dirname(dir_script)
+    dir_project = os.path.dirname(dir_tools)
 
     # Create "/build" directory if necessary
     base_dir_build = dir_project + "/build"
@@ -85,7 +86,6 @@ def main(argv):
     # Initialization of arguments parser
     parser = argparse.ArgumentParser(description="Build of Calcli project")
     parser.add_argument("-t", "--type", default="", help="Build project according to build type (debug or release)")
-    parser.add_argument("-i", "--install", action="store_true", help="Thirds parties installation with Conan before build")
 
     # Check if list of argument is not empty
     if len(argv) == 0:

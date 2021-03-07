@@ -1,6 +1,6 @@
 #include <vendor/catch2/catch.hpp>
 
-#include <calcli/core/cmap.hpp>
+#include <calcli-core/cmap.hpp>
 
 
 TEST_CASE("cmap - access to key which does not exist", "[core]")

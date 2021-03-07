@@ -19,11 +19,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <calcli/core/operator.hpp>
+#include <calcli-core/operator.hpp>
 
 #include <cmath>
 
-#include <calcli/core/error.hpp>
+#include <calcli-core/error.hpp>
 
 
 double calcli::binary_operation(const std::string& str_operator, double left_operand, double right_operand)

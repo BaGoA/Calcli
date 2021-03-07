@@ -2,7 +2,7 @@
 
 #include <vendor/catch2/catch.hpp>
 
-#include <calcli/processing/evaluation.hpp>
+#include <calcli-processing/evaluation.hpp>
 
 
 TEST_CASE("postfix_evaluation - operation between two numbers", "[processing]")

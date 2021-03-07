@@ -2,7 +2,7 @@
 
 #include <vendor/catch2/catch.hpp>
 
-#include <calcli/core/function.hpp>
+#include <calcli-core/function.hpp>
 
 
 TEST_CASE("function - apply abs", "[core]")

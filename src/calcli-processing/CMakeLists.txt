@@ -9,11 +9,11 @@ set(calcli-processing-sources
 	evaluation.cpp
 )
 
-# Executable compilation
+# Library compilation
 set(lib_name calcli-processing)
 add_library(${lib_name} STATIC ${calci-processing-hearders} ${calcli-processing-sources})
 
-target_include_directories(${lib_name} PRIVATE ${CMAKE_SOURCE_DIR})
+target_include_directories(${lib_name} PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
 target_compile_features(${lib_name} PRIVATE cxx_std_20)
 
@@ -23,7 +23,7 @@ target_compile_options(${lib_name} PRIVATE
 	"-pedantic"
 )
 
-include(${CMAKE_SOURCE_DIR}/cmake/OutputDirectories.cmake)
+include(${CMAKE_SOURCE_DIR}/tools/cmake/OutputDirectories.cmake)
 make_lib_directory(lib_directory)
 
 target_link_libraries(${lib_name}

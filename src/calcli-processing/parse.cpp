@@ -19,13 +19,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <calcli/processing/parse.hpp>
+#include <calcli-processing/parse.hpp>
 
 #include <cctype>
 
-#include <calcli/core/error.hpp>
-#include <calcli/core/constant.hpp>
-#include <calcli/core/operator.hpp>
+#include <calcli-core/error.hpp>
+#include <calcli-core/constant.hpp>
+#include <calcli-core/operator.hpp>
 
 
 static inline bool is_digit(char c) { return std::isdigit(c) != 0; }

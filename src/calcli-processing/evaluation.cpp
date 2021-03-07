@@ -19,11 +19,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <calcli/processing/evaluation.hpp>
+#include <calcli-processing/evaluation.hpp>
 
-#include <calcli/core/constant.hpp>
-#include <calcli/core/operator.hpp>
-#include <calcli/core/function.hpp>
+#include <calcli-core/constant.hpp>
+#include <calcli-core/operator.hpp>
+#include <calcli-core/function.hpp>
 
 
 double calcli::postfix_evaluation(const std::vector<calcli::token>& tokens)

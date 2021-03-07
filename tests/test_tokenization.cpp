@@ -1,6 +1,6 @@
 #include <vendor/catch2/catch.hpp>
 
-#include <calcli/processing/parse.hpp>
+#include <calcli-processing/parse.hpp>
 
 
 TEST_CASE("tokenization - expression with one number", "[processing]")

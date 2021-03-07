@@ -12,7 +12,10 @@ set(test_calcli_sources
 
 add_executable(${test_calcli_exe} ${test_calcli_sources})
 
-target_include_directories(${test_calcli_exe} PRIVATE ${CMAKE_SOURCE_DIR})
+target_include_directories(${test_calcli_exe} PRIVATE 
+	${CMAKE_SOURCE_DIR}
+	${CMAKE_SOURCE_DIR}/src
+)
 
 target_compile_features(${test_calcli_exe} PRIVATE cxx_std_20)
 
@@ -22,14 +25,13 @@ target_compile_options(${test_calcli_exe} PRIVATE
 	"-pedantic"
 )
 
-include(${CMAKE_SOURCE_DIR}/cmake/OutputDirectories.cmake)
+include(${CMAKE_SOURCE_DIR}/tools/cmake/OutputDirectories.cmake)
 make_lib_directory(lib_directory)
 make_bin_directory(bin_directory)
 
 target_link_libraries(${test_calcli_exe} PRIVATE
 	${lib_directory}/libcalcli-core.a
 	${lib_directory}/libcalcli-processing.a
-	stdc++fs
 )
 
 set_target_properties(${test_calcli_exe} PROPERTIES 
