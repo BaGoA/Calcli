@@ -25,7 +25,7 @@
 #include <utility>
 #include <algorithm>
 
-#include <calcli/core/error.hpp>
+#include <calcli-core/error.hpp>
 
 
 namespace calcli

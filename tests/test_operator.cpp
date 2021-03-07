@@ -2,7 +2,7 @@
 
 #include <vendor/catch2/catch.hpp>
 
-#include <calcli/core/operator.hpp>
+#include <calcli-core/operator.hpp>
 
 
 TEST_CASE("operator - binary operator plus", "[core]")

@@ -1,10 +1,14 @@
+# Add calcli libraries
+add_subdirectory(calcli-core)
+add_subdirectory(calcli-processing)
+
 # Lists of hearders and sources
 set(calcli-headers
-	application.hpp
+	calcli-application/application.hpp
 )
 
 set(calcli-sources
-	application.cpp
+	calcli-application/application.cpp
 	main.cpp
 )
 
@@ -12,7 +16,7 @@ set(calcli-sources
 set(exe_name calcli)
 add_executable(${exe_name} ${calci-hearders} ${calcli-sources})
 
-target_include_directories(${exe_name} PRIVATE ${CMAKE_SOURCE_DIR})
+target_include_directories(${exe_name} PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
 target_compile_features(${exe_name} PRIVATE cxx_std_20)
 
@@ -22,7 +26,7 @@ target_compile_options(${exe_name} PRIVATE
 	"-pedantic"
 )
 
-include(${CMAKE_SOURCE_DIR}/cmake/OutputDirectories.cmake)
+include(${CMAKE_SOURCE_DIR}/tools/cmake/OutputDirectories.cmake)
 make_lib_directory(lib_directory)
 make_bin_directory(bin_directory)
 

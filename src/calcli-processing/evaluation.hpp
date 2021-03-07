@@ -23,7 +23,7 @@
 
 #include <vector>
 
-#include <calcli/core/token.hpp>
+#include <calcli-core/token.hpp>
 
 
 namespace calcli

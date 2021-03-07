@@ -19,14 +19,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <calcli/application/application.hpp>
+#include <calcli-application/application.hpp>
 
 #include <iostream>
 #include <algorithm>
 #include <cstring>
 
-#include <calcli/processing/parse.hpp>
-#include <calcli/processing/evaluation.hpp>
+#include <calcli-processing/parse.hpp>
+#include <calcli-processing/evaluation.hpp>
 
 
 void calcli::application::print_header() const

@@ -19,12 +19,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <calcli/core/function.hpp>
+#include <calcli-core/function.hpp>
 
 #include <cmath>
 
-#include <calcli/core/error.hpp>
-#include <calcli/core/cmap.hpp>
+#include <calcli-core/error.hpp>
+#include <calcli-core/cmap.hpp>
 
 
 double calcli::apply_function(const std::string& str_function, double x)

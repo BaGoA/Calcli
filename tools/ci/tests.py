@@ -11,7 +11,8 @@ def setup(build_type):
     path_script = os.path.realpath(__file__)
     dir_script = os.path.dirname(path_script)
     
-    dir_project = os.path.dirname(dir_script)
+    dir_tools = os.path.dirname(dir_script)
+    dir_project = os.path.dirname(dir_tools)
 
     # Set binaries tests directory 
     dir_bin_tests = dir_project + "/bin/" + build_type + "/tests"
