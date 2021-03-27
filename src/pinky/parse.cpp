@@ -2,7 +2,7 @@
  * @file parse.cpp
  * @brief Parse functionnalities
  *
- * Calcli is a simple C++ command line calculator
+ * Pinky is a simple C++ command line calculator
  * Copyright (C) 2020-2021 Bastian Gonzalez Acevedo
 
  * This program is free software: you can redistribute it and/or modify
@@ -19,13 +19,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <calcli-processing/parse.hpp>
+#include <pinky/parse.hpp>
 
 #include <cctype>
 
-#include <calcli-core/error.hpp>
-#include <calcli-core/constant.hpp>
-#include <calcli-core/operator.hpp>
+#include <pinky/error.hpp>
+#include <pinky/constant.hpp>
+#include <pinky/operator.hpp>
 
 
 static inline bool is_digit(char c) { return std::isdigit(c) != 0; }
@@ -63,9 +63,9 @@ static std::string extract_name(std::string_view::iterator& it_char)
 }
 
 
-std::vector<calcli::token> calcli::tokenize(const std::string_view& expression)
+std::vector<pinky::token> pinky::tokenize(const std::string_view& expression)
 {
-	std::vector<calcli::token> tokens;
+	std::vector<pinky::token> tokens;
 	tokens.reserve(expression.size());
 
 	auto it_char = std::begin(expression);
@@ -74,31 +74,31 @@ std::vector<calcli::token> calcli::tokenize(const std::string_view& expression)
 	{
 		if(is_digit(*it_char))
 		{
-			tokens.push_back(calcli::token{calcli::token::Number, extract_number(it_char)});
+			tokens.push_back(pinky::token{pinky::token::Number, extract_number(it_char)});
 		}
-		else if(calcli::is_operator(*it_char))
+		else if(pinky::is_operator(*it_char))
 		{
-			const bool is_unary_operator = tokens.empty() || (tokens.back().type == calcli::token::Left_Parenthesis);	
-			const calcli::token::etype token_type = is_unary_operator ? calcli::token::Unary_Operator : calcli::token::Binary_Operator;
+			const bool is_unary_operator = tokens.empty() || (tokens.back().type == pinky::token::Left_Parenthesis);	
+			const pinky::token::etype token_type = is_unary_operator ? pinky::token::Unary_Operator : pinky::token::Binary_Operator;
 
-			tokens.push_back(calcli::token{token_type, std::string{*it_char}});
+			tokens.push_back(pinky::token{token_type, std::string{*it_char}});
 			++it_char;
 		}
 		else if(*it_char == '(')
 		{
-			tokens.push_back(calcli::token{calcli::token::Left_Parenthesis, std::string{*it_char}});
+			tokens.push_back(pinky::token{pinky::token::Left_Parenthesis, std::string{*it_char}});
 			++it_char;
 		}
 		else if(*it_char == ')')
 		{
-			tokens.push_back(calcli::token{calcli::token::Right_Parenthesis, std::string{*it_char}});
+			tokens.push_back(pinky::token{pinky::token::Right_Parenthesis, std::string{*it_char}});
 			++it_char;
 		}
 		else if(is_alpha(*it_char))
 		{
 			const std::string name = extract_name(it_char);
-			const calcli::token::etype token_type = calcli::is_constant(name) ? calcli::token::Constant : calcli::token::Function;
-			tokens.push_back(calcli::token{token_type, name});
+			const pinky::token::etype token_type = pinky::is_constant(name) ? pinky::token::Constant : pinky::token::Function;
+			tokens.push_back(pinky::token{token_type, name});
 		}
 		else
 		{
@@ -110,40 +110,40 @@ std::vector<calcli::token> calcli::tokenize(const std::string_view& expression)
 }
 
 
-static bool last_operator_is_primary(const calcli::token& last, const calcli::token& current)
+static bool last_operator_is_primary(const pinky::token& last, const pinky::token& current)
 {
-	if(last.type == calcli::token::Left_Parenthesis)
+	if(last.type == pinky::token::Left_Parenthesis)
 	{
 		return false;
 	}
 
-	const int last_precedence = calcli::precedence.at(last.value);
-	const int current_precedence = calcli::precedence.at(current.value);
+	const int last_precedence = pinky::precedence.at(last.value);
+	const int current_precedence = pinky::precedence.at(current.value);
 
 	const bool is_primary = (last_precedence > current_precedence);
-	const bool is_left_associativity = (last_precedence == current_precedence) && calcli::is_left_associative.at(current.value);
+	const bool is_left_associativity = (last_precedence == current_precedence) && pinky::is_left_associative.at(current.value);
 
-	return  is_primary || is_left_associativity || (last.type == calcli::token::Unary_Operator);
+	return  is_primary || is_left_associativity || (last.type == pinky::token::Unary_Operator);
 }
 
-std::vector<calcli::token> calcli::infix_to_postfix(const std::vector<calcli::token>& tokens)
+std::vector<pinky::token> pinky::infix_to_postfix(const std::vector<pinky::token>& tokens)
 {
-	std::vector<calcli::token> tokens_postfix;
+	std::vector<pinky::token> tokens_postfix;
 	tokens_postfix.reserve(tokens.size());
 
-	std::vector<calcli::token> stack_operator;
+	std::vector<pinky::token> stack_operator;
 	stack_operator.reserve(tokens.size());
 
-	for(const calcli::token& token : tokens)
+	for(const pinky::token& token : tokens)
 	{
 		switch(token.type)
 		{
-			case calcli::token::Number:
+			case pinky::token::Number:
 			{
 				tokens_postfix.push_back(token);
 				break;
 			}
-			case calcli::token::Binary_Operator:
+			case pinky::token::Binary_Operator:
 			{
 				// Pop stack operator according to last operators precedence
 				while(!stack_operator.empty() && last_operator_is_primary(stack_operator.back(), token))
@@ -155,20 +155,20 @@ std::vector<calcli::token> calcli::infix_to_postfix(const std::vector<calcli::to
 				stack_operator.push_back(token);
 				break;
 			}
-			case calcli::token::Unary_Operator:
+			case pinky::token::Unary_Operator:
 			{
 				stack_operator.push_back(token);
 				break;
 			}
-			case calcli::token::Left_Parenthesis:
+			case pinky::token::Left_Parenthesis:
 			{
 				stack_operator.push_back(token);
 				break;
 			}
-			case calcli::token::Right_Parenthesis:
+			case pinky::token::Right_Parenthesis:
 			{
 				// Pop stack operator between left and right parenthesis
-				while(!stack_operator.empty() && stack_operator.back().type != calcli::token::Left_Parenthesis)
+				while(!stack_operator.empty() && stack_operator.back().type != pinky::token::Left_Parenthesis)
 				{
 					tokens_postfix.push_back(stack_operator.back());
 					stack_operator.pop_back();
@@ -176,13 +176,13 @@ std::vector<calcli::token> calcli::infix_to_postfix(const std::vector<calcli::to
 
 				if(stack_operator.empty())
 				{
-					throw calcli::mismatched_parenthesis();
+					throw pinky::mismatched_parenthesis();
 				}
 
 				// Pop left parenthesis and function from stack operator
 				stack_operator.pop_back();
 					
-				if(!stack_operator.empty() && stack_operator.back().type == calcli::token::Function)
+				if(!stack_operator.empty() && stack_operator.back().type == pinky::token::Function)
 				{
 					tokens_postfix.push_back(stack_operator.back());
 					stack_operator.pop_back();
@@ -190,12 +190,12 @@ std::vector<calcli::token> calcli::infix_to_postfix(const std::vector<calcli::to
 
 				break;
 			}
-			case calcli::token::Function:
+			case pinky::token::Function:
 			{
 				stack_operator.push_back(token);
 				break;
 			}
-			case calcli::token::Constant:
+			case pinky::token::Constant:
 			{
 				tokens_postfix.push_back(token);
 				break;
@@ -210,13 +210,13 @@ std::vector<calcli::token> calcli::infix_to_postfix(const std::vector<calcli::to
 	// Push rest of operator. If stack operator contains left parenthesis, then there is an error
 	if(!stack_operator.empty())
 	{
-		const auto compare_token_type = [](const calcli::token& token) { return token.type == calcli::token::Left_Parenthesis; };
+		const auto compare_token_type = [](const pinky::token& token) { return token.type == pinky::token::Left_Parenthesis; };
 		const auto find_it = std::find_if(std::cbegin(stack_operator), std::cend(stack_operator), compare_token_type);
 		const bool contain_left_parenthesis = find_it != std::cend(stack_operator);
 
 		if(contain_left_parenthesis)
 		{
-			throw calcli::mismatched_parenthesis();
+			throw pinky::mismatched_parenthesis();
 		}
 
 		tokens_postfix.insert(std::cend(tokens_postfix), std::rbegin(stack_operator), std::rend(stack_operator));

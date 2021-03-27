@@ -2,7 +2,7 @@
 
 #include <vendor/catch2/catch.hpp>
 
-#include <calcli-core/operator.hpp>
+#include <pinky/operator.hpp>
 
 
 TEST_CASE("operator - binary operator plus", "[core]")
@@ -11,7 +11,7 @@ TEST_CASE("operator - binary operator plus", "[core]")
 	{
 		const double x = 2.0;
 		const double y = 3.0;
-		const double sum = calcli::binary_operation("+", x, y);
+		const double sum = pinky::binary_operation("+", x, y);
 		const double sum_ref = x + y;
 
 		REQUIRE(sum == Approx(sum_ref).epsilon(0.01));
@@ -28,7 +28,7 @@ TEST_CASE("operator - binary operator minus", "[core]")
 	{
 		const double x = 2.0;
 		const double y = 3.0;
-		const double diff = calcli::binary_operation("-", x, y);
+		const double diff = pinky::binary_operation("-", x, y);
 		const double diff_ref = x - y;
 
 		REQUIRE(diff == Approx(diff_ref).epsilon(0.01));
@@ -45,7 +45,7 @@ TEST_CASE("operator - binary operator product", "[core]")
 	{
 		const double x = 2.0;
 		const double y = 3.0;
-		const double prod = calcli::binary_operation("*", x, y);
+		const double prod = pinky::binary_operation("*", x, y);
 		const double prod_ref = x * y;
 
 		REQUIRE(prod == Approx(prod_ref).epsilon(0.01));
@@ -62,7 +62,7 @@ TEST_CASE("operator - binary operator divide", "[core]")
 	{
 		const double x = 2.0;
 		const double y = 3.0;
-		const double div = calcli::binary_operation("/", x, y);
+		const double div = pinky::binary_operation("/", x, y);
 		const double div_ref = x / y;
 
 		REQUIRE(div == Approx(div_ref).epsilon(0.01));
@@ -79,7 +79,7 @@ TEST_CASE("operator - binary operator divide by zero", "[core]")
 	{
 		const double x = 2.0;
 		const double y = 0.0;
-		const double div = calcli::binary_operation("/", x, y);
+		const double div = pinky::binary_operation("/", x, y);
 		const double div_ref = x / y;
 
 		REQUIRE(div == Approx(div_ref).epsilon(0.01));
@@ -98,7 +98,7 @@ TEST_CASE("operator - binary operator is not defined", "[core]")
 	{
 		const double x = 2.0;
 		const double y = 3.0;
-		const double div = calcli::binary_operation(".", x, y);
+		const double div = pinky::binary_operation(".", x, y);
 
 		REQUIRE(div == 3.0);
 	}
@@ -115,7 +115,7 @@ TEST_CASE("operator - unary operator plus", "[core]")
 	try
 	{
 		const double x = 2.0;
-		const double px = calcli::unary_operation("+", x);
+		const double px = pinky::unary_operation("+", x);
 
 		REQUIRE(px == Approx(x).epsilon(0.01));
 	}
@@ -130,7 +130,7 @@ TEST_CASE("operator - unary operator minus", "[core]")
 	try
 	{
 		const double x = 2.0;
-		const double mx = calcli::unary_operation("-", x);
+		const double mx = pinky::unary_operation("-", x);
 
 		REQUIRE(mx == Approx(-x).epsilon(0.01));
 	}
@@ -145,7 +145,7 @@ TEST_CASE("operator - unary operator is not defined", "[core]")
 	try
 	{
 		const double x = 2.0;
-		const double px = calcli::unary_operation("*", x);
+		const double px = pinky::unary_operation("*", x);
 
 		REQUIRE(px == 3.0);
 	}
@@ -159,14 +159,14 @@ TEST_CASE("operator - unary operator is not defined", "[core]")
 
 TEST_CASE("operator - is_operator must return true", "[core]")
 {
-	REQUIRE(calcli::is_operator('+'));
-	REQUIRE(calcli::is_operator('-'));
-	REQUIRE(calcli::is_operator('*'));
-	REQUIRE(calcli::is_operator('/'));
-	REQUIRE(calcli::is_operator('^'));
+	REQUIRE(pinky::is_operator('+'));
+	REQUIRE(pinky::is_operator('-'));
+	REQUIRE(pinky::is_operator('*'));
+	REQUIRE(pinky::is_operator('/'));
+	REQUIRE(pinky::is_operator('^'));
 }
 
 TEST_CASE("operator - is_operator must return false", "[core]")
 {
-	REQUIRE(!calcli::is_operator('.'));
+	REQUIRE(!pinky::is_operator('.'));
 }

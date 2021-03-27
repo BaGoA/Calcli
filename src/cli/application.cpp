@@ -1,8 +1,8 @@
 /**
  * @file application.cpp
- * @brief Calcli application
+ * @brief Pinky application
  *
- * Calcli is a simple C++ command line calculator
+ * Pinky is a simple C++ command line calculator
  * Copyright (C) 2020-2021 Bastian Gonzalez Acevedo
 
  * This program is free software: you can redistribute it and/or modify
@@ -19,33 +19,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <calcli-application/application.hpp>
+#include <cli/application.hpp>
 
 #include <iostream>
 #include <algorithm>
 #include <cstring>
 
-#include <calcli-processing/parse.hpp>
-#include <calcli-processing/evaluation.hpp>
+#include <pinky/parse.hpp>
+#include <pinky/evaluation.hpp>
 
 
-void calcli::application::print_header() const
+void pinky::application::print_header() const
 {
-	std::cout <<  "Calcli  Copyright (C) 2020 Bastian Gonzalez Acevedo\n"
+	std::cout <<  "Pinky  Copyright (C) 2020 Bastian Gonzalez Acevedo\n"
 		"This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.\n"
 		"This is free software, and you are welcome to redistribute it "
 		"under certain conditions; type `show c' for details.\n\n"
-		"If you want quit Calcli, enter quit.\n\n";
+		"If you want quit Pinky, enter quit.\n\n";
 }
 
-void calcli::application::run()
+void pinky::application::run()
 {
 	// Evaluation lambda
 	const auto evaluate = [](const std::string_view& expression) {
-		const std::vector<calcli::token> tokens = calcli::tokenize(expression);
-		const std::vector<calcli::token> postfix_tokens = calcli::infix_to_postfix(tokens);
+		const std::vector<pinky::token> tokens = pinky::tokenize(expression);
+		const std::vector<pinky::token> postfix_tokens = pinky::infix_to_postfix(tokens);
 
-		return calcli::postfix_evaluation(postfix_tokens);
+		return pinky::postfix_evaluation(postfix_tokens);
 	};
 
 	// Application core

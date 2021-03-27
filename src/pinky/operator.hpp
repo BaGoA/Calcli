@@ -2,7 +2,7 @@
  * @file operator.hpp
  * @brief Operator utilities
  *
- * Calcli is a simple C++ command line calculator
+ * Pinky is a simple C++ command line calculator
  * Copyright (C) 2020-2021 Bastian Gonzalez Acevedo
 
  * This program is free software: you can redistribute it and/or modify
@@ -23,12 +23,12 @@
 
 #include <string>
 
-#include <calcli-core/cmap.hpp>
+#include <pinky/cmap.hpp>
 
 
 using namespace std::literals::string_view_literals;
 
-namespace calcli
+namespace pinky
 {
 	/** @brief Number of operators */
 	constexpr std::size_t nb_operator = 5;
@@ -43,7 +43,7 @@ namespace calcli
 	};
 
 	/** @brief Association between operator and its precedence */
-	constexpr calcli::cmap<std::string_view, int, nb_operator> precedence{
+	constexpr pinky::cmap<std::string_view, int, nb_operator> precedence{
 		{{
 			{"+"sv, 2},
 			{"-"sv, 2},
@@ -54,7 +54,7 @@ namespace calcli
 	};
 
 	/** @brief Association between operator and boolean corresponding to left associativity */
-	constexpr calcli::cmap<std::string_view, bool, nb_operator> is_left_associative{
+	constexpr pinky::cmap<std::string_view, bool, nb_operator> is_left_associative{
 		{{
 			{"+"sv, true},
 			{"-"sv, true},

@@ -1,8 +1,8 @@
 /**
  * @file error.hpp
- * @brief Error occuring in Calcli
+ * @brief Error occuring in Pinky
  *
- * Calcli is a simple C++ command line calculator
+ * Pinky is a simple C++ command line calculator
  * Copyright (C) 2020-2021 Bastian Gonzalez Acevedo
 
  * This program is free software: you can redistribute it and/or modify
@@ -24,7 +24,7 @@
 #include <exception>
 
 
-namespace calcli
+namespace pinky
 {
 	/** @brief cmap access error */
 	struct key_does_not_exist : public std::exception

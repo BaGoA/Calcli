@@ -2,7 +2,7 @@
  * @file cmap.hpp
  * @brief Constexpr map
  *
- * Calcli is a simple C++ command line calculator
+ * Pinky is a simple C++ command line calculator
  * Copyright (C) 2020-2021 Bastian Gonzalez Acevedo
 
  * This program is free software: you can redistribute it and/or modify
@@ -25,10 +25,10 @@
 #include <utility>
 #include <algorithm>
 
-#include <calcli-core/error.hpp>
+#include <pinky/error.hpp>
 
 
-namespace calcli
+namespace pinky
 {
 	/**
 	 * @class cmap
@@ -51,7 +51,7 @@ namespace calcli
 
 			if(it_pair == std::cend(data))
 			{
-				throw calcli::key_does_not_exist();
+				throw pinky::key_does_not_exist();
 			}
 
 			return it_pair->second;

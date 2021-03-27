@@ -2,7 +2,7 @@
  * @file token.hpp
  * @brief Token data structure
  *
- * Calcli is a simple C++ command line calculator
+ * Pinky is a simple C++ command line calculator
  * Copyright (C) 2020-2021 Bastian Gonzalez Acevedo
 
  * This program is free software: you can redistribute it and/or modify
@@ -24,7 +24,7 @@
 #include <string>
 
 
-namespace calcli
+namespace pinky
 {
 	/** @brief Token structure */
 	struct token

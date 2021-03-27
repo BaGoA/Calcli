@@ -16,12 +16,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <calcli-application/application.hpp>
+#include <cli/application.hpp>
 
 
 int main() 
 {
-	calcli::application app;
+	pinky::application app;
 
 	app.print_header();
 	app.run();

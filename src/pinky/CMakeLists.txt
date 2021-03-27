@@ -1,17 +1,25 @@
 # Lists of hearders and sources
-set(calcli-processing-headers
+set(pinky-headers
+	cmap.hpp
+	constant.hpp
+	error.hpp
+	function.hpp
+	operator.hpp
+	token.hpp
 	parse.hpp
 	evaluation.hpp
 )
 
-set(calcli-processing-sources
+set(pinky-sources
+	function.cpp
+	operator.cpp
 	parse.cpp
 	evaluation.cpp
 )
 
 # Library compilation
-set(lib_name calcli-processing)
-add_library(${lib_name} STATIC ${calci-processing-hearders} ${calcli-processing-sources})
+set(lib_name pinky)
+add_library(${lib_name} STATIC ${pinky-hearders} ${pinky-sources})
 
 target_include_directories(${lib_name} PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
@@ -25,10 +33,6 @@ target_compile_options(${lib_name} PRIVATE
 
 include(${CMAKE_SOURCE_DIR}/tools/cmake/OutputDirectories.cmake)
 make_lib_directory(lib_directory)
-
-target_link_libraries(${lib_name}
-	${lib_directory}/libcalcli-core.a
-)
 
 set_target_properties(${lib_name} PROPERTIES 
 	LINKER_LANGUAGE CXX

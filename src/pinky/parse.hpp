@@ -2,7 +2,7 @@
  * @file parse.hpp
  * @brief Parse functionnalities
  *
- * Calcli is a simple C++ command line calculator
+ * Pinky is a simple C++ command line calculator
  * Copyright (C) 2020-2021 Bastian Gonzalez Acevedo
 
  * This program is free software: you can redistribute it and/or modify
@@ -24,17 +24,17 @@
 #include <string_view>
 #include <vector>
 
-#include <calcli-core/token.hpp>
+#include <pinky/token.hpp>
 
 
-namespace calcli
+namespace pinky
 {
 	/**
 	 * @brief Tokenization of expression given in argument
 	 * @param expression string_view containing expression to evaluate
 	 * @return Vector of tokens
 	 */
-	std::vector<calcli::token> tokenize(const std::string_view& expression);
+	std::vector<pinky::token> tokenize(const std::string_view& expression);
 
 	/**
 	 * @brief Convert vector of tokens which represent infix expression into 
@@ -44,5 +44,5 @@ namespace calcli
 	 * @param tokens Vector of token corresponding to infix expression
 	 * @return Vector of token which represent postfix expression
 	 */
-	std::vector<calcli::token> infix_to_postfix(const std::vector<calcli::token>& tokens);
+	std::vector<pinky::token> infix_to_postfix(const std::vector<pinky::token>& tokens);
 }

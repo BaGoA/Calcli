@@ -2,7 +2,7 @@
  * @file operator.cpp
  * @brief Operator utilities
  *
- * Calcli is a simple C++ command line calculator
+ * Pinky is a simple C++ command line calculator
  * Copyright (C) 2020-2021 Bastian Gonzalez Acevedo
 
  * This program is free software: you can redistribute it and/or modify
@@ -19,14 +19,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <calcli-core/operator.hpp>
+#include <pinky/operator.hpp>
 
 #include <cmath>
 
-#include <calcli-core/error.hpp>
+#include <pinky/error.hpp>
 
 
-double calcli::binary_operation(const std::string& str_operator, double left_operand, double right_operand)
+double pinky::binary_operation(const std::string& str_operator, double left_operand, double right_operand)
 {
 	if(str_operator == "+") 
 	{ 
@@ -44,7 +44,7 @@ double calcli::binary_operation(const std::string& str_operator, double left_ope
 	{ 
 		if(right_operand == 0.0)
 		{
-			throw calcli::division_by_zero();
+			throw pinky::division_by_zero();
 		}
 
 		return left_operand / right_operand; 
@@ -55,11 +55,11 @@ double calcli::binary_operation(const std::string& str_operator, double left_ope
 	}
 	else 
 	{ 
-		throw calcli::binary_operator_is_not_defined(); 
+		throw pinky::binary_operator_is_not_defined(); 
 	}
 }
 
-double calcli::unary_operation(const std::string& str_operator, double operand)
+double pinky::unary_operation(const std::string& str_operator, double operand)
 {
 	if(str_operator == "+") 
 	{ 
@@ -71,6 +71,6 @@ double calcli::unary_operation(const std::string& str_operator, double operand)
 	}
 	else 
 	{ 
-		throw calcli::unary_operator_is_not_defined(); 
+		throw pinky::unary_operator_is_not_defined(); 
 	}
 }

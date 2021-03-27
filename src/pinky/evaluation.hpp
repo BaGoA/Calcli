@@ -2,7 +2,7 @@
  * @file evaluation.hpp
  * @brief Evaluation functionnalities
  *
- * Calcli is a simple C++ command line calculator
+ * Pinky is a simple C++ command line calculator
  * Copyright (C) 2020-2021 Bastian Gonzalez Acevedo
 
  * This program is free software: you can redistribute it and/or modify
@@ -23,10 +23,10 @@
 
 #include <vector>
 
-#include <calcli-core/token.hpp>
+#include <pinky/token.hpp>
 
 
-namespace calcli
+namespace pinky
 {
 	/**
 	 * @brief Evaluation of postfix expression
@@ -39,5 +39,5 @@ namespace calcli
 	 * @param tokens Vector of token corresponding to postfix expression
 	 * @return Value of expression
 	 */
-	double postfix_evaluation(const std::vector<calcli::token>& tokens);
+	double postfix_evaluation(const std::vector<pinky::token>& tokens);
 }

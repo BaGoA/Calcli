@@ -2,7 +2,7 @@
  * @file constant.hpp
  * @brief Mathematical constants
  *
- * Calcli is a simple C++ command line calculator
+ * Pinky is a simple C++ command line calculator
  * Copyright (C) 2020-2021 Bastian Gonzalez Acevedo
 
  * This program is free software: you can redistribute it and/or modify
@@ -21,12 +21,12 @@
 
 #pragma once
 
-#include <calcli-core/cmap.hpp>
+#include <pinky/cmap.hpp>
 
 
 using namespace std::literals::string_view_literals;
 
-namespace calcli
+namespace pinky
 {
 	/** @brief Number of constant */
 	constexpr std::size_t nb_constant = 3;
@@ -39,7 +39,7 @@ namespace calcli
 	};
 
 	/** @brief Association between mathematical constant string and its value */
-	constexpr calcli::cmap<std::string_view, double, nb_constant> constant{
+	constexpr pinky::cmap<std::string_view, double, nb_constant> constant{
 		{{
 			{"pi"sv, 3.14159265358979323846},
 			{"e"sv, 2.71828182845904523536},

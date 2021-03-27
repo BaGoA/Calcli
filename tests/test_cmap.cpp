@@ -1,11 +1,11 @@
 #include <vendor/catch2/catch.hpp>
 
-#include <calcli-core/cmap.hpp>
+#include <pinky/cmap.hpp>
 
 
 TEST_CASE("cmap - access to key which does not exist", "[core]")
 {
-	constexpr calcli::cmap<char, int, 3> map{
+	constexpr pinky::cmap<char, int, 3> map{
 		{{
 			 {'a', 1},
 			 {'b', 2},
@@ -29,7 +29,7 @@ TEST_CASE("cmap - access to key which does not exist", "[core]")
 
 TEST_CASE("cmap - access to key which exist", "[core]")
 {
-	constexpr calcli::cmap<char, int, 3> map{
+	constexpr pinky::cmap<char, int, 3> map{
 		{{
 			 {'a', 1},
 			 {'b', 2},

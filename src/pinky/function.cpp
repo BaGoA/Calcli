@@ -2,7 +2,7 @@
  * @file function.cpp
  * @brief Function utilities
  *
- * Calcli is a simple C++ command line calculator
+ * Pinky is a simple C++ command line calculator
  * Copyright (C) 2020-2021 Bastian Gonzalez Acevedo
 
  * This program is free software: you can redistribute it and/or modify
@@ -19,15 +19,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <calcli-core/function.hpp>
+#include <pinky/function.hpp>
 
 #include <cmath>
 
-#include <calcli-core/error.hpp>
-#include <calcli-core/cmap.hpp>
+#include <pinky/error.hpp>
+#include <pinky/cmap.hpp>
 
 
-double calcli::apply_function(const std::string& str_function, double x)
+double pinky::apply_function(const std::string& str_function, double x)
 {
 	if(str_function == "abs") { return std::abs(x); }
 	else if(str_function == "sqrt") { return std::sqrt(x); }
@@ -48,5 +48,5 @@ double calcli::apply_function(const std::string& str_function, double x)
 	else if(str_function == "asinh") { return std::asinh(x); }
 	else if(str_function == "acosh") { return std::acosh(x); }
 	else if(str_function == "atanh") { return std::atanh(x); }
-	else { throw calcli::function_is_not_defined(); }
+	else { throw pinky::function_is_not_defined(); }
 }
