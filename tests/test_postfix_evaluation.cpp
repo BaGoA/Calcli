@@ -1,8 +1,8 @@
 #include <cmath>
 
-#include <vendor/catch2/catch.hpp>
+#include "catch2/catch.hpp"
 
-#include <pinky/evaluation.hpp>
+#include "pinky/evaluation.hpp"
 
 
 TEST_CASE("postfix_evaluation - operation between two numbers", "[processing]")

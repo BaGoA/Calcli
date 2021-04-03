@@ -19,11 +19,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <pinky/operator.hpp>
+#include "operator.hpp"
 
 #include <cmath>
 
-#include <pinky/error.hpp>
+#include "error.hpp"
 
 
 double pinky::binary_operation(const std::string& str_operator, double left_operand, double right_operand)

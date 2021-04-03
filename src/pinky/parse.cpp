@@ -19,13 +19,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <pinky/parse.hpp>
+#include "parse.hpp"
 
 #include <cctype>
 
-#include <pinky/error.hpp>
-#include <pinky/constant.hpp>
-#include <pinky/operator.hpp>
+#include "error.hpp"
+#include "constant.hpp"
+#include "operator.hpp"
 
 
 static inline bool is_digit(char c) { return std::isdigit(c) != 0; }

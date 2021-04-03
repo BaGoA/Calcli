@@ -13,7 +13,7 @@ set(test_pinky_sources
 add_executable(${test_pinky_exe} ${test_pinky_sources})
 
 target_include_directories(${test_pinky_exe} PRIVATE 
-	${CMAKE_SOURCE_DIR}
+	${CMAKE_SOURCE_DIR}/vendor
 	${CMAKE_SOURCE_DIR}/src
 )
 

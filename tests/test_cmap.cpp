@@ -1,6 +1,6 @@
-#include <vendor/catch2/catch.hpp>
+#include "catch2/catch.hpp"
 
-#include <pinky/cmap.hpp>
+#include "pinky/cmap.hpp"
 
 
 TEST_CASE("cmap - access to key which does not exist", "[core]")

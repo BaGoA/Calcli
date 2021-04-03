@@ -23,7 +23,7 @@
 
 #include <vector>
 
-#include <pinky/token.hpp>
+#include "token.hpp"
 
 
 namespace pinky

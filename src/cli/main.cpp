@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <cli/application.hpp>
+#include "application.hpp"
 
 
 int main() 

@@ -1,8 +1,8 @@
 #include <cmath>
 
-#include <vendor/catch2/catch.hpp>
+#include "catch2/catch.hpp"
 
-#include <pinky/function.hpp>
+#include "pinky/function.hpp"
 
 
 TEST_CASE("function - apply abs", "[core]")
