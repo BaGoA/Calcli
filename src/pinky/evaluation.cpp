@@ -19,11 +19,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <pinky/evaluation.hpp>
+#include "evaluation.hpp"
 
-#include <pinky/constant.hpp>
-#include <pinky/operator.hpp>
-#include <pinky/function.hpp>
+#include "constant.hpp"
+#include "operator.hpp"
+#include "function.hpp"
 
 
 double pinky::postfix_evaluation(const std::vector<pinky::token>& tokens)

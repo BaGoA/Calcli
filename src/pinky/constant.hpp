@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <pinky/cmap.hpp>
+#include "cmap.hpp"
 
 
 using namespace std::literals::string_view_literals;

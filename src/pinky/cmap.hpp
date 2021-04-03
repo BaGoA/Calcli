@@ -25,7 +25,7 @@
 #include <utility>
 #include <algorithm>
 
-#include <pinky/error.hpp>
+#include "error.hpp"
 
 
 namespace pinky

@@ -19,12 +19,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <pinky/function.hpp>
+#include "function.hpp"
 
 #include <cmath>
 
-#include <pinky/error.hpp>
-#include <pinky/cmap.hpp>
+#include "error.hpp"
+#include "cmap.hpp"
 
 
 double pinky::apply_function(const std::string& str_function, double x)

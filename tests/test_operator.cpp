@@ -1,8 +1,8 @@
 #include <cmath>
 
-#include <vendor/catch2/catch.hpp>
+#include "catch2/catch.hpp"
 
-#include <pinky/operator.hpp>
+#include "pinky/operator.hpp"
 
 
 TEST_CASE("operator - binary operator plus", "[core]")

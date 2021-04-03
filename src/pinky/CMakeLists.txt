@@ -21,8 +21,6 @@ set(pinky-sources
 set(lib_name pinky)
 add_library(${lib_name} STATIC ${pinky-hearders} ${pinky-sources})
 
-target_include_directories(${lib_name} PRIVATE ${CMAKE_SOURCE_DIR}/src)
-
 target_compile_features(${lib_name} PRIVATE cxx_std_20)
 
 target_compile_options(${lib_name} PRIVATE 

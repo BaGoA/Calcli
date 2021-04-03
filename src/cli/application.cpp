@@ -19,14 +19,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <cli/application.hpp>
+#include "application.hpp"
 
 #include <iostream>
 #include <algorithm>
 #include <cstring>
 
-#include <pinky/parse.hpp>
-#include <pinky/evaluation.hpp>
+#include "pinky/parse.hpp"
+#include "pinky/evaluation.hpp"
 
 
 void pinky::application::print_header() const
