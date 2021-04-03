@@ -23,11 +23,8 @@ add_library(${lib_name} STATIC ${pinky-hearders} ${pinky-sources})
 
 target_compile_features(${lib_name} PRIVATE cxx_std_20)
 
-target_compile_options(${lib_name} PRIVATE 
-	"-Wall"
-	"-Wextra"
-	"-pedantic"
-)
+include(${CMAKE_SOURCE_DIR}/tools/cmake/CompilerWarnings.cmake)
+set_project_warnings(${lib_name})
 
 include(${CMAKE_SOURCE_DIR}/tools/cmake/OutputDirectories.cmake)
 make_lib_directory(lib_directory)

@@ -19,11 +19,8 @@ target_include_directories(${test_pinky_exe} PRIVATE
 
 target_compile_features(${test_pinky_exe} PRIVATE cxx_std_20)
 
-target_compile_options(${test_pinky_exe} PRIVATE 
-	"-Wall"
-	"-Wextra"
-	"-pedantic"
-)
+include(${CMAKE_SOURCE_DIR}/tools/cmake/CompilerWarnings.cmake)
+set_project_warnings(${test_pinky_exe})
 
 include(${CMAKE_SOURCE_DIR}/tools/cmake/OutputDirectories.cmake)
 make_lib_directory(lib_directory)

@@ -52,7 +52,7 @@ void pinky::application::run()
 	while(true)
 	{
 		std::cout << ">>> ";
-		std::cin.getline(m_buffer.data(), m_buffer.size());
+		std::cin.getline(m_buffer.data(), static_cast<std::streamsize>(m_buffer.size()));
 
 		const std::string_view expression(m_buffer.data(), std::strlen(m_buffer.c_str()));
 
