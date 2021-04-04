@@ -7,7 +7,7 @@ import subprocess
 import argparse
 
 
-def setup(build_type):
+def setup(build_type, compiler_option):
     # Set project directory
     path_script = os.path.realpath(__file__)
     dir_script = os.path.dirname(path_script)
@@ -24,23 +24,50 @@ def setup(build_type):
     # Create build directory according to build type if necessary
     dir_build = base_dir_build
 
-    if build_type == "debug":
-        build_type = "debug"
-        dir_build += "/debug"
-    elif build_type == "release":
-        build_type = "release"
-        dir_build += "/release"
+    if compiler_option == "gcc":
+        compiler = "gcc"
+
+        if build_type == "debug":
+            build_type = "debug"
+            dir_build += "/debug-gcc"
+        elif build_type == "release":
+            build_type = "release"
+            dir_build += "/release-gcc"
+        else:
+            build_type = "debug"
+            dir_build += "/debug-gcc"
+    elif compiler_option == "clang":
+        compiler = "clang"
+
+        if build_type == "debug":
+            build_type = "debug"
+            dir_build += "/debug-clang"
+        elif build_type == "release":
+            build_type = "release"
+            dir_build += "/release-clang"
+        else:
+            build_type = "debug"
+            dir_build += "/debug-gcc"
     else:
-        build_type = "debug"
-        dir_build += "/debug"
+        compiler = ""
+
+        if build_type == "debug":
+            build_type = "debug"
+            dir_build += "/debug"
+        elif build_type == "release":
+            build_type = "release"
+            dir_build += "/release"
+        else:
+            build_type = "debug"
+            dir_build += "/debug"
 
     if not os.path.exists(dir_build):
         os.mkdir(dir_build)
 
-    return build_type, dir_build, dir_project
+    return build_type, compiler, dir_build, dir_project
 
 
-def build(build_type, dir_build, dir_project):
+def build(build_type, compiler, dir_build, dir_project):
     str_error = "No Error"
 
     # Create cmake command line according to build type and platform
@@ -51,7 +78,12 @@ def build(build_type, dir_build, dir_project):
     else:
         cmake_command.append("CMAKE_BUILD_TYPE=Release")
 
-    cmake_command.append("-DCMAKE_EXPORT_COMPILE_COMMANDS=ON")  # create json file for cppcheck static analysis 
+    if compiler == "clang":
+        cmake_command.append("-DCMAKE_CXX_COMPILER=clang++")
+        cmake_command.append("-DCMAKE_C_COMPILER=clang")
+    elif compiler == "gcc":
+        cmake_command.append("-DCMAKE_CXX_COMPILER=g++")
+        cmake_command.append("-DCMAKE_C_COMPILER=gcc")
 
     cmake_command.append("-G")
 
@@ -84,8 +116,9 @@ def build(build_type, dir_build, dir_project):
 
 def main(argv):
     # Initialization of arguments parser
-    parser = argparse.ArgumentParser(description="Build of Calcli project")
-    parser.add_argument("-t", "--type", default="", help="Build project according to build type (debug or release)")
+    parser = argparse.ArgumentParser(description="Build of Pinky project")
+    parser.add_argument("-t", "--type", default="", help="Build type (debug or release)")
+    parser.add_argument("-c", "--compiler", default="", help="Compiler identifier (gcc or clang)")
 
     # Check if list of argument is not empty
     if len(argv) == 0:
@@ -98,15 +131,17 @@ def main(argv):
     type_option = arguments.type
 
     if type_option != "debug" and type_option != "release":
-        print("type cause")
+        print("Unknown build type")
         parser.print_help()
         sys.exit(-1)
 
+    compiler_option = arguments.compiler
+
     # Recovery build information
-    build_type, dir_build, dir_project = setup(type_option)
+    build_type, compiler, dir_build, dir_project = setup(type_option, compiler_option)
 
     # Build project
-    str_error = build(build_type, dir_build, dir_project)
+    str_error = build(build_type, compiler, dir_build, dir_project)
 
     if str_error != "No Error":
         print(str_error)
