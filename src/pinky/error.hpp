@@ -29,7 +29,7 @@ namespace pinky
 	/** @brief cmap access error */
 	struct key_does_not_exist : public std::exception
 	{
-		const char* what() const noexcept override
+		[[nodiscard]] const char* what() const noexcept override
 		{
 			return "cmap access error, the key does not exist";
 		}
@@ -38,7 +38,7 @@ namespace pinky
 	/** @brief Division by zero */
 	struct division_by_zero : public std::exception
 	{
-		const char* what() const noexcept override
+		[[nodiscard]] const char* what() const noexcept override
 		{
 			return "division by zero";
 		}
@@ -47,7 +47,7 @@ namespace pinky
 	/** @brief Binary operator is not defined */
 	struct binary_operator_is_not_defined : public std::exception
 	{
-		const char* what() const noexcept override
+		[[nodiscard]] const char* what() const noexcept override
 		{
 			return "binary operator is not defined";
 		}
@@ -56,7 +56,7 @@ namespace pinky
 	/** @brief Unary operator is not defined */
 	struct unary_operator_is_not_defined : public std::exception
 	{
-		const char* what() const noexcept override
+		[[nodiscard]] const char* what() const noexcept override
 		{
 			return "unary operator is not defined";
 		}
@@ -65,7 +65,7 @@ namespace pinky
 	/** @brief Function is not defined */
 	struct function_is_not_defined : public std::exception
 	{
-		const char* what() const noexcept override
+		[[nodiscard]] const char* what() const noexcept override
 		{
 			return "function is not defined";
 		}
@@ -74,7 +74,7 @@ namespace pinky
 	/** @brief Mismatched parenthesis error */
 	struct mismatched_parenthesis : public std::exception
 	{
-		const char* what() const noexcept override
+		[[nodiscard]] const char* what() const noexcept override
 		{
 			return "there are mismatched parenthesis in your expression";
 		}

@@ -32,12 +32,13 @@ namespace pinky
 	{
 	public:
 		/** @brief Print application header */
-		void print_header() const;
+		static void print_header();
 
 		/** @brief Run of application */
 		void run();
 
 	private:
-		std::string m_buffer = std::string(1024, '\0');		/**< String buffer containing succesive expression given by user */
+		static constexpr unsigned int m_buffer_size{1024};
+		std::string m_buffer = std::string(m_buffer_size, '\0');		/**< String buffer containing succesive expression given by user */
 	};
 }

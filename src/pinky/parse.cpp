@@ -34,10 +34,12 @@ static inline bool is_alpha(char c) { return std::isalpha(c) != 0; }
 
 static inline bool is_not_end_expression(char c) { return c != '\0'; }
 
-static std::string extract_number(std::string_view::iterator& it_char)
+static std::string extract_number(std::string_view::const_iterator& it_char)
 {
+	constexpr std::size_t reserved_size = 21;
+
 	std::string value;
-	value.reserve(21);
+	value.reserve(reserved_size);
 
 	while(is_not_end_expression(*it_char) && (is_digit(*it_char) || *it_char == '.'))
 	{
@@ -48,10 +50,12 @@ static std::string extract_number(std::string_view::iterator& it_char)
 	return value;
 }
 
-static std::string extract_name(std::string_view::iterator& it_char)
+static std::string extract_name(std::string_view::const_iterator& it_char)
 {
+	constexpr std::size_t reserved_size = 10;
+
 	std::string value;
-	value.reserve(10);
+	value.reserve(reserved_size);
 
 	while(is_not_end_expression(*it_char) && is_alpha(*it_char))
 	{
@@ -68,9 +72,9 @@ std::vector<pinky::token> pinky::tokenize(const std::string_view& expression)
 	std::vector<pinky::token> tokens;
 	tokens.reserve(expression.size());
 
-	auto it_char = std::begin(expression);
+	std::string_view::const_iterator it_char = std::cbegin(expression);
 
-	while(it_char != std::end(expression))
+	while(it_char != std::cend(expression))
 	{
 		if(is_digit(*it_char))
 		{
@@ -139,6 +143,7 @@ std::vector<pinky::token> pinky::infix_to_postfix(const std::vector<pinky::token
 		switch(token.type)
 		{
 			case pinky::token::Number:
+			case pinky::token::Constant:
 			{
 				tokens_postfix.push_back(token);
 				break;
@@ -156,10 +161,7 @@ std::vector<pinky::token> pinky::infix_to_postfix(const std::vector<pinky::token
 				break;
 			}
 			case pinky::token::Unary_Operator:
-			{
-				stack_operator.push_back(token);
-				break;
-			}
+			case pinky::token::Function:
 			case pinky::token::Left_Parenthesis:
 			{
 				stack_operator.push_back(token);
@@ -188,16 +190,6 @@ std::vector<pinky::token> pinky::infix_to_postfix(const std::vector<pinky::token
 					stack_operator.pop_back();
 				}
 
-				break;
-			}
-			case pinky::token::Function:
-			{
-				stack_operator.push_back(token);
-				break;
-			}
-			case pinky::token::Constant:
-			{
-				tokens_postfix.push_back(token);
 				break;
 			}
 			default:
