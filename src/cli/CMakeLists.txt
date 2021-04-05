@@ -8,6 +8,9 @@ set(pinky-sources
 	main.cpp
 )
 
+# Static analysis activation with clang-tidy
+include(${CMAKE_SOURCE_DIR}/tools/cmake/StaticAnalyzers.cmake)
+
 # Executable compilation
 set(exe_name pinky-cli)
 add_executable(${exe_name} ${pinky-hearders} ${pinky-sources})

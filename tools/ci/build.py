@@ -40,7 +40,7 @@ def setup(build_type):
     return build_type, dir_build, dir_project
 
 
-def build(build_type, dir_build, dir_project):
+def build(build_type, enable_analyzer, dir_build, dir_project):
     str_error = "No Error"
 
     # Create cmake command line according to build type and platform
@@ -51,7 +51,10 @@ def build(build_type, dir_build, dir_project):
     else:
         cmake_command.append("CMAKE_BUILD_TYPE=Release")
 
-    cmake_command.append("-DCMAKE_EXPORT_COMPILE_COMMANDS=ON")  # create json file for cppcheck static analysis 
+    if enable_analyzer:
+        cmake_command.append("-DENABLE_ANALYZER=True")
+    else:
+        cmake_command.append("-DENABLE_ANALYZER=False")
 
     cmake_command.append("-G")
 
@@ -86,6 +89,7 @@ def main(argv):
     # Initialization of arguments parser
     parser = argparse.ArgumentParser(description="Build of Calcli project")
     parser.add_argument("-t", "--type", default="", help="Build project according to build type (debug or release)")
+    parser.add_argument("-a", "--analyze", action="store_true", help="Build project according to build type (debug or release)")
 
     # Check if list of argument is not empty
     if len(argv) == 0:
@@ -106,7 +110,8 @@ def main(argv):
     build_type, dir_build, dir_project = setup(type_option)
 
     # Build project
-    str_error = build(build_type, dir_build, dir_project)
+    enable_analyzer = arguments.analyze
+    str_error = build(build_type, enable_analyzer, dir_build, dir_project)
 
     if str_error != "No Error":
         print(str_error)

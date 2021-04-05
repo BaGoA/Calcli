@@ -29,24 +29,28 @@
 
 double pinky::apply_function(const std::string& str_function, double x)
 {
-	if(str_function == "abs") { return std::abs(x); }
-	else if(str_function == "sqrt") { return std::sqrt(x); }
-	else if(str_function == "cbrt") { return std::cbrt(x); }
-	else if(str_function == "exp") { return std::exp(x); }
-	else if(str_function == "log") { return std::log(x); }
-	else if(str_function == "logten") { return std::log10(x); }
-	else if(str_function == "logtwo") { return std::log2(x); }
-	else if(str_function == "sin") { return std::sin(x); }
-	else if(str_function == "cos") { return std::cos(x); }
-	else if(str_function == "tan") { return std::tan(x); }
-	else if(str_function == "asin") { return std::asin(x); }
-	else if(str_function == "acos") { return std::acos(x); }
-	else if(str_function == "atan") { return std::atan(x); }
-	else if(str_function == "sinh") { return std::sinh(x); }
-	else if(str_function == "cosh") { return std::cosh(x); }
-	else if(str_function == "tanh") { return std::tanh(x); }
-	else if(str_function == "asinh") { return std::asinh(x); }
-	else if(str_function == "acosh") { return std::acosh(x); }
-	else if(str_function == "atanh") { return std::atanh(x); }
+	double result{0.0};
+
+	if(str_function == "abs") { result = std::abs(x); }
+	else if(str_function == "sqrt") { result = std::sqrt(x); }
+	else if(str_function == "cbrt") { result = std::cbrt(x); }
+	else if(str_function == "exp") { result = std::exp(x); }
+	else if(str_function == "log") { result = std::log(x); }
+	else if(str_function == "logten") { result = std::log10(x); }
+	else if(str_function == "logtwo") { result = std::log2(x); }
+	else if(str_function == "sin") { result = std::sin(x); }
+	else if(str_function == "cos") { result = std::cos(x); }
+	else if(str_function == "tan") { result = std::tan(x); }
+	else if(str_function == "asin") { result = std::asin(x); }
+	else if(str_function == "acos") { result = std::acos(x); }
+	else if(str_function == "atan") { result = std::atan(x); }
+	else if(str_function == "sinh") { result = std::sinh(x); }
+	else if(str_function == "cosh") { result = std::cosh(x); }
+	else if(str_function == "tanh") { result = std::tanh(x); }
+	else if(str_function == "asinh") { result = std::asinh(x); }
+	else if(str_function == "acosh") { result = std::acosh(x); }
+	else if(str_function == "atanh") { result = std::atanh(x); }
 	else { throw pinky::function_is_not_defined(); }
+
+	return result;
 }

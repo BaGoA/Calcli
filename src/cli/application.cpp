@@ -29,7 +29,7 @@
 #include "pinky/evaluation.hpp"
 
 
-void pinky::application::print_header() const
+void pinky::application::print_header()
 {
 	std::cout <<  "Pinky  Copyright (C) 2020 Bastian Gonzalez Acevedo\n"
 		"This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.\n"
@@ -48,7 +48,6 @@ void pinky::application::run()
 		return pinky::postfix_evaluation(postfix_tokens);
 	};
 
-	// Application core
 	while(true)
 	{
 		std::cout << ">>> ";
@@ -60,23 +59,21 @@ void pinky::application::run()
 		{
 			continue;
 		}
-		else if(expression == "quit")
-		{
-			break;
-		}
-		else
-		{
-			try
-			{
-				const double result = evaluate(expression);
-				std::cout << result << "\n";
-			}
-			catch(const std::exception& error)
-			{
-				std::cout << "Error: " << error.what() << "\n";
-			}
 
-			std::fill(std::begin(m_buffer), std::end(m_buffer), '\0');
+		if(expression == "quit")
+		{
+			break;	// quit the application
 		}
+
+		try
+		{
+			std::cout << evaluate(expression) << "\n";
+		}
+		catch(const std::exception& error)
+		{
+			std::cout << "Error: " << error.what() << "\n";
+		}
+
+		std::fill(std::begin(m_buffer), std::end(m_buffer), '\0');
 	}
 }

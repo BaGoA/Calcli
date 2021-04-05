@@ -28,8 +28,10 @@
 
 double pinky::postfix_evaluation(const std::vector<pinky::token>& tokens)
 {
+	constexpr unsigned int stack_reserved_size = 10;
+
 	std::vector<double> stack_operand;
-	stack_operand.reserve(10);
+	stack_operand.reserve(stack_reserved_size);
 
 	for(const pinky::token& token : tokens)
 	{
