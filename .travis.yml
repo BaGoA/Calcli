@@ -16,8 +16,7 @@ matrix:
             - python3
             - ninja-build
       env:
-        - MATRIX_EVAL="CC=gcc-10 && CXX=g++-10"
-        - COMPILER=gcc
+        - MATRIX_EVAL="CC=gcc-10 && CXX=g++-10 && COMPILER=gcc"
 
     # Compilation with clang
     - os: linux
@@ -31,8 +30,7 @@ matrix:
             - python3
             - ninja-build
       env:
-        - MATRIX_EVAL="CC=clang-10 && CXX=clang++-10"
-        - COMPILER=clang
+        - MATRIX_EVAL="CC=clang-10 && CXX=clang++-10 && COMPILER=clang"
 
 before_install:
   - eval "${MATRIX_EVAL}"
