@@ -1,4 +1,4 @@
-dist: focal 
+dist: bionic 
 
 language: cpp
 
@@ -12,6 +12,7 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-10
+            - llvm10
             - clang++-10
             - python3
             - ninja-build
@@ -26,6 +27,7 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-10
+            - llvm10
             - clang++-10
             - python3
             - ninja-build
