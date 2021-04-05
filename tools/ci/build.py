@@ -67,7 +67,7 @@ def setup(build_type, compiler_option):
     return build_type, compiler, dir_build, dir_project
 
 
-def build(build_type, compiler, dir_build, dir_project):
+def build(build_type, compiler, enable_analyzer, dir_build, dir_project):
     str_error = "No Error"
 
     # Create cmake command line according to build type and platform
@@ -84,6 +84,11 @@ def build(build_type, compiler, dir_build, dir_project):
     elif compiler == "gcc":
         cmake_command.append("-DCMAKE_CXX_COMPILER=g++")
         cmake_command.append("-DCMAKE_C_COMPILER=gcc")
+
+    if enable_analyzer:
+        cmake_command.append("-DENABLE_CLANG_TIDY=true")
+    else:
+        cmake_command.append("-DENABLE_CLANG_TIDY=false")
 
     cmake_command.append("-G")
 
@@ -119,6 +124,7 @@ def main(argv):
     parser = argparse.ArgumentParser(description="Build of Pinky project")
     parser.add_argument("-t", "--type", default="", help="Build type (debug or release)")
     parser.add_argument("-c", "--compiler", default="", help="Compiler identifier (gcc or clang)")
+    parser.add_argument("-a", "--analyze", action="store_true", help="Enable clang-tidy analysis")
 
     # Check if list of argument is not empty
     if len(argv) == 0:
@@ -136,12 +142,13 @@ def main(argv):
         sys.exit(-1)
 
     compiler_option = arguments.compiler
+    enable_analyzer = arguments.analyze
 
     # Recovery build information
     build_type, compiler, dir_build, dir_project = setup(type_option, compiler_option)
 
     # Build project
-    str_error = build(build_type, compiler, dir_build, dir_project)
+    str_error = build(build_type, compiler, enable_analyzer, dir_build, dir_project)
 
     if str_error != "No Error":
         print(str_error)
