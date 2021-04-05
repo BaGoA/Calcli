@@ -17,6 +17,7 @@ matrix:
             - ninja-build
       env:
         - MATRIX_EVAL="CC=gcc-10 && CXX=g++-10"
+        - COMPILER=gcc
 
     # Compilation with clang
     - os: linux
@@ -31,6 +32,7 @@ matrix:
             - ninja-build
       env:
         - MATRIX_EVAL="CC=clang-10 && CXX=clang++-10"
+        - COMPILER=clang
 
 before_install:
   - eval "${MATRIX_EVAL}"
@@ -40,5 +42,5 @@ branches:
     - main
 
 script:
-  - python3 ./tools/ci/build.py --type release
-  - python3 ./tools/ci/tests.py --type release
+  - python3 ./tools/ci/build.py --type release --compile $COMPILER
+  - python3 ./tools/ci/tests.py --type release --compile $COMPILER
