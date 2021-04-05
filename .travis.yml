@@ -12,6 +12,7 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-10
+            - clang++-10
             - python3
             - ninja-build
       env:
@@ -25,11 +26,11 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-10
-            - clang++-11
+            - clang++-10
             - python3
             - ninja-build
       env:
-        - MATRIX_EVAL="CC=clang-11 && CXX=clang++-11"
+        - MATRIX_EVAL="CC=clang-10 && CXX=clang++-10"
 
 before_install:
   - eval "${MATRIX_EVAL}"
