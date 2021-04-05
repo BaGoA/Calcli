@@ -37,12 +37,14 @@ namespace pinky
 	template<typename Key, typename Value, std::size_t Size>
 	struct cmap
 	{
+		std::array<std::pair<Key, Value>, Size> data;	/**< map data */
+
 		/**
 		 * @brief Access to value from key
 		 * @param key Key that we want value
 		 * @return The value coresponding to key. If key does not exist, we throw an exception
 		 */
-		[[nodiscard]] const Value& at(const Key& key) const
+		const Value& at(const Key& key) const
 		{
 			const auto compare_key = [&key](const std::pair<Key, Value> elem) { return elem.first == key; };
 			const auto it_pair = std::find_if(std::cbegin(data), std::cend(data), compare_key);
@@ -53,9 +55,6 @@ namespace pinky
 			}
 
 			return it_pair->second;
-		}
-
-
-		std::array<std::pair<Key, Value>, Size> data;	/**< map data */
+		}	
 	};
 }

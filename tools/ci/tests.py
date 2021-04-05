@@ -6,7 +6,7 @@ import subprocess
 import argparse
 
 
-def setup(build_type, compiler):
+def setup(build_type):
     # Get project directory
     path_script = os.path.realpath(__file__)
     dir_script = os.path.dirname(path_script)
@@ -15,10 +15,7 @@ def setup(build_type, compiler):
     dir_project = os.path.dirname(dir_tools)
 
     # Set binaries tests directory 
-    if compiler == "gcc" or compiler == "clang":
-        dir_bin_tests = dir_project + "/bin/" + build_type + "-" + compiler + "/tests"
-    else:
-        dir_bin_tests = dir_project + "/bin/" + build_type + "/tests"
+    dir_bin_tests = dir_project + "/bin/" + build_type + "/tests"
 
     return dir_bin_tests
 
@@ -57,9 +54,8 @@ def launch_tests(binaries_test):
 
 def main(argv):
     # Intialization of arguments parser
-    parser = argparse.ArgumentParser(description="Test of Pinky project")
-    parser.add_argument("-t", "--type", default="", help="Build type (debug or release)")
-    parser.add_argument("-c", "--compiler", default="", help="Compiler identifier (gcc or clang)")
+    parser = argparse.ArgumentParser(description="Continuous Integration of Calcli project")
+    parser.add_argument("-t", "--type", default="", help="Build project according to build type (debug or release)")
 
     # Check if list of argument is not empty
     if len(argv) == 0:
@@ -75,9 +71,7 @@ def main(argv):
         parser.print_help()
         sys.exit(-1)
 
-    compiler = arguments.compiler
-
-    dir_bin_tests = setup(build_type, compiler)
+    dir_bin_tests = setup(build_type)
     binaries = list_tests(dir_bin_tests)
     str_error = launch_tests(binaries)
 

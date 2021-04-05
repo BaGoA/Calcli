@@ -8,9 +8,6 @@ set(pinky-sources
 	main.cpp
 )
 
-# Static analyzer
-include(${CMAKE_SOURCE_DIR}/tools/cmake/StaticAnalyzers.cmake)
-
 # Executable compilation
 set(exe_name pinky-cli)
 add_executable(${exe_name} ${pinky-hearders} ${pinky-sources})

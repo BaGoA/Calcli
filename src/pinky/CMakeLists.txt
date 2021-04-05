@@ -17,9 +17,6 @@ set(pinky-sources
 	evaluation.cpp
 )
 
-# Static analyzer
-include(${CMAKE_SOURCE_DIR}/tools/cmake/StaticAnalyzers.cmake)
-
 # Library compilation
 set(lib_name pinky)
 add_library(${lib_name} STATIC ${pinky-hearders} ${pinky-sources})

@@ -28,19 +28,17 @@
 
 double pinky::binary_operation(const std::string& str_operator, double left_operand, double right_operand)
 {
-	double result{0.0};
-
 	if(str_operator == "+") 
 	{ 
-		result = left_operand + right_operand; 
+		return left_operand + right_operand; 
 	}
 	else if(str_operator == "-") 
 	{ 
-		result = left_operand - right_operand; 
+		return left_operand - right_operand; 
 	}
 	else if(str_operator == "*") 
 	{ 
-		result = left_operand * right_operand; 
+		return left_operand * right_operand; 
 	}
 	else if(str_operator == "/") 
 	{ 
@@ -49,36 +47,30 @@ double pinky::binary_operation(const std::string& str_operator, double left_oper
 			throw pinky::division_by_zero();
 		}
 
-		result = left_operand / right_operand; 
+		return left_operand / right_operand; 
 	}
 	else if(str_operator == "^") 
 	{ 
-		result = std::pow(left_operand, right_operand); 
+		return std::pow(left_operand, right_operand); 
 	}
 	else 
 	{ 
 		throw pinky::binary_operator_is_not_defined(); 
 	}
-
-	return result;
 }
 
 double pinky::unary_operation(const std::string& str_operator, double operand)
 {
-	double result{0.0};
-
 	if(str_operator == "+") 
 	{ 
-		result = operand; 
+		return operand; 
 	}
 	else if(str_operator == "-") 
 	{ 
-		result = -operand; 
+		return -operand; 
 	}
 	else 
 	{ 
 		throw pinky::unary_operator_is_not_defined(); 
 	}
-
-	return result;
 }

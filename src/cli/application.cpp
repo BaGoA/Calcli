@@ -29,7 +29,7 @@
 #include "pinky/evaluation.hpp"
 
 
-void pinky::application::print_header()
+void pinky::application::print_header() const
 {
 	std::cout <<  "Pinky  Copyright (C) 2020 Bastian Gonzalez Acevedo\n"
 		"This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.\n"
@@ -60,22 +60,23 @@ void pinky::application::run()
 		{
 			continue;
 		}
-
-		if(expression == "quit")	// quit application
+		else if(expression == "quit")
 		{
 			break;
 		}
-
-		try
+		else
 		{
-			const double result = evaluate(expression);
-			std::cout << result << "\n";
-		}
-		catch(const std::exception& error)
-		{
-			std::cout << "Error: " << error.what() << "\n";
-		}
+			try
+			{
+				const double result = evaluate(expression);
+				std::cout << result << "\n";
+			}
+			catch(const std::exception& error)
+			{
+				std::cout << "Error: " << error.what() << "\n";
+			}
 
-		std::fill(std::begin(m_buffer), std::end(m_buffer), '\0');
+			std::fill(std::begin(m_buffer), std::end(m_buffer), '\0');
+		}
 	}
 }

@@ -11,12 +11,11 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - g++-10
-            - clang++-10
+            - g++-9
             - python3
             - ninja-build
       env:
-        - MATRIX_EVAL="CC=gcc-10 && CXX=g++-10 && COMPILER=gcc"
+        - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
 
     # Compilation with clang
     - os: linux
@@ -25,12 +24,12 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - g++-10
-            - clang++-10
+            - g++-9
+            - clang++-9
             - python3
             - ninja-build
       env:
-        - MATRIX_EVAL="CC=clang-10 && CXX=clang++-10 && COMPILER=clang"
+        - MATRIX_EVAL="CC=clang-9 && CXX=clang++-9"
 
 before_install:
   - eval "${MATRIX_EVAL}"
@@ -40,5 +39,5 @@ branches:
     - main
 
 script:
-  - python3 ./tools/ci/build.py --type release --compile $COMPILER
-  - python3 ./tools/ci/tests.py --type release --compile $COMPILER
+  - python3 ./tools/ci/build.py --type release
+  - python3 ./tools/ci/tests.py --type release

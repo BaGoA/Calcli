@@ -21,9 +21,9 @@
 
 int main() 
 {
-	pinky::application::print_header();
-
 	pinky::application app;
+
+	app.print_header();
 	app.run();
 
 	return 0;
