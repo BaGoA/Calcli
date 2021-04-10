@@ -29,28 +29,25 @@
 
 double pinky::apply_function(const std::string& t_str_function, const double t_x)
 {
-	double result{0.0};
+	if(t_str_function == "abs") { return std::abs(t_x); }
+	if(t_str_function == "sqrt") { return std::sqrt(t_x); }
+	if(t_str_function == "cbrt") { return std::cbrt(t_x); }
+	if(t_str_function == "exp") { return std::exp(t_x); }
+	if(t_str_function == "log") { return std::log(t_x); }
+	if(t_str_function == "logten") { return std::log10(t_x); }
+	if(t_str_function == "logtwo") { return std::log2(t_x); }
+	if(t_str_function == "sin") { return std::sin(t_x); }
+	if(t_str_function == "cos") { return std::cos(t_x); }
+	if(t_str_function == "tan") { return std::tan(t_x); }
+	if(t_str_function == "asin") { return std::asin(t_x); }
+	if(t_str_function == "acos") { return std::acos(t_x); }
+	if(t_str_function == "atan") { return std::atan(t_x); }
+	if(t_str_function == "sinh") { return std::sinh(t_x); }
+	if(t_str_function == "cosh") { return std::cosh(t_x); }
+	if(t_str_function == "tanh") { return std::tanh(t_x); }
+	if(t_str_function == "asinh") { return std::asinh(t_x); }
+	if(t_str_function == "acosh") { return std::acosh(t_x); }
+	if(t_str_function == "atanh") { return std::atanh(t_x); }
 
-	if(t_str_function == "abs") { result = std::abs(t_x); }
-	else if(t_str_function == "sqrt") { result = std::sqrt(t_x); }
-	else if(t_str_function == "cbrt") { result = std::cbrt(t_x); }
-	else if(t_str_function == "exp") { result = std::exp(t_x); }
-	else if(t_str_function == "log") { result = std::log(t_x); }
-	else if(t_str_function == "logten") { result = std::log10(t_x); }
-	else if(t_str_function == "logtwo") { result = std::log2(t_x); }
-	else if(t_str_function == "sin") { result = std::sin(t_x); }
-	else if(t_str_function == "cos") { result = std::cos(t_x); }
-	else if(t_str_function == "tan") { result = std::tan(t_x); }
-	else if(t_str_function == "asin") { result = std::asin(t_x); }
-	else if(t_str_function == "acos") { result = std::acos(t_x); }
-	else if(t_str_function == "atan") { result = std::atan(t_x); }
-	else if(t_str_function == "sinh") { result = std::sinh(t_x); }
-	else if(t_str_function == "cosh") { result = std::cosh(t_x); }
-	else if(t_str_function == "tanh") { result = std::tanh(t_x); }
-	else if(t_str_function == "asinh") { result = std::asinh(t_x); }
-	else if(t_str_function == "acosh") { result = std::acosh(t_x); }
-	else if(t_str_function == "atanh") { result = std::atanh(t_x); }
-	else { throw pinky::function_is_not_defined(); }
-
-	return result;
+	throw pinky::function_is_not_defined();
 }

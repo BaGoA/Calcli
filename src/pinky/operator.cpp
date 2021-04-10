@@ -28,57 +28,50 @@
 
 double pinky::binary_operation(const std::string& t_str_operator, const double t_left_operand, const double t_right_operand)
 {
-	double result{0.0};
-
 	if(t_str_operator == "+") 
 	{ 
-		result = t_left_operand + t_right_operand; 
+		return t_left_operand + t_right_operand; 
 	}
-	else if(t_str_operator == "-") 
+
+	if(t_str_operator == "-") 
 	{ 
-		result = t_left_operand - t_right_operand; 
+		return t_left_operand - t_right_operand; 
 	}
-	else if(t_str_operator == "*") 
+
+	if(t_str_operator == "*") 
 	{ 
-		result = t_left_operand * t_right_operand; 
+		return t_left_operand * t_right_operand; 
 	}
-	else if(t_str_operator == "/") 
+	
+	if(t_str_operator == "/") 
 	{ 
 		if(t_right_operand == 0.0)
 		{
 			throw pinky::division_by_zero();
 		}
 
-		result = t_left_operand / t_right_operand; 
-	}
-	else if(t_str_operator == "^") 
-	{ 
-		result = std::pow(t_left_operand, t_right_operand); 
-	}
-	else 
-	{ 
-		throw pinky::binary_operator_is_not_defined(); 
+		return t_left_operand / t_right_operand; 
 	}
 
-	return result;
+	if(t_str_operator == "^") 
+	{ 
+		return std::pow(t_left_operand, t_right_operand); 
+	}
+
+	throw pinky::binary_operator_is_not_defined(); 
 }
 
 double pinky::unary_operation(const std::string& t_str_operator, const double t_operand)
 {
-	double result{0.0};
-
 	if(t_str_operator == "+") 
 	{ 
-		result = t_operand; 
-	}
-	else if(t_str_operator == "-") 
-	{ 
-		result = -t_operand; 
-	}
-	else 
-	{ 
-		throw pinky::unary_operator_is_not_defined(); 
+		return t_operand; 
 	}
 
-	return result;
+	if(t_str_operator == "-") 
+	{ 
+		return -t_operand; 
+	}
+
+	throw pinky::unary_operator_is_not_defined(); 
 }
