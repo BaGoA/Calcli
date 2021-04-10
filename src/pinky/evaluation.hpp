@@ -36,8 +36,8 @@ namespace pinky
 	 * If token is a function, we pop one operand and we push result of function in stack
 	 * At the end, the stack contains only the result of expression.
 	 *
-	 * @param tokens Vector of token corresponding to postfix expression
+	 * @param t_tokens The vector of token corresponding to postfix expression
 	 * @return Value of expression
 	 */
-	double postfix_evaluation(const std::vector<pinky::token>& tokens);
+	double postfix_evaluation(const std::vector<pinky::token>& t_tokens);
 }

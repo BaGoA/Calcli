@@ -26,14 +26,14 @@
 #include "function.hpp"
 
 
-double pinky::postfix_evaluation(const std::vector<pinky::token>& tokens)
+double pinky::postfix_evaluation(const std::vector<pinky::token>& t_tokens)
 {
 	constexpr unsigned int stack_reserved_size = 10;
 
 	std::vector<double> stack_operand;
 	stack_operand.reserve(stack_reserved_size);
 
-	for(const pinky::token& token : tokens)
+	for(const pinky::token& token : t_tokens)
 	{
 		switch(token.type)
 		{

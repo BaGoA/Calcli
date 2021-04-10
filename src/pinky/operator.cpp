@@ -26,34 +26,34 @@
 #include "error.hpp"
 
 
-double pinky::binary_operation(const std::string& str_operator, double left_operand, double right_operand)
+double pinky::binary_operation(const std::string& t_str_operator, double t_left_operand, double t_right_operand)
 {
 	double result{0.0};
 
-	if(str_operator == "+") 
+	if(t_str_operator == "+") 
 	{ 
-		result = left_operand + right_operand; 
+		result = t_left_operand + t_right_operand; 
 	}
-	else if(str_operator == "-") 
+	else if(t_str_operator == "-") 
 	{ 
-		result = left_operand - right_operand; 
+		result = t_left_operand - t_right_operand; 
 	}
-	else if(str_operator == "*") 
+	else if(t_str_operator == "*") 
 	{ 
-		result = left_operand * right_operand; 
+		result = t_left_operand * t_right_operand; 
 	}
-	else if(str_operator == "/") 
+	else if(t_str_operator == "/") 
 	{ 
-		if(right_operand == 0.0)
+		if(t_right_operand == 0.0)
 		{
 			throw pinky::division_by_zero();
 		}
 
-		result = left_operand / right_operand; 
+		result = t_left_operand / t_right_operand; 
 	}
-	else if(str_operator == "^") 
+	else if(t_str_operator == "^") 
 	{ 
-		result = std::pow(left_operand, right_operand); 
+		result = std::pow(t_left_operand, t_right_operand); 
 	}
 	else 
 	{ 
@@ -63,17 +63,17 @@ double pinky::binary_operation(const std::string& str_operator, double left_oper
 	return result;
 }
 
-double pinky::unary_operation(const std::string& str_operator, double operand)
+double pinky::unary_operation(const std::string& t_str_operator, double t_operand)
 {
 	double result{0.0};
 
-	if(str_operator == "+") 
+	if(t_str_operator == "+") 
 	{ 
-		result = operand; 
+		result = t_operand; 
 	}
-	else if(str_operator == "-") 
+	else if(t_str_operator == "-") 
 	{ 
-		result = -operand; 
+		result = -t_operand; 
 	}
 	else 
 	{ 

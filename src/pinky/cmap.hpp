@@ -41,12 +41,12 @@ namespace pinky
 
 		/**
 		 * @brief Access to value from key
-		 * @param key Key that we want value
+		 * @param t_key The key that we want value
 		 * @return The value coresponding to key. If key does not exist, we throw an exception
 		 */
-		const Value& at(const Key& key) const
+		const Value& at(const Key& t_key) const
 		{
-			const auto compare_key = [&key](const std::pair<Key, Value> elem) { return elem.first == key; };
+			const auto compare_key = [&t_key](const std::pair<Key, Value> elem) { return elem.first == t_key; };
 			const auto it_pair = std::find_if(std::cbegin(data), std::cend(data), compare_key);
 
 			if(it_pair == std::cend(data))

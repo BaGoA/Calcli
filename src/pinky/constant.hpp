@@ -49,11 +49,11 @@ namespace pinky
 
 	/**
 	 * @brief Check if string corresponds to constant
-	 * @param str String to check
+	 * @param t_str The string to check
 	 * @return True if string is a constant
 	 */
-	inline bool is_constant(const std::string& str) 
+	inline bool is_constant(const std::string& t_str) 
 	{ 
-		return std::find(std::cbegin(constant_list), std::cend(constant_list), str) != std::cend(constant_list); 
+		return std::find(std::cbegin(constant_list), std::cend(constant_list), t_str) != std::cend(constant_list); 
 	}
 }

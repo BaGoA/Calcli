@@ -66,28 +66,28 @@ namespace pinky
 
 	/**
 	 * @brief Check if character correspond to operator
-	 * @param c Character to test
+	 * @param t_char The character to test
 	 * @return True if character is an operator
 	 */
-	inline bool is_operator(char c)
+	inline bool is_operator(char t_char)
 	{
-		return std::find(std::cbegin(operator_list), std::cend(operator_list), std::string(1, c)) != std::cend(operator_list);
+		return std::find(std::cbegin(operator_list), std::cend(operator_list), std::string(1, t_char)) != std::cend(operator_list);
 	}
 
 	/**
 	 * @brief Apply binary operator function according to operator string representation
-	 * @param str_operator Operator string representation
-	 * @param left_operand Left operand
-	 * @param right_operand Right operand
+	 * @param t_str_operator The operator string representation
+	 * @param t_left_operand The left operand
+	 * @param t_right_operand The right operand
 	 * @return The result of operation
 	 */
-	double binary_operation(const std::string& str_operator, double left_operand, double right_operand);
+	double binary_operation(const std::string& t_str_operator, double t_left_operand, double t_right_operand);
 
 	/**
 	 * @brief Apply unary operator function according to operator string representation
-	 * @param str_operator Operator string representation
-	 * @param operand Operand
+	 * @param t_str_operator The operator string representation
+	 * @param t_operand The operand
 	 * @return The result of operation
 	 */
-	double unary_operation(const std::string& str_operator, double operand);
+	double unary_operation(const std::string& t_str_operator, double t_operand);
 }

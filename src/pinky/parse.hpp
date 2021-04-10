@@ -31,18 +31,18 @@ namespace pinky
 {
 	/**
 	 * @brief Tokenization of expression given in argument
-	 * @param expression string_view containing expression to evaluate
+	 * @param t_expression string_view containing expression to evaluate
 	 * @return Vector of tokens
 	 */
-	std::vector<pinky::token> tokenize(const std::string_view& expression);
+	std::vector<pinky::token> tokenize(const std::string_view& t_expression);
 
 	/**
 	 * @brief Convert vector of tokens which represent infix expression into 
 	 *			other vector of token which correspond to postfix expression
 	 *
 	 * @details We implement it with Shunting yard algorithm by Edgar Dijkstra.
-	 * @param tokens Vector of token corresponding to infix expression
+	 * @param t_tokens The vector of token corresponding to infix expression
 	 * @return Vector of token which represent postfix expression
 	 */
-	std::vector<pinky::token> infix_to_postfix(const std::vector<pinky::token>& tokens);
+	std::vector<pinky::token> infix_to_postfix(const std::vector<pinky::token>& t_tokens);
 }

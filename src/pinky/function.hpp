@@ -28,9 +28,9 @@ namespace pinky
 {
 	/**
 	 * @brief Apply function according to its string representation
-	 * @param str_function Function string representation
-	 * @param x Function argument
+	 * @param t_str_function The function string representation
+	 * @param t_x The function argument
 	 * @return The function value associate to x
 	 */
-	double apply_function(const std::string& str_function, double x);
+	double apply_function(const std::string& t_str_function, double t_x);
 }

@@ -28,53 +28,53 @@
 #include "operator.hpp"
 
 
-static inline bool is_digit(char c) { return std::isdigit(c) != 0; }
+static inline bool is_digit(char t_char) { return std::isdigit(t_char) != 0; }
 
-static inline bool is_alpha(char c) { return std::isalpha(c) != 0; }
+static inline bool is_alpha(char t_char) { return std::isalpha(t_char) != 0; }
 
-static inline bool is_not_end_expression(char c) { return c != '\0'; }
+static inline bool is_not_end_expression(char t_char) { return t_char != '\0'; }
 
-static std::string extract_number(std::string_view::const_iterator& it_char)
+static std::string extract_number(std::string_view::const_iterator& t_it_char)
 {
 	constexpr unsigned int reserved_size = 21;
 
 	std::string value;
 	value.reserve(reserved_size);
 
-	while(is_not_end_expression(*it_char) && (is_digit(*it_char) || *it_char == '.'))
+	while(is_not_end_expression(*t_it_char) && (is_digit(*t_it_char) || *t_it_char == '.'))
 	{
-		value.push_back(*it_char);
-		++it_char;
+		value.push_back(*t_it_char);
+		++t_it_char;
 	}
 
 	return value;
 }
 
-static std::string extract_name(std::string_view::const_iterator& it_char)
+static std::string extract_name(std::string_view::const_iterator& t_it_char)
 {
 	constexpr unsigned int reserved_size = 10;
 
 	std::string value;
 	value.reserve(reserved_size);
 
-	while(is_not_end_expression(*it_char) && is_alpha(*it_char))
+	while(is_not_end_expression(*t_it_char) && is_alpha(*t_it_char))
 	{
-		value.push_back(*it_char);
-		++it_char;
+		value.push_back(*t_it_char);
+		++t_it_char;
 	}
 
 	return value;
 }
 
 
-std::vector<pinky::token> pinky::tokenize(const std::string_view& expression)
+std::vector<pinky::token> pinky::tokenize(const std::string_view& t_expression)
 {
 	std::vector<pinky::token> tokens;
-	tokens.reserve(expression.size());
+	tokens.reserve(t_expression.size());
 
-	std::string_view::const_iterator it_char = std::cbegin(expression);
+	std::string_view::const_iterator it_char = std::cbegin(t_expression);
 
-	while(it_char != std::cend(expression))
+	while(it_char != std::cend(t_expression))
 	{
 		if(is_digit(*it_char))
 		{
@@ -114,31 +114,31 @@ std::vector<pinky::token> pinky::tokenize(const std::string_view& expression)
 }
 
 
-static bool last_operator_is_primary(const pinky::token& last, const pinky::token& current)
+static bool last_operator_is_primary(const pinky::token& t_last, const pinky::token& t_current)
 {
-	if(last.type == pinky::token::Left_Parenthesis)
+	if(t_last.type == pinky::token::Left_Parenthesis)
 	{
 		return false;
 	}
 
-	const int last_precedence = pinky::precedence.at(last.value);
-	const int current_precedence = pinky::precedence.at(current.value);
+	const int last_precedence = pinky::precedence.at(t_last.value);
+	const int current_precedence = pinky::precedence.at(t_current.value);
 
 	const bool is_primary = (last_precedence > current_precedence);
-	const bool is_left_associativity = (last_precedence == current_precedence) && pinky::is_left_associative.at(current.value);
+	const bool is_left_associativity = (last_precedence == current_precedence) && pinky::is_left_associative.at(t_current.value);
 
-	return  is_primary || is_left_associativity || (last.type == pinky::token::Unary_Operator);
+	return  is_primary || is_left_associativity || (t_last.type == pinky::token::Unary_Operator);
 }
 
-std::vector<pinky::token> pinky::infix_to_postfix(const std::vector<pinky::token>& tokens)
+std::vector<pinky::token> pinky::infix_to_postfix(const std::vector<pinky::token>& t_tokens)
 {
 	std::vector<pinky::token> tokens_postfix;
-	tokens_postfix.reserve(tokens.size());
+	tokens_postfix.reserve(t_tokens.size());
 
 	std::vector<pinky::token> stack_operator;
-	stack_operator.reserve(tokens.size());
+	stack_operator.reserve(t_tokens.size());
 
-	for(const pinky::token& token : tokens)
+	for(const pinky::token& token : t_tokens)
 	{
 		switch(token.type)
 		{
