@@ -46,8 +46,8 @@ namespace pinky
 		 */
 		const Value& at(const Key& t_key) const
 		{
-			const auto compare_key = [&t_key](const std::pair<Key, Value> elem) { return elem.first == t_key; };
-			const auto it_pair = std::find_if(std::cbegin(data), std::cend(data), compare_key);
+			const auto it_pair = std::find_if(std::cbegin(data), std::cend(data), 
+												[&t_key](const auto& elem) { return elem.first == t_key; });
 
 			if(it_pair == std::cend(data))
 			{

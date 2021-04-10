@@ -27,7 +27,7 @@
 #include "cmap.hpp"
 
 
-double pinky::apply_function(const std::string& t_str_function, double t_x)
+double pinky::apply_function(const std::string& t_str_function, const double t_x)
 {
 	double result{0.0};
 

@@ -69,7 +69,7 @@ namespace pinky
 	 * @param t_char The character to test
 	 * @return True if character is an operator
 	 */
-	inline bool is_operator(char t_char)
+	inline bool is_operator(const char t_char)
 	{
 		return std::find(std::cbegin(operator_list), std::cend(operator_list), std::string(1, t_char)) != std::cend(operator_list);
 	}
@@ -81,7 +81,7 @@ namespace pinky
 	 * @param t_right_operand The right operand
 	 * @return The result of operation
 	 */
-	double binary_operation(const std::string& t_str_operator, double t_left_operand, double t_right_operand);
+	double binary_operation(const std::string& t_str_operator, const double t_left_operand, const double t_right_operand);
 
 	/**
 	 * @brief Apply unary operator function according to operator string representation
@@ -89,5 +89,5 @@ namespace pinky
 	 * @param t_operand The operand
 	 * @return The result of operation
 	 */
-	double unary_operation(const std::string& t_str_operator, double t_operand);
+	double unary_operation(const std::string& t_str_operator, const double t_operand);
 }

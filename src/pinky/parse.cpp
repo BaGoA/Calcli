@@ -28,11 +28,11 @@
 #include "operator.hpp"
 
 
-static inline bool is_digit(char t_char) { return std::isdigit(t_char) != 0; }
+static inline bool is_digit(const char t_char) { return std::isdigit(t_char) != 0; }
 
-static inline bool is_alpha(char t_char) { return std::isalpha(t_char) != 0; }
+static inline bool is_alpha(const char t_char) { return std::isalpha(t_char) != 0; }
 
-static inline bool is_not_end_expression(char t_char) { return t_char != '\0'; }
+static inline bool is_not_end_expression(const char t_char) { return t_char != '\0'; }
 
 static std::string extract_number(std::string_view::const_iterator& t_it_char)
 {
@@ -202,11 +202,10 @@ std::vector<pinky::token> pinky::infix_to_postfix(const std::vector<pinky::token
 	// Push rest of operator. If stack operator contains left parenthesis, then there is an error
 	if(!stack_operator.empty())
 	{
-		const auto compare_token_type = [](const pinky::token& token) { return token.type == pinky::token::Left_Parenthesis; };
-		const auto find_it = std::find_if(std::cbegin(stack_operator), std::cend(stack_operator), compare_token_type);
-		const bool contain_left_parenthesis = find_it != std::cend(stack_operator);
+		const auto find_it = std::find_if(std::cbegin(stack_operator), std::cend(stack_operator),
+											[](const auto& token) { return token.type == pinky::token::Left_Parenthesis; });
 
-		if(contain_left_parenthesis)
+		if(find_it != std::cend(stack_operator))
 		{
 			throw pinky::mismatched_parenthesis();
 		}

@@ -32,5 +32,5 @@ namespace pinky
 	 * @param t_x The function argument
 	 * @return The function value associate to x
 	 */
-	double apply_function(const std::string& t_str_function, double t_x);
+	double apply_function(const std::string& t_str_function, const double t_x);
 }

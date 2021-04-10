@@ -26,7 +26,7 @@
 #include "error.hpp"
 
 
-double pinky::binary_operation(const std::string& t_str_operator, double t_left_operand, double t_right_operand)
+double pinky::binary_operation(const std::string& t_str_operator, const double t_left_operand, const double t_right_operand)
 {
 	double result{0.0};
 
@@ -63,7 +63,7 @@ double pinky::binary_operation(const std::string& t_str_operator, double t_left_
 	return result;
 }
 
-double pinky::unary_operation(const std::string& t_str_operator, double t_operand)
+double pinky::unary_operation(const std::string& t_str_operator, const double t_operand)
 {
 	double result{0.0};
 
