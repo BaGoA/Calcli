@@ -6,6 +6,7 @@ set(pinky-headers
 	function.hpp
 	operator.hpp
 	token.hpp
+	types.hpp
 	parse.hpp
 	evaluation.hpp
 )

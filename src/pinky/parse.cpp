@@ -21,16 +21,11 @@
 
 #include "parse.hpp"
 
-#include <cctype>
-
 #include "error.hpp"
+#include "types.hpp"
 #include "constant.hpp"
 #include "operator.hpp"
 
-
-static inline bool is_digit(const char t_char) { return std::isdigit(t_char) != 0; }
-
-static inline bool is_alpha(const char t_char) { return std::isalpha(t_char) != 0; }
 
 static inline bool is_not_end_expression(const char t_char) { return t_char != '\0'; }
 
@@ -41,7 +36,7 @@ static std::string extract_number(std::string_view::const_iterator& t_it_char)
 	std::string value;
 	value.reserve(reserved_size);
 
-	while(is_not_end_expression(*t_it_char) && (is_digit(*t_it_char) || *t_it_char == '.'))
+	while(is_not_end_expression(*t_it_char) && (pinky::is_digit(*t_it_char) || *t_it_char == '.'))
 	{
 		value.push_back(*t_it_char);
 		++t_it_char;
@@ -57,7 +52,7 @@ static std::string extract_name(std::string_view::const_iterator& t_it_char)
 	std::string value;
 	value.reserve(reserved_size);
 
-	while(is_not_end_expression(*t_it_char) && is_alpha(*t_it_char))
+	while(is_not_end_expression(*t_it_char) && pinky::is_alpha(*t_it_char))
 	{
 		value.push_back(*t_it_char);
 		++t_it_char;
@@ -76,7 +71,7 @@ std::vector<pinky::token> pinky::tokenize(const std::string_view& t_expression)
 
 	while(it_char != std::cend(t_expression))
 	{
-		if(is_digit(*it_char))
+		if(pinky::is_digit(*it_char))
 		{
 			tokens.push_back(pinky::token{pinky::token::Number, extract_number(it_char)});
 		}
@@ -98,7 +93,7 @@ std::vector<pinky::token> pinky::tokenize(const std::string_view& t_expression)
 			tokens.push_back(pinky::token{pinky::token::Right_Parenthesis, std::string{*it_char}});
 			++it_char;
 		}
-		else if(is_alpha(*it_char))
+		else if(pinky::is_alpha(*it_char))
 		{
 			const std::string name = extract_name(it_char);
 			const pinky::token::etype token_type = pinky::is_constant(name) ? pinky::token::Constant : pinky::token::Function;
