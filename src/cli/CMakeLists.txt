@@ -1,19 +1,13 @@
-# Lists of hearders and sources
-set(pinky-headers
-	application.hpp
-)
-
-set(pinky-sources
-	application.cpp
-	main.cpp
-)
-
 # Static analysis activation with clang-tidy
 include(${CMAKE_SOURCE_DIR}/tools/cmake/StaticAnalyzers.cmake)
 
 # Executable compilation
 set(exe_name pinky-cli)
-add_executable(${exe_name} ${pinky-hearders} ${pinky-sources})
+
+add_executable(${exe_name}
+	application.hpp application.cpp
+	main.cpp
+)
 
 target_include_directories(${exe_name} PRIVATE ${CMAKE_SOURCE_DIR}/src)
 

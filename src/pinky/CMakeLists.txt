@@ -1,29 +1,20 @@
-# Lists of hearders and sources
-set(pinky-headers
-	cmap.hpp
-	constant.hpp
-	error.hpp
-	function.hpp
-	operator.hpp
-	token.hpp
-	types.hpp
-	parse.hpp
-	evaluation.hpp
-)
-
-set(pinky-sources
-	function.cpp
-	operator.cpp
-	parse.cpp
-	evaluation.cpp
-)
-
 # Static analysis activation with clang-tidy
 include(${CMAKE_SOURCE_DIR}/tools/cmake/StaticAnalyzers.cmake)
 
 # Library compilation
 set(lib_name pinky)
-add_library(${lib_name} STATIC ${pinky-hearders} ${pinky-sources})
+
+add_library(${lib_name} STATIC
+	cmap.hpp
+	error.hpp
+	types.hpp
+	token.hpp
+	constant.hpp
+	function.hpp function.cpp
+	operator.hpp operator.cpp
+	parse.hpp parse.cpp
+	evaluation.hpp evaluation.cpp
+)
 
 target_compile_features(${lib_name} PRIVATE cxx_std_20)
 
