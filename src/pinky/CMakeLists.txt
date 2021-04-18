@@ -12,6 +12,7 @@ add_library(${lib_name} STATIC
 	constant.hpp
 	function.hpp function.cpp
 	operator.hpp operator.cpp
+	extraction.hpp
 	parse.hpp parse.cpp
 	evaluation.hpp evaluation.cpp
 )

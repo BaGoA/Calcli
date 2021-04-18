@@ -4,6 +4,7 @@ add_executable(${test_pinky_exe}
 	test_cmap.cpp
 	test_operator.cpp
 	test_function.cpp
+	test_extraction.cpp
 	test_tokenization.cpp
 	test_infix_to_postfix.cpp
 	test_postfix_evaluation.cpp
