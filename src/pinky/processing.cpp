@@ -1,6 +1,6 @@
 /**
- * @file parse.cpp
- * @brief Parse functionnalities
+ * @file processing.cpp
+ * @brief Expression processing functionnalities
  *
  * Pinky is a simple C++ command line calculator
  * Copyright (C) 2020-2021 Bastian Gonzalez Acevedo
@@ -19,12 +19,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "parse.hpp"
+#include "processing.hpp"
 
 #include "error.hpp"
 #include "extraction.hpp"
 #include "constant.hpp"
 #include "operator.hpp"
+#include "function.hpp"
 
 
 std::vector<pinky::token> pinky::tokenize(const std::string_view& t_expression)
@@ -77,7 +78,6 @@ std::vector<pinky::token> pinky::tokenize(const std::string_view& t_expression)
 
 	return tokens;
 }
-
 
 static bool last_operator_is_primary(const pinky::token& t_last, const pinky::token& t_current)
 {
@@ -179,4 +179,62 @@ std::vector<pinky::token> pinky::infix_to_postfix(const std::vector<pinky::token
 	}
 
 	return tokens_postfix;
+}
+
+double pinky::postfix_evaluation(const std::vector<pinky::token>& t_tokens)
+{
+	constexpr unsigned int stack_reserved_size = 10;
+
+	std::vector<double> stack_operand;
+	stack_operand.reserve(stack_reserved_size);
+
+	for(const pinky::token& token : t_tokens)
+	{
+		switch(token.type)
+		{
+			case pinky::token::Number:
+			{
+				stack_operand.push_back(std::stod(token.value));
+				break;
+			}
+			case pinky::token::Binary_Operator:
+			{
+				const double right = stack_operand.back();
+				stack_operand.pop_back();
+
+				const double left = stack_operand.back();
+				stack_operand.pop_back();
+
+				stack_operand.push_back(pinky::binary_operation(token.value, left, right));
+				break;
+			}
+			case pinky::token::Unary_Operator:
+			{
+				const double arg = stack_operand.back();
+				stack_operand.pop_back();
+
+				stack_operand.push_back(pinky::unary_operation(token.value, arg));
+				break;
+			}
+			case pinky::token::Function:
+			{
+				const double arg = stack_operand.back();
+				stack_operand.pop_back();
+
+				stack_operand.push_back(pinky::apply_function(token.value, arg));
+				break;
+			}
+			case pinky::token::Constant:
+			{
+				stack_operand.push_back(pinky::constant.at(token.value));
+				break;
+			}
+			default:
+			{
+				break;
+			}
+		}
+	}
+
+	return stack_operand.at(0);
 }

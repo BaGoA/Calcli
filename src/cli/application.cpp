@@ -25,8 +25,7 @@
 #include <algorithm>
 #include <cstring>
 
-#include "pinky/parse.hpp"
-#include "pinky/evaluation.hpp"
+#include "pinky/processing.hpp"
 
 
 void pinky::application::print_header()

@@ -13,8 +13,7 @@ add_library(${lib_name} STATIC
 	function.hpp function.cpp
 	operator.hpp operator.cpp
 	extraction.hpp
-	parse.hpp parse.cpp
-	evaluation.hpp evaluation.cpp
+	processing.hpp processing.cpp
 )
 
 target_compile_features(${lib_name} PRIVATE cxx_std_20)

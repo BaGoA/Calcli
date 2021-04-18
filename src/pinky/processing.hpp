@@ -1,6 +1,6 @@
 /**
- * @file evaluation.hpp
- * @brief Evaluation functionnalities
+ * @file processing.hpp
+ * @brief Expression processing functionnalities
  *
  * Pinky is a simple C++ command line calculator
  * Copyright (C) 2020-2021 Bastian Gonzalez Acevedo
@@ -22,12 +22,30 @@
 #pragma once
 
 #include <vector>
+#include <string_view>
 
 #include "token.hpp"
 
 
 namespace pinky
 {
+	/**
+	 * @brief Tokenization of expression given in argument
+	 * @param t_expression string_view containing expression to evaluate
+	 * @return Vector of tokens
+	 */
+	std::vector<pinky::token> tokenize(const std::string_view& t_expression);
+
+	/**
+	 * @brief Convert vector of tokens which represent infix expression into 
+	 *			other vector of token which correspond to postfix expression
+	 *
+	 * @details We implement it with Shunting yard algorithm by Edgar Dijkstra.
+	 * @param t_tokens The vector of token corresponding to infix expression
+	 * @return Vector of token which represent postfix expression
+	 */
+	std::vector<pinky::token> infix_to_postfix(const std::vector<pinky::token>& t_tokens);
+
 	/**
 	 * @brief Evaluation of postfix expression
 	 * @details The algorithm use a stack containing operands. 

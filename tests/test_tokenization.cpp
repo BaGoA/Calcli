@@ -1,6 +1,6 @@
 #include "catch2/catch.hpp"
 
-#include "pinky/parse.hpp"
+#include "pinky/processing.hpp"
 
 
 TEST_CASE("tokenization - expression with one number", "[processing]")
