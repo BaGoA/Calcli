@@ -2,7 +2,7 @@
 
 #include "catch2/catch.hpp"
 
-#include "pinky/operator.hpp"
+#include "core/operator.hpp"
 
 
 TEST_CASE("operator - binary operator plus", "[core]")
