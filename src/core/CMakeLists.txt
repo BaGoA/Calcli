@@ -2,7 +2,7 @@
 include(${CMAKE_SOURCE_DIR}/tools/cmake/StaticAnalyzers.cmake)
 
 # Library compilation
-set(lib_name pinky)
+set(lib_name pinky-core)
 
 add_library(${lib_name} STATIC
 	cmap.hpp

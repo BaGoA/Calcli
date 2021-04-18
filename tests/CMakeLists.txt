@@ -26,7 +26,7 @@ make_lib_directory(lib_directory)
 make_bin_directory(bin_directory)
 
 target_link_libraries(${test_pinky_exe} PRIVATE
-	${lib_directory}/libpinky.a
+	${lib_directory}/libpinky-core.a
 )
 
 set_target_properties(${test_pinky_exe} PROPERTIES 
