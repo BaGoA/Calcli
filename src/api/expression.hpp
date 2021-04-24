@@ -42,10 +42,28 @@ namespace pinky
 		/**
 		 * @brief Constructor
 		 * @param t_expression The expression to evaluate
-		 * @details The expression become owner of t_expression
 		 */
 		expression(const std::string_view& t_expression);
 
+		/**
+		 * @brief Constructor
+		 * t_expression The expression to evaluate
+		 * t_length The expression length
+		 */
+		expression(const char* t_expression, std::size_t t_length);
+
+
+		/**
+		 * @brief Check if expression is empty
+		 * @return True if expression is empty
+		 */
+		bool is_empty() const;
+
+		/**
+		 * @brief Check if expression is an exit expression
+		 * @return True if expression correspond to 'quit' or 'exit'
+		 */
+		bool is_exit_expression() const;
 
 		/**
 		 * @brief Evaluation of expression

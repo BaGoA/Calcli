@@ -28,6 +28,20 @@ pinky::expression::expression(const std::string_view& t_expression)
 	: m_expression{t_expression}
 {}
 
+pinky::expression::expression(const char* t_expression, std::size_t t_length)
+	: m_expression{t_expression, t_length}
+{}
+
+bool pinky::expression::is_empty() const
+{
+	return m_expression.empty();
+}
+
+bool pinky::expression::is_exit_expression() const
+{
+	return m_expression == "quit" || m_expression == "exit";
+}
+
 double pinky::expression::evaluate() const
 {
 	return pinky::postfix_evaluation(
