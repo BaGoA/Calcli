@@ -1,6 +1,6 @@
 #include "catch2/catch.hpp"
 
-#include "pinky/extraction.hpp"
+#include "core/extraction.hpp"
 
 
 TEST_CASE("extract_number - extract number in expression containing only number", "[core]")

@@ -1,6 +1,6 @@
 #include "catch2/catch.hpp"
 
-#include "pinky/processing.hpp"
+#include "core/processing.hpp"
 
 
 TEST_CASE("infix_to_postfix - operation between two numbers", "[processing]")

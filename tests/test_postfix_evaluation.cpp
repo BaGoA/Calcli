@@ -2,7 +2,7 @@
 
 #include "catch2/catch.hpp"
 
-#include "pinky/processing.hpp"
+#include "core/processing.hpp"
 
 
 TEST_CASE("postfix_evaluation - operation between two numbers", "[processing]")

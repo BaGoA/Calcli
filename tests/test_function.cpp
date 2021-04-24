@@ -2,7 +2,7 @@
 
 #include "catch2/catch.hpp"
 
-#include "pinky/function.hpp"
+#include "core/function.hpp"
 
 
 TEST_CASE("function - apply abs", "[core]")

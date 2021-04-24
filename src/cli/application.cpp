@@ -25,7 +25,7 @@
 #include <algorithm>
 #include <cstring>
 
-#include "pinky/processing.hpp"
+#include "../api/expression.hpp"
 
 
 void pinky::application::print_header()
@@ -39,34 +39,26 @@ void pinky::application::print_header()
 
 void pinky::application::run()
 {
-	// Evaluation lambda
-	const auto evaluate = [](const std::string_view& expression) {
-		const std::vector<pinky::token> tokens = pinky::tokenize(expression);
-		const std::vector<pinky::token> postfix_tokens = pinky::infix_to_postfix(tokens);
-
-		return pinky::postfix_evaluation(postfix_tokens);
-	};
-
 	while(true)
 	{
 		std::cout << ">>> ";
 		std::cin.getline(m_buffer.data(), static_cast<std::streamsize>(m_buffer.size()));
 
-		const std::string_view expression(m_buffer.data(), std::strlen(m_buffer.c_str()));
+		const pinky::expression expression(m_buffer.data(), std::strlen(m_buffer.c_str()));
 
-		if(expression.empty())	// user push ENTER, then go to newline
+		if(expression.is_empty())	// user push ENTER, then go to newline
 		{
 			continue;
 		}
 
-		if(expression == "quit")
+		if(expression.is_exit_expression())
 		{
 			break;	// quit the application
 		}
 
 		try
 		{
-			std::cout << evaluate(expression) << "\n";
+			std::cout << expression.evaluate() << "\n";
 		}
 		catch(const std::exception& error)
 		{
