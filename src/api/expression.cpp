@@ -24,7 +24,7 @@
 #include "../core/processing.hpp"
 
 
-pinky::expression::expression(const std::string_view& t_expression)
+pinky::expression::expression(const char* t_expression)
 	: m_expression{t_expression}
 {}
 

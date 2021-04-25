@@ -43,7 +43,7 @@ namespace pinky
 		 * @brief Constructor
 		 * @param t_expression The expression to evaluate
 		 */
-		expression(const std::string_view& t_expression);
+		expression(const char* t_expression);
 
 		/**
 		 * @brief Constructor
