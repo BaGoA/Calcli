@@ -43,6 +43,14 @@ TEST_CASE("expression - evaluate an expression with function and constant", "[ap
 	REQUIRE(result == Approx(result_ref).epsilon(0.01));
 }
 
+TEST_CASE("expression - evaluate an expression with function composition", "[api]")
+{
+	const pinky::expression expression("sin(degtorad(90.0))");
+	const double result = expression.evaluate();
+	const double result_ref = 1.0;
+	REQUIRE(result == Approx(result_ref).epsilon(0.01));
+}
+
 TEST_CASE("expression - evaluate an complex expression", "[api]")
 {
 	const pinky::expression expression("(sin(pi / 4.0)^2.0 + cos(pi / 4.0)^2.0) + ((90.0 - (5.0 * 2.0 - 1.0)) / (6.0 + 3.0))");

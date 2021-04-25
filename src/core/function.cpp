@@ -48,6 +48,7 @@ double pinky::apply_function(const std::string& t_str_function, const double t_x
 	if(t_str_function == "asinh") { return std::asinh(t_x); }
 	if(t_str_function == "acosh") { return std::acosh(t_x); }
 	if(t_str_function == "atanh") { return std::atanh(t_x); }
+	if(t_str_function == "degtorad") { return t_x * deg2rad_factor; }
 
 	throw pinky::function_is_not_defined();
 }

@@ -23,9 +23,14 @@
 
 #include <string>
 
+#include "constant.hpp"
+
 
 namespace pinky
 {
+	/** @brief Factor to convert degrees to radians */
+	const double deg2rad_factor = constant.at("pi") / 180.0;
+
 	/**
 	 * @brief Apply function according to its string representation
 	 * @param t_str_function The function string representation
