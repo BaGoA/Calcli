@@ -37,12 +37,28 @@ void pinky::application::print_header()
 		"If you want quit Pinky, enter quit.\n\n";
 }
 
+void pinky::application::replace_last_result()
+{
+	const std::string str_last_result = std::to_string(m_last_result);
+	const std::string str_last{"last"};
+
+	std::size_t pos = m_buffer.find(str_last);
+
+	while(pos != std::string::npos)
+	{
+		m_buffer.replace(pos, str_last.size(), str_last_result);
+		pos = m_buffer.find(str_last, pos);
+	}
+}
+
 void pinky::application::run()
 {
 	while(true)
 	{
 		std::cout << ">>> ";
 		std::cin.getline(m_buffer.data(), static_cast<std::streamsize>(m_buffer.size()));
+
+		replace_last_result();
 
 		const pinky::expression expression(m_buffer.data(), std::strlen(m_buffer.c_str()));
 
@@ -58,7 +74,8 @@ void pinky::application::run()
 
 		try
 		{
-			std::cout << expression.evaluate() << "\n";
+			m_last_result = expression.evaluate();
+			std::cout << m_last_result << "\n";
 		}
 		catch(const std::exception& error)
 		{
