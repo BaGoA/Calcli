@@ -38,6 +38,11 @@ namespace pinky
 		void run();
 
 	private:
+		/** @brief Replace 'last' string by last result value */
+		void replace_last_result();
+
+
+		double m_last_result{0.0};									/**< Last result recording */
 		static constexpr unsigned int m_buffer_size = 1024;			/**< String buffer size */
 		std::string m_buffer = std::string(m_buffer_size, '\0');	/**< String buffer containing succesive expression given by user */
 	};
